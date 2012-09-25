@@ -47,6 +47,8 @@ To run the demo application use:
 
 In the internet browser type http://localhost:8081/.
 
+You can see a screenshot from demo application in [wiki page] (https://github.com/decebals/wicket-dashboard/wiki).
+
 License
 --------------
   
