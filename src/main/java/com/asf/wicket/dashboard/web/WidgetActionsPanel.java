@@ -52,13 +52,27 @@ public class WidgetActionsPanel extends GenericPanel<Widget> {
 	
 	private List<MenuItem> createActions() {
 		List<MenuItem> actions = new ArrayList<MenuItem>();
-//		actions.add(new Action("refresh", "images/refresh.gif"));
+		actions.add(new MenuItem(createRefreshLink(), null, "images/refresh.gif", "Refresh"));
 		if (getModelObject().hasSettings()) {
-			actions.add(new MenuItem(createSettingsLink(), null, "images/edit.png", "Setari"));
+			actions.add(new MenuItem(createSettingsLink(), null, "images/edit.png", "Settings"));
 		}
-		actions.add(new MenuItem(createDeleteLink(), null, "images/delete.gif", "Sterge"));
+		actions.add(new MenuItem(createDeleteLink(), null, "images/delete.gif", "Delete"));
 		
 		return actions;
+	}
+	
+	private AbstractLink createRefreshLink() {
+		return new AjaxLink<Void>(MenuPanel.LINK_ID) {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {				
+				WidgetView widgetView = findParent(WidgetPanel.class).getWidgetView();
+				target.add(widgetView);
+			}
+			
+		};
 	}
 	
 	private AbstractLink createSettingsLink() {

@@ -100,7 +100,7 @@ class WidgetHeaderPanel extends GenericPanel<Widget> {
 		});
 		add(toogle);
 		
-		add(new Label("title", getModelObject().getTitle() + " (" + getModelObject().getId() + ")"));
+		add(new Label("title", getModelObject().getTitle()));
 		
 		WidgetActionsPanel actionsPanel = new WidgetActionsPanel("actions", model);
 		add(actionsPanel);
