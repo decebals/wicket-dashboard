@@ -8,7 +8,7 @@ Components
 - **Dashboard** is the object that contains the widgets. It has one or more columns.
 - **Widget** is a fancy word for tools or content that you can add, arrange, and remove from the dashboard.
 Widgets make it easy to customize the content of your dashboard.
-An widget has an id, a title, some settings (optional), a location (the column and row in dashboard),
+Widget has an id, a title, some settings (optional), a location (the column and row in dashboard),
 and more important it has a view.
 - **WidgetView** is the component that displays the widget content (it extends the wicket Panel class). 
 A view can be for example a chart or a table.
@@ -25,7 +25,7 @@ The header panel contains the widget title, an icon that display the collapsed s
 
 How to use
 -------------------
-It's very simple to add a pivot table in your wicket application.
+It's very simple to add a dashboard panel in your wicket application.
 
     Dashboard dashboard = ...;
     add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
@@ -35,7 +35,7 @@ For more information please see the demo sources.
 Demo
 -------------------
 
-I have a tiny demo application. In this demo I have implemented two widget types:
+I have a tiny demo application. In this demo I have implemented two widgets types:
 a chart widget (using open flash chart) and a text widget (display a Lorem Ipsum).
 You can drag and drop widgets, perform some actions on each widget, add or remove new
 widgets, change widget settings, collapse widgets.
