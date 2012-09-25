@@ -64,10 +64,6 @@ public class WidgetPanel extends Panel {
 		return widgetView;
 	}
 	
-	public WidgetView.State getWidgetViewState() {
-		return widgetView.getState();
-	}
-
 	public Panel getSettingsPanel() {
 		return settingsPanel;
 	}
