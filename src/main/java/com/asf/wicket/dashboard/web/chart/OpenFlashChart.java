@@ -71,7 +71,7 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 	@Override
 	protected void onBeforeRender() {
 		String jsonUrl = getUrlForJson();
-		System.out.println("jsonUrl = " + jsonUrl);
+//		System.out.println("jsonUrl = " + jsonUrl);
 		swf.addParameter("data-file", jsonUrl); 
 		swf.addParameter("wmode", "transparent");
 		 
@@ -86,8 +86,7 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 			throw new RuntimeException("Error encoding dataPath for Chart Json data file.", e);
 		}
 		
-//		return toAbsolutePath(dataPath.toString());
-		return dataPath.toString();
+		return toAbsolutePath(dataPath.toString());
 	}
 
 	private String toAbsolutePath(String relativePath) {
