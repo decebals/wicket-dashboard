@@ -5,17 +5,43 @@ A dashboard is a panel with quick access to information or common tasks.
 
 Components
 -------------------
-TODO
+- **Dashboard** is the object that contains the widgets. It has one or more columns.
+- **Widget** is a fancy word for tools or content that you can add, arrange, and remove from the dashboard.
+Widgets make it easy to customize the content of your dashboard.
+An widget has an id, a title, some settings (optional), a location (the column and row in dashboard),
+and more important it has a view.
+- **WidgetView** is the component that displays the widget content (it extends the wicket Panel class). 
+A view can be for example a chart or a table.
+- **WidgetDescriptor** contains widget meta data: name, description, provider and the widget class name.
+- **WidgetFactory** is the object that creates widgets using the widget descriptors.
+- **WidgetRegistry** is the object that stores all active widget descriptors. You can register a new widget 
+using a widget descriptor.
+- **DashboardPersiter** is responsible for dashboard load and save. XStreamDashboardPersister is a concrete implementation
+that save/load a dashboard to/from a file.
+- **DashboardPanel** is a wicket panel that displays a dashboard.
+- **WidgetPanel** is a wicket panel that displays a widget. It contains a header panel, a settings panel (if the
+widget has settings) and the widget view. It can be moved with drag and drop.
+The header panel contains the widget title, an icon that display the collapsed state and some actions (refresh, delete, settings).
 
 How to use
 -------------------
-TODO
+It's very simple to add a pivot table in your wicket application.
+
+    Dashboard dashboard = ...;
+    add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
+    
+For more information please see the demo sources.
 
 Demo
 -------------------
 
-I have a tiny demo application. The demo application is in demo package.
-To run de demo application use:  
+I have a tiny demo application. In this demo I have implemented two widget types:
+a chart widget (using open flash chart) and a text widget (display a Lorem Ipsum).
+You can drag and drop widgets, perform some actions on each widget, add or remove new
+widgets, change widget settings, collapse widgets.
+
+The demo application is in demo package.
+To run the demo application use:  
  
     mvn jetty:run
 

@@ -14,6 +14,7 @@ package com.asf.wicket.dashboard.web;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
+import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
@@ -22,7 +23,7 @@ import com.asf.wicket.dashboard.Widget;
 /**
  * @author Decebal Suiu
  */
-public class WidgetPanel extends Panel {
+public class WidgetPanel extends GenericPanel<Widget> {
 
 	private static final long serialVersionUID = 1L;
 	
