@@ -27,6 +27,34 @@ How to use
 -------------------
 It's very simple to add a dashboard panel in your wicket application.
 
+In your application class make some initializations:
+
+    public void init() {
+        ...
+
+    	// dashboard settings
+		DashboardContextInjector dashboardConextInjector = new DashboardContextInjector();
+		DashboardContext dashboardContext = dashboardConextInjector.getDashboardContext();
+		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
+		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
+		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
+        getComponentInstantiationListeners().add(dashboardConextInjector);
+                
+        initDashboard(dashboardContext);
+        
+        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
+    }
+
+	private void initDashboard(DashboardContext dashboardContext) {
+		dashboard = dashboardContext.getDashboardPersiter().load();
+    	if (dashboard == null) {
+    		dashboard = new DefaultDashboard("default", "Default");
+    	}
+	}
+
+
+In your web page add the dashboard panel:
+
     Dashboard dashboard = ...;
     add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
     
@@ -43,6 +71,8 @@ widgets, change widget settings, collapse widgets.
 The demo application is in demo package.
 To run the demo application use:  
  
+    mvn install
+    cd demo
     mvn jetty:run
 
 In the internet browser type http://localhost:8081/.
