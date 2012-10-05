@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <parent>
+        <groupId>com.asf.wicket.dashboard</groupId>
+        <artifactId>pom</artifactId>
+        <version>0.1</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.asf.wicket.dashboard.widgets</groupId>
+    <artifactId>pom</artifactId>
+    <version>0.1</version>
+    <packaging>pom</packaging>
+    <name>Wicket Dashboard Widgets</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.asf.wicket.dashboard</groupId>
+            <artifactId>wicket-dashboard-core</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    
+    <modules>
+        <module>ofchart</module>
+        <module>loremipsum</module>
+    </modules>
+
+</project>

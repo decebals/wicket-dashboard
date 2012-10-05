@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <parent>
+        <groupId>com.asf.wicket.dashboard</groupId>
+        <artifactId>pom</artifactId>
+        <version>0.1</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>wicket-dashboard-core</artifactId>
+    <version>0.1</version>
+    <packaging>jar</packaging>
+    <name>Wicket Dashboard Core</name>
+
+    <properties>
+        <wiquery.version>1.5.5</wiquery.version>
+        <gson.version>2.2.2</gson.version>
+        <xstream.version>1.4.3</xstream.version>
+    </properties>   
+
+    <dependencies>
+        <!--  Wiquery -->
+        <dependency>
+            <groupId>org.odlabs.wiquery</groupId>
+            <artifactId>wiquery-core</artifactId>
+            <version>${wiquery.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.odlabs.wiquery</groupId>
+            <artifactId>wiquery-jquery-ui</artifactId>
+            <version>${wiquery.version}</version>
+        </dependency>
+        
+        <!--
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        -->
+        
+        <!-- Gson (json for java) -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${gson.version}</version>
+        </dependency>
+        
+        <!-- Xstream -->
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+            <version>${xstream.version}</version>
+        </dependency>
+    </dependencies>
+    
+    <repositories>
+        <repository> 
+            <id>wiquery-maven-repo</id>
+            <name>WiQuery repository</name>
+            <url>https://wiquery.googlecode.com/svn/repo/</url>
+        </repository> 
+    </repositories>
+    
+</project>
