@@ -33,12 +33,12 @@ In your application class make some initializations:
         ...
 
     	// dashboard settings
-		DashboardContextInjector dashboardConextInjector = new DashboardContextInjector();
-		DashboardContext dashboardContext = dashboardConextInjector.getDashboardContext();
+		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector();
+		DashboardContext dashboardContext = dashboardContextInjector.getDashboardContext();
 		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
 		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
 		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
-        getComponentInstantiationListeners().add(dashboardConextInjector);
+        getComponentInstantiationListeners().add(dashboardContextInjector);
                 
         initDashboard(dashboardContext);
         
