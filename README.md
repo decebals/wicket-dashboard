@@ -32,6 +32,48 @@ Artifacts
     - jqplot `wicket-dashboard-jqplot`          (jar)
 - Wicket Dashboard Demo `wicket-dashboard-demo` (war)
 
+Using Maven
+-------------------
+
+First you must install the wicket dashboard artifacts in your local maven repository with:
+
+    mvn clean install
+
+I will upload these artifacts in maven central repository as soon as possible.
+
+In your pom.xml you must define the dependencies to wicket dashboard artifacts with:
+
+```xml
+    <dependency>
+        <groupId>com.asf.wicket.dashboard</groupId>
+        <artifactId>wicket-dashboard-core</artifactId>
+        <version>${wicket-dashboard.version}</version>
+    </dependency>
+
+    <!-- OPTIONAL -->
+    <dependency>
+        <groupId>com.asf.wicket.dashboard.widgets</groupId>
+        <artifactId>wicket-dashboard-ofchart</artifactId>
+        <version>${wicket-dashboard.version}</version>
+    </dependency>
+
+    <!-- OPTIONAL -->
+    <dependency>
+        <groupId>com.asf.wicket.dashboard.widgets</groupId>
+        <artifactId>wicket-dashboard-jqplot</artifactId>
+        <version>${wicket-dashboard.version}</version>
+    </dependency>
+
+    <!-- OPTIONAL -->
+    <dependency>
+        <groupId>com.asf.wicket.dashboard.widgets</groupId>
+        <artifactId>wicket-dashboard-loremipsum</artifactId>
+        <version>${wicket-dashboard.version}</version>
+    </dependency>    
+```
+
+where ${wicket-dashboard.version} is the last wicket dashboard version.
+
 How to use
 -------------------
 It's very simple to add a dashboard panel in your wicket application.
