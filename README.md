@@ -23,6 +23,15 @@ that save/load a dashboard to/from a file.
 widget has settings) and the widget view. It can be moved with drag and drop.
 The header panel contains the widget title, an icon that display the collapsed state and some actions (refresh, delete, settings).
 
+Artifacts
+-------------------
+- Wicket Dashboard Core `wicket-dashboard-core` (jar)
+- Wicket Dashboard (Standard) Widgets
+    - loremipsum `wicket-dashboard-loremispum`  (jar)
+    - ofchart `wicket-dashboard-ofcahrt`        (jar)
+    - jqplot `wicket-dashboard-jqplot`          (jar)
+- Wicket Dashboard Demo `wicket-dashboard-demo` (war)
+
 How to use
 -------------------
 It's very simple to add a dashboard panel in your wicket application.
@@ -32,18 +41,25 @@ In your application class make some initializations:
     public void init() {
         ...
 
-	    // dashboard settings
-	    DashboardContextInjector dashboardContextInjector = new DashboardContextInjector();
-	    DashboardContext dashboardContext = dashboardContextInjector.getDashboardContext();
-	    WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
-	    widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
-	    widgetRegistry.registerWidget(new ChartWidgetDescriptor());
+		// >>> begin dashboard settings
+		
+		// register some widgets
+		DashboardContext dashboardContext = new DashboardContext();
+		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
+		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
+		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-    	widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
-    	JqPlotWidget.setChartFactory(new DemoChartFactory());
+		widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
+		JqPlotWidget.setChartFactory(new DemoChartFactory());
+		
+		// add dashboard context injector
+		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
         getComponentInstantiationListeners().add(dashboardContextInjector);
                 
-        initDashboard(dashboardContext);            }
+        // init dashbaord
+        initDashboard(dashboardContext);
+        
+        // <<< end dashbaord settings
     }
 
     private void initDashboard(DashboardContext dashboardContext) {
