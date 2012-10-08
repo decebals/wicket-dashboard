@@ -22,11 +22,11 @@ public class ChartWidgetDescriptor implements WidgetDescriptor {
 	private static final long serialVersionUID = 1L;
 
 	public String getDescription() {
-		return "A chart widget.";
+		return "A chart widget using OpenFlashChart.";
 	}
 
 	public String getName() {
-		return "Chart";
+		return "Chart (OpenFlashChart)";
 	}
 
 	public String getProvider() {
