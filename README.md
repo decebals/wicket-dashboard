@@ -32,24 +32,24 @@ In your application class make some initializations:
     public void init() {
         ...
 
-	// dashboard settings
-	DashboardContextInjector dashboardContextInjector = new DashboardContextInjector();
-	DashboardContext dashboardContext = dashboardContextInjector.getDashboardContext();
-	WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
-	widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
-	widgetRegistry.registerWidget(new ChartWidgetDescriptor());
+	    // dashboard settings
+	    DashboardContextInjector dashboardContextInjector = new DashboardContextInjector();
+	    DashboardContext dashboardContext = dashboardContextInjector.getDashboardContext();
+	    WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
+	    widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
+	    widgetRegistry.registerWidget(new ChartWidgetDescriptor());
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-	widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
-	JqPlotWidget.setChartFactory(new DemoChartFactory());
+    	widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
+    	JqPlotWidget.setChartFactory(new DemoChartFactory());
         getComponentInstantiationListeners().add(dashboardContextInjector);
                 
         initDashboard(dashboardContext);            }
     }
 
     private void initDashboard(DashboardContext dashboardContext) {
-	dashboard = dashboardContext.getDashboardPersiter().load();
+    	dashboard = dashboardContext.getDashboardPersiter().load();
     	if (dashboard == null) {
- 	    dashboard = new DefaultDashboard("default", "Default");
+     	    dashboard = new DefaultDashboard("default", "Default");
     	}
     }
 
