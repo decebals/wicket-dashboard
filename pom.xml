@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.asf.wicket.dashboard</groupId>
     <artifactId>pom</artifactId>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Wicket Dashboard</name>
     <description>Simple web dashboard using Apache Wicket</description>
