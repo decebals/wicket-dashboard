@@ -44,32 +44,32 @@ I will upload these artifacts in maven central repository as soon as possible.
 In your pom.xml you must define the dependencies to wicket dashboard artifacts with:
 
 ```xml
-    <dependency>
-        <groupId>com.asf.wicket.dashboard</groupId>
-        <artifactId>wicket-dashboard-core</artifactId>
-        <version>${wicket-dashboard.version}</version>
-    </dependency>
+<dependency>
+    <groupId>com.asf.wicket.dashboard</groupId>
+    <artifactId>wicket-dashboard-core</artifactId>
+    <version>${wicket-dashboard.version}</version>
+</dependency>
 
-    <!-- OPTIONAL -->
-    <dependency>
-        <groupId>com.asf.wicket.dashboard.widgets</groupId>
-        <artifactId>wicket-dashboard-ofchart</artifactId>
-        <version>${wicket-dashboard.version}</version>
-    </dependency>
+<!-- OPTIONAL -->
+<dependency>
+    <groupId>com.asf.wicket.dashboard.widgets</groupId>
+    <artifactId>wicket-dashboard-ofchart</artifactId>
+    <version>${wicket-dashboard.version}</version>
+</dependency>
 
-    <!-- OPTIONAL -->
-    <dependency>
-        <groupId>com.asf.wicket.dashboard.widgets</groupId>
-        <artifactId>wicket-dashboard-jqplot</artifactId>
-        <version>${wicket-dashboard.version}</version>
-    </dependency>
+<!-- OPTIONAL -->
+<dependency>
+    <groupId>com.asf.wicket.dashboard.widgets</groupId>
+    <artifactId>wicket-dashboard-jqplot</artifactId>
+    <version>${wicket-dashboard.version}</version>
+</dependency>
 
-    <!-- OPTIONAL -->
-    <dependency>
-        <groupId>com.asf.wicket.dashboard.widgets</groupId>
-        <artifactId>wicket-dashboard-loremipsum</artifactId>
-        <version>${wicket-dashboard.version}</version>
-    </dependency>    
+<!-- OPTIONAL -->
+<dependency>
+    <groupId>com.asf.wicket.dashboard.widgets</groupId>
+    <artifactId>wicket-dashboard-loremipsum</artifactId>
+    <version>${wicket-dashboard.version}</version>
+</dependency>    
 ```
 
 where ${wicket-dashboard.version} is the last wicket dashboard version.
