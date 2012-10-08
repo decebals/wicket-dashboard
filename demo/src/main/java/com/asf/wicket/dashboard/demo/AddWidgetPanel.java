@@ -68,6 +68,22 @@ public class AddWidgetPanel extends GenericPanel<Dashboard> implements Dashboard
 	public void setDashboardContext(DashboardContext dashboardContext) {
 		this.dashboardContext = dashboardContext;
 	}
+	
+	private String getUniqueWidgetTitle(String title, int count) {
+		String uniqueTitle = title;
+		if (count > 0) {
+			uniqueTitle = title + " " + count;
+		}
+		
+		List<Widget> widgets = getDashboard().getWidgets();
+		for (Widget widget : widgets) {
+			if (widget.getTitle().equals(uniqueTitle)) {
+				uniqueTitle = getUniqueWidgetTitle(title, count + 1);
+			}
+		}
+		 
+		return uniqueTitle;
+	}
 
 	private class WidgetDescriptorPanel extends GenericPanel<WidgetDescriptor> {
 
@@ -109,6 +125,7 @@ public class AddWidgetPanel extends GenericPanel<Dashboard> implements Dashboard
 					WidgetFactory widgetFactory = dashboardContext.getWidgetFactory();
 					Widget widget = widgetFactory.createWidget(model.getObject());
 					Dashboard dashboard = getDashboard();
+					widget.setTitle(getUniqueWidgetTitle(widget.getTitle(), count));
 					dashboard.addWidget(widget);
 					dashboardContext.getDashboardPersiter().save(dashboard);
 					message = "added";

@@ -63,6 +63,12 @@
             <version>${project.version}</version>
         </dependency>
         
+        <dependency>
+            <groupId>com.asf.wicket.dashboard.widgets</groupId>
+            <artifactId>wicket-dashboard-jqplot</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

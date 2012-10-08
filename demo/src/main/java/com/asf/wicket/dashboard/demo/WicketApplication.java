@@ -18,8 +18,12 @@ import org.apache.wicket.protocol.http.WebApplication;
 import com.asf.wicket.dashboard.Dashboard;
 import com.asf.wicket.dashboard.DefaultDashboard;
 import com.asf.wicket.dashboard.WidgetRegistry;
+import com.asf.wicket.dashboard.demo.jqplot.DemoChartFactory;
+import com.asf.wicket.dashboard.demo.ofchart.DemoChartDataFactory;
 import com.asf.wicket.dashboard.web.DashboardContext;
 import com.asf.wicket.dashboard.web.DashboardContextInjector;
+import com.asf.wicket.dashboard.widget.jqplot.JqPlotWidget;
+import com.asf.wicket.dashboard.widget.jqplot.JqPlotWidgetDescriptor;
 import com.asf.wicket.dashboard.widget.loremipsum.LoremIpsumWidgetDescriptor;
 import com.asf.wicket.dashboard.widget.ofchart.ChartWidget;
 import com.asf.wicket.dashboard.widget.ofchart.ChartWidgetDescriptor;
@@ -56,11 +60,12 @@ public class WicketApplication extends WebApplication {
 		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
 		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
 		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
+        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
+		widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
+		JqPlotWidget.setChartFactory(new DemoChartFactory());
         getComponentInstantiationListeners().add(dashboardContextInjector);
                 
-        initDashboard(dashboardContext);
-        
-        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
+        initDashboard(dashboardContext);        
 	}
 
 	public Class<? extends Page> getHomePage() {
