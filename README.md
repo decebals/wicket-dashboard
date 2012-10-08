@@ -28,7 +28,7 @@ Artifacts
 - Wicket Dashboard Core `wicket-dashboard-core` (jar)
 - Wicket Dashboard (Standard) Widgets
     - loremipsum `wicket-dashboard-loremispum`  (jar)
-    - ofchart `wicket-dashboard-ofcahrt`        (jar)
+    - ofchart `wicket-dashboard-ofchart`        (jar)
     - jqplot `wicket-dashboard-jqplot`          (jar)
 - Wicket Dashboard Demo `wicket-dashboard-demo` (war)
 
