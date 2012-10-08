@@ -12,14 +12,8 @@
  */
 package com.asf.wicket.dashboard.web;
 
-import java.io.File;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.application.IComponentInstantiationListener;
-
-import com.asf.wicket.dashboard.DefaultWidgetFactory;
-import com.asf.wicket.dashboard.DefaultWidgetRegistry;
-import com.asf.wicket.dashboard.XStreamDashboardPersister;
 
 /**
  * @author Decebal Suiu
@@ -30,9 +24,6 @@ public class DashboardContextInjector implements IComponentInstantiationListener
 	
 	public DashboardContextInjector() {
 		dashboardContext = new DashboardContext();
-		dashboardContext.setWidgetFactory(new DefaultWidgetFactory());
-		dashboardContext.setWidgetRegistry(new DefaultWidgetRegistry());
-		dashboardContext.setDashboardPersiter(new XStreamDashboardPersister(new File("dashboard.xml")));
 	}
 	
 	public DashboardContextInjector(DashboardContext dashboardContext) {

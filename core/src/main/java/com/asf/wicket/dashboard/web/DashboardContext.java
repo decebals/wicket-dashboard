@@ -12,9 +12,14 @@
  */
 package com.asf.wicket.dashboard.web;
 
+import java.io.File;
+
 import com.asf.wicket.dashboard.DashboardPersiter;
+import com.asf.wicket.dashboard.DefaultWidgetFactory;
+import com.asf.wicket.dashboard.DefaultWidgetRegistry;
 import com.asf.wicket.dashboard.WidgetFactory;
 import com.asf.wicket.dashboard.WidgetRegistry;
+import com.asf.wicket.dashboard.XStreamDashboardPersister;
 
 /**
  * @author Decebal Suiu
@@ -24,6 +29,12 @@ public class DashboardContext {
 	private WidgetFactory widgetFactory;
 	private WidgetRegistry widgetRegistry;
 	private DashboardPersiter dashboardPersiter;
+	
+	public DashboardContext() {
+		setWidgetFactory(new DefaultWidgetFactory());
+		setWidgetRegistry(new DefaultWidgetRegistry());
+		setDashboardPersiter(new XStreamDashboardPersister(new File("dashboard.xml")));
+	}
 	
 	public WidgetFactory getWidgetFactory() {
 		return widgetFactory;

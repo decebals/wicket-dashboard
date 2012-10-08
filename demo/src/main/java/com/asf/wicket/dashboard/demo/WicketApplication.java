@@ -54,18 +54,25 @@ public class WicketApplication extends WebApplication {
 		mountPage("add-widget", AddWidgetPage.class);
 		mountPage("widget", WidgetPage.class);
 
-		// dashboard settings
-		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector();
-		DashboardContext dashboardContext = dashboardContextInjector.getDashboardContext();
+		// >>> begin dashboard settings
+		
+		// register some widgets
+		DashboardContext dashboardContext = new DashboardContext();
 		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
 		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
 		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
 		widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
 		JqPlotWidget.setChartFactory(new DemoChartFactory());
+		
+		// add dashboard context injector
+		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
         getComponentInstantiationListeners().add(dashboardContextInjector);
                 
-        initDashboard(dashboardContext);        
+        // init dashbaord
+        initDashboard(dashboardContext);
+        
+        // <<< end dashbaord settings
 	}
 
 	public Class<? extends Page> getHomePage() {
