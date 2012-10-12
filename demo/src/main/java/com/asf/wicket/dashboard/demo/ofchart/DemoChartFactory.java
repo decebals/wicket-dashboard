@@ -39,10 +39,18 @@ public class DemoChartFactory {
 		// b) use http://code.google.com/p/jofc2/
 //		BarChart barChart = new BarChart();
 		BarChart barChart = new BarChart(BarChart.Style.GLASS);
+		barChart.setColour("#F78000");
+		barChart.useAnimation(true);
 		barChart.addValues(1, 2, 3, 4, 5, 6, 7 , 8, 9, 8, 7, 6, 5, 4, 3);
 		barChart.setText("Tue Oct 14 2008");
 		
 		Chart chart = new Chart("Beers and bugs");
+		/*
+		Legend legend = new Legend();
+		legend.setBg_colour("#333333");
+		chart.setLegend(legend);
+		*/
+		chart.setBackgroundColour("#FFFFFF");
 		chart.addElements(barChart);		
 		
 		return chart;
@@ -50,19 +58,19 @@ public class DemoChartFactory {
 
 	public static Chart createDemoDoubleBarChart() {
 		BarChart barChart = new BarChart(BarChart.Style.GLASS);
-		barChart.setColour("#007FFF");
+		barChart.setColour("#9AC836");
 		barChart.setTooltip("Beers:<br>Value:#val#");
-		barChart.addValues(1, 5, 8, 3, 0, 2);
+		barChart.addValues(1, 5, 8, 3, 4, 0, 2, 7);
 		barChart.setText("Beers consumed");
 		barChart.setAlpha(0.1f);
 
 		BarChart barChart2 = new BarChart(BarChart.Style.GLASS);
-		barChart2.setColour("#802A2A");
+		barChart2.setColour("#E30071");
 		barChart2.setTooltip("#val#<br>bugs fixed");
 		barChart2.setText("bugs fixed");
 		barChart2.setFontSize(15);
 		barChart.setAlpha(0.9f);
-		barChart2.addValues(2, 7, 1, 5, 8, 3, 0, 2);
+		barChart2.addValues(2, 7, 1, 5, 8, 3, 0, 5, 2, 1);
 
 		Chart chart = new Chart("Beers and bugs");
 		chart.addElements(barChart, barChart2);
@@ -79,7 +87,7 @@ public class DemoChartFactory {
 		
 		List<Number> values = new ArrayList<Number>();
 		Random random = new Random();
-		for (int i = 0; i < 9; i++) {
+		for (int i = 0; i < 15; i++) {
 		      values.add(1 + random.nextInt(5));
 		}
 		lineChart.addValues(values);
@@ -89,6 +97,7 @@ public class DemoChartFactory {
 		yAxis.setRange(0, 6, 1);		
 		chart.setYAxis(yAxis);
 		chart.addElements(lineChart);
+		chart.setBackgroundColour("#FFFFFF");
 		
 		return chart;
 	}
@@ -115,9 +124,10 @@ public class DemoChartFactory {
 
 		Chart chart = new Chart(new Date().toString());
 		YAxis yAxis = new YAxis();
-		yAxis.setRange(0, 3, 1);		
+		yAxis.setRange(0, 3, 1);
 		chart.setYAxis(yAxis);
 		chart.addElements(lineChart);
+		chart.setBackgroundColour("#FFFFFF");
 	    
 		return chart;
 	}
@@ -127,14 +137,15 @@ public class DemoChartFactory {
 		pieChart.setAnimate(true);
 		pieChart.setStartAngle(35);
 		pieChart.setBorder(2);
-		pieChart.setAlpha(0.6f);		
-		pieChart.addValues(2, 3);
+//		pieChart.setAlpha(0.6f);		
+		pieChart.addValues(2, 3, 3.5);
 		pieChart.addSlice(6.5f, "Romania (6.5)");
-		pieChart.setColours("#d01f3c", "#356aa0", "#C79810");
+		pieChart.setColours("#F78000", "#9AC836", "#D54192", "#E3001B");
 		pieChart.setTooltip("#val# of #total#<br>#percent# of 100%");
 
 		Chart chart = new Chart("Downloads");
 		chart.addElements(pieChart);
+		chart.setBackgroundColour("#FFFFFF");
 		
 		return chart;
 	}
@@ -157,6 +168,7 @@ public class DemoChartFactory {
 	    xAxis.setRange(0, 6, 1);
 	    chart.setXAxis(xAxis);
 	    chart.addElements(scatterChart);
+		chart.setBackgroundColour("#FFFFFF");
 	
 	    return chart;
 	}
