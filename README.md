@@ -5,9 +5,9 @@ A dashboard is a panel with quick access to information or common tasks.
 
 Features/Benefits
 -------------------
-With wicket-dasboard you can easily add a dashboard with standard and custom widgets to your wicket application.
+With wicket-dasboard you can easily add a dashboard with standard and custom widgets to your wicket application.  
 For a dashboard you can specify the numbers of columns, drag and drop widgets, remove widgets, add new widgets, change widget settings, 
-collapse widgets, or perform any custom action added by you to widget.
+collapse widgets, or perform any custom action added by you to widget.  
 Also you can save and load the dashboard from a repository (file, database).
 
 Components
