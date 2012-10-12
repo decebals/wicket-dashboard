@@ -126,10 +126,9 @@ For more information please see the demo sources.
 Demo
 -------------------
 
-I have a tiny demo application. In this demo I have implemented two widgets types:
-a chart widget (using open flash chart) and a text widget (display a Lorem Ipsum).
-You can drag and drop widgets, perform some actions on each widget, add or remove new
-widgets, change widget settings, collapse widgets.
+I have a tiny demo application. In this demo I have implemented three widgets types:
+a chart widget using [open flash chart] (http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot] (http://www.jqplot.com) and a loremipsum widget (display a Lorem Ipsum).
+You can drag and drop widgets, remove widgets, add new widgets, change widget settings, collapse widgets or any custom action added by you.
 
 The demo application is in demo package.
 To run the demo application use:  
