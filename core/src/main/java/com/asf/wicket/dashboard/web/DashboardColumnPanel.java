@@ -33,11 +33,9 @@ import com.asf.wicket.dashboard.WidgetLocation;
 /**
  * @author Decebal Suiu
  */
-class DashboardColumnPanel extends GenericPanel<Dashboard> implements DashboardContextAware {
+class DashboardColumnPanel extends GenericPanel<Dashboard> {
 	
-	private static final long serialVersionUID = 1L;
-	
-	private transient DashboardContext dashboardContext;
+	private static final long serialVersionUID = 1L;	
 		
 	public DashboardColumnPanel(String id, final IModel<Dashboard> dashboardModel, int columnIndex) {
 		super(id, dashboardModel);
@@ -86,11 +84,6 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> implements DashboardC
 	}
 
 	@Override
-	public void setDashboardContext(DashboardContext dashboardContext) {
-		this.dashboardContext = dashboardContext;
-	}
-
-	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		
@@ -110,6 +103,7 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> implements DashboardC
 			public void saveLayout(Map<String, WidgetLocation> widgetLocations, AjaxRequestTarget target) {
 				Dashboard dashboard = getDashboard();
 				DashboardUtils.updateWidgetLocations(dashboard, widgetLocations);
+				DashboardContext dashboardContext = findParent(DashboardPanel.class).getDashboardContext();
 				dashboardContext.getDashboardPersiter().save(dashboard);
 			}
 			

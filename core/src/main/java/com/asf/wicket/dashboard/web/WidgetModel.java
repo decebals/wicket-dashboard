@@ -16,7 +16,7 @@ import org.apache.wicket.model.IModel;
 
 import com.asf.wicket.dashboard.Dashboard;
 import com.asf.wicket.dashboard.Widget;
-import com.asf.wicket.dashboard.web.common.model.CascadingLoadableDetachableModel;
+import com.asf.wicket.dashboard.web.util.CascadingLoadableDetachableModel;
 
 /**
  * @author Decebal Suiu

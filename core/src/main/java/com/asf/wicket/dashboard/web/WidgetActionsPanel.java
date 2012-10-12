@@ -12,25 +12,19 @@
  */
 package com.asf.wicket.dashboard.web;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.IAjaxCallDecorator;
-import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.markup.html.image.ContextImage;
 import org.apache.wicket.markup.html.link.AbstractLink;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
-import com.asf.wicket.dashboard.Dashboard;
 import com.asf.wicket.dashboard.Widget;
-import com.asf.wicket.dashboard.web.common.behavior.ConfirmAjaxDecoratorDelegate;
-import com.asf.wicket.dashboard.web.common.menu.MenuItem;
-import com.asf.wicket.dashboard.web.common.menu.MenuPanel;
+import com.asf.wicket.dashboard.WidgetAction;
 
 /**
  * @author Decebal Suiu
@@ -43,8 +37,32 @@ public class WidgetActionsPanel extends GenericPanel<Widget> implements Dashboar
 	
 	public WidgetActionsPanel(String id, IModel<Widget> model) {
 		super(id, model);
-		
-		add(new MenuPanel("menuPanel", new ActionsModel()).setRenderBodyOnly(true));
+	
+		IModel<List<WidgetAction>> actionsModel = new LoadableDetachableModel<List<WidgetAction>>() {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected List<WidgetAction> load() {
+				return dashboardContext.getWidgetActionsFactory().createWidgetActions(getWidget());
+			}
+			
+		};
+		ListView<WidgetAction> actionsView = new ListView<WidgetAction>("action", actionsModel) {
+			
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void populateItem(ListItem<WidgetAction> item) {
+				WidgetAction action = item.getModelObject();
+				AbstractLink link = action.getLink("link");
+				link.add(new ContextImage("image", action.getImage()));
+				link.add(AttributeModifier.replace("title", action.getTooltip()));
+				item.add(link);
+			}
+
+		};
+		add(actionsView);
 	}
 	
 	@Override
@@ -55,90 +73,5 @@ public class WidgetActionsPanel extends GenericPanel<Widget> implements Dashboar
 	private Widget getWidget() {
 		return getModelObject();
 	}
-	
-	private List<MenuItem> createActions() {
-		List<MenuItem> actions = new ArrayList<MenuItem>();
-		actions.add(new MenuItem(createRefreshLink(), null, "images/refresh.gif", "Refresh"));
-		if (getModelObject().hasSettings()) {
-			actions.add(new MenuItem(createSettingsLink(), null, "images/edit.png", "Settings"));
-		}
-		actions.add(new MenuItem(createDeleteLink(), null, "images/delete.gif", "Delete"));
 		
-		return actions;
-	}
-	
-	private AbstractLink createRefreshLink() {
-		return new AjaxLink<Void>(MenuPanel.LINK_ID) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClick(AjaxRequestTarget target) {				
-				WidgetView widgetView = findParent(WidgetPanel.class).getWidgetView();
-				target.add(widgetView);
-			}
-			
-		};
-	}
-	
-	private AbstractLink createSettingsLink() {
-		return new AjaxLink<Void>(MenuPanel.LINK_ID) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				WidgetPanel widgetPanel = findParent(WidgetPanel.class);
-				Panel settingsPanel = widgetPanel.getSettingsPanel();
-				settingsPanel.setVisible(true);
-				target.add(settingsPanel);				
-			}
-			
-		};
-	}
-
-	private AbstractLink createDeleteLink() {
-		return new AjaxLink<Void>(MenuPanel.LINK_ID) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				// TODO
-				Dashboard dashboard = findParent(DashboardPanel.class).getDashboard();
-				dashboard.deleteWidget(getWidget().getId());
-				dashboardContext.getDashboardPersiter().save(dashboard);
-				// the widget is removed from ui with javascript (with a IAjaxCallDecorator) -> see getAjaxCallDecorator()
-			}
-			
-			@Override
-			protected IAjaxCallDecorator getAjaxCallDecorator() {
-				AjaxCallDecorator ajaxDecorator = new AjaxCallDecorator() {
-					
-					private static final long serialVersionUID = 1L;
-					
-					@Override
-					public CharSequence decorateOnSuccessScript(Component c, CharSequence script) {
-						return "$('#widget-" + getWidget().getId() + "').remove();";
-					}
-					
-				};
-				
-				return new ConfirmAjaxDecoratorDelegate(ajaxDecorator, "Delete widget " + getWidget().getTitle() + "?");
-			}
-			
-		};
-	}
-	
-	private class ActionsModel extends LoadableDetachableModel<List<MenuItem>> {
-
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected List<MenuItem> load() {
-			return createActions();
-		}
-		
-	}
-
 }

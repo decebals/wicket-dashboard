@@ -28,10 +28,12 @@ import com.asf.wicket.dashboard.Dashboard;
 /**
  * @author Decebal Suiu
  */
-public class DashboardPanel extends GenericPanel<Dashboard> {
+public class DashboardPanel extends GenericPanel<Dashboard> implements DashboardContextAware {
 	
 	private static final long serialVersionUID = 1L;
 
+	private transient DashboardContext dashboardContext;
+	
 	private List<DashboardColumnPanel> columnPanels;
 	
 	public DashboardPanel(String id, IModel<Dashboard> model) {
@@ -53,6 +55,18 @@ public class DashboardPanel extends GenericPanel<Dashboard> {
 		return getModelObject();
 	}
 	
+	@Override
+	public void setDashboardContext(DashboardContext dashboardContext) {
+		this.dashboardContext = dashboardContext;
+	}
+
+	/**
+	 * Used by children.
+	 */
+	public DashboardContext getDashboardContext() {
+		return dashboardContext;
+	}
+
 	private void addColumnsPanel() {
 		final int columnCount = getDashboard().getColumnCount();
 		Loop columnsView = new Loop("columns", columnCount) {
