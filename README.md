@@ -3,6 +3,13 @@ Simple wicket dashboard
 
 A dashboard is a panel with quick access to information or common tasks.
 
+Features/Benefits
+-------------------
+With wicket-dasboard you can easily add a dashboard with standard and custom widgets to your wicket application.
+For a dashboard you can specify the numbers of columns, drag and drop widgets, remove widgets, add new widgets, change widget settings, 
+collapse widgets, or perform any custom action added by you to widget.
+Also you can save and load the dashboard from a repository (file, database).
+
 Components
 -------------------
 - **Dashboard** is the object that contains the widgets. It has one or more columns.
@@ -23,7 +30,7 @@ that save/load a dashboard to/from a file.
 widget has settings) and the widget view. It can be moved with drag and drop.
 The header panel contains the widget title, an icon that display the collapsed state and some actions (refresh, delete, settings).
 - **WidgetAction** defines an action that is usually assigned to a widget. By default on each widget are some default actions:
-REFRESH, DELETE and SETTINGS (if the widget has settings).
+_REFRESH_, _DELETE_ and _SETTINGS_ (if the widget has settings).
 - **WidgetActionsFactory** is the object that creates actions for the widgets. You can add easily any custom actions or remove defaults
 actions (adding security is a scenario).
 
@@ -128,7 +135,6 @@ Demo
 
 I have a tiny demo application. In this demo I have implemented three widgets types:
 a chart widget using [open flash chart] (http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot] (http://www.jqplot.com) and a loremipsum widget (display a Lorem Ipsum).
-You can drag and drop widgets, remove widgets, add new widgets, change widget settings, collapse widgets or any custom action added by you.
 
 The demo application is in demo package.
 To run the demo application use:  
