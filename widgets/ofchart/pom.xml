@@ -4,12 +4,12 @@
     <parent>
         <groupId>com.asf.wicket.dashboard.widgets</groupId>
         <artifactId>pom</artifactId>
-        <version>0.2</version>
+        <version>0.3-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-ofchart</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>OpenFlashChart Widget</name>
 

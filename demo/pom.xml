@@ -4,12 +4,12 @@
     <parent>
         <groupId>com.asf.wicket.dashboard</groupId>
         <artifactId>pom</artifactId>
-        <version>0.2</version>
+        <version>0.3-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-demo</artifactId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Wicket Dashboard Demo</name>
         
