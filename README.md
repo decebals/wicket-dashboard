@@ -22,6 +22,10 @@ that save/load a dashboard to/from a file.
 - **WidgetPanel** is a wicket panel that displays a widget. It contains a header panel, a settings panel (if the
 widget has settings) and the widget view. It can be moved with drag and drop.
 The header panel contains the widget title, an icon that display the collapsed state and some actions (refresh, delete, settings).
+- **WidgetAction** defines an action that is usually assigned to a widget. By default on each widget are some default actions:
+REFRESH, DELETE and SETTINGS (if the widget has settings).
+- **WidgetActionsFactory** is the object that creates actions for the widgets. You can add easily any custom actions or remove defaults
+actions (adding security is a scenario).
 
 Artifacts
 -------------------
