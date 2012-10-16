@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <parent>
-        <groupId>com.asf.wicket.dashboard</groupId>
+        <groupId>ro.fortsoft.wicket.dashboard</groupId>
         <artifactId>pom</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
@@ -46,25 +46,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.asf.wicket.dashboard</groupId>
+            <groupId>ro.fortsoft.wicket.dashboard</groupId>
             <artifactId>wicket-dashboard-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.asf.wicket.dashboard.widgets</groupId>
+            <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
             <artifactId>wicket-dashboard-ofchart</artifactId>
             <version>${project.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.asf.wicket.dashboard.widgets</groupId>
+            <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
             <artifactId>wicket-dashboard-loremipsum</artifactId>
             <version>${project.version}</version>
         </dependency>
         
         <dependency>
-            <groupId>com.asf.wicket.dashboard.widgets</groupId>
+            <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
             <artifactId>wicket-dashboard-jqplot</artifactId>
             <version>${project.version}</version>
         </dependency>
