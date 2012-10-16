@@ -15,7 +15,6 @@ package ro.fortsoft.wicket.dashboard;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * @author Decebal Suiu
  */

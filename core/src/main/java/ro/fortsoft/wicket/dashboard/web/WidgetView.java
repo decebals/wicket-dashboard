@@ -18,7 +18,6 @@ import org.apache.wicket.model.IModel;
 
 import ro.fortsoft.wicket.dashboard.Widget;
 
-
 /**
  * @author Decebal Suiu
  */

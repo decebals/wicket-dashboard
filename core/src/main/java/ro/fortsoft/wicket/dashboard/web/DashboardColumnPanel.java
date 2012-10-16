@@ -30,7 +30,6 @@ import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
 
-
 /**
  * @author Decebal Suiu
  */

@@ -56,28 +56,28 @@ In your pom.xml you must define the dependencies to wicket dashboard artifacts w
 
 ```xml
 <dependency>
-    <groupId>com.asf.wicket.dashboard</groupId>
+    <groupId>ro.fortsoft.wicket.dashboard</groupId>
     <artifactId>wicket-dashboard-core</artifactId>
     <version>${wicket-dashboard.version}</version>
 </dependency>
 
 <!-- OPTIONAL -->
 <dependency>
-    <groupId>com.asf.wicket.dashboard.widgets</groupId>
+    <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
     <artifactId>wicket-dashboard-ofchart</artifactId>
     <version>${wicket-dashboard.version}</version>
 </dependency>
 
 <!-- OPTIONAL -->
 <dependency>
-    <groupId>com.asf.wicket.dashboard.widgets</groupId>
+    <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
     <artifactId>wicket-dashboard-jqplot</artifactId>
     <version>${wicket-dashboard.version}</version>
 </dependency>
 
 <!-- OPTIONAL -->
 <dependency>
-    <groupId>com.asf.wicket.dashboard.widgets</groupId>
+    <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
     <artifactId>wicket-dashboard-loremipsum</artifactId>
     <version>${wicket-dashboard.version}</version>
 </dependency>    
@@ -128,6 +128,8 @@ In your web page add the dashboard panel:
     Dashboard dashboard = ...;
     add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
     
+If you need an dashboard context object in your wicket panel than implements **DashbaordContextAware** (see _AddWidgetPanel_ from demo).    
+
 For more information please see the demo sources.
 
 Demo

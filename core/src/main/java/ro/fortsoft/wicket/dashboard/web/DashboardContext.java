@@ -23,7 +23,6 @@ import ro.fortsoft.wicket.dashboard.WidgetFactory;
 import ro.fortsoft.wicket.dashboard.WidgetRegistry;
 import ro.fortsoft.wicket.dashboard.XStreamDashboardPersister;
 
-
 /**
  * @author Decebal Suiu
  */

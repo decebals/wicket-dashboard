@@ -25,7 +25,6 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
 
-
 /**
  * @author Decebal Suiu
  */

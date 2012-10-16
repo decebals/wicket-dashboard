@@ -28,7 +28,6 @@ import org.odlabs.wiquery.core.javascript.JsStatement;
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
 
-
 /**
  * @author Decebal Suiu
  */

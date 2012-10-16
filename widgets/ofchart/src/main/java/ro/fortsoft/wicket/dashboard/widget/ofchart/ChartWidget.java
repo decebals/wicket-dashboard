@@ -22,7 +22,6 @@ import ro.fortsoft.wicket.dashboard.AbstractWidget;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.web.WidgetView;
 
-
 /**
  * @author Decebal Suiu
  */

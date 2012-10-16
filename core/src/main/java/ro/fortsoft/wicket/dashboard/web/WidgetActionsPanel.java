@@ -26,7 +26,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetAction;
 
-
 /**
  * @author Decebal Suiu
  */

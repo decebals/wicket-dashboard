@@ -24,7 +24,6 @@ import ro.fortsoft.wicket.dashboard.web.WidgetView;
 
 import br.com.digilabs.jqplot.Chart;
 
-
 /**
  * @author Decebal Suiu
  */

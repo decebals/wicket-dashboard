@@ -28,7 +28,6 @@ import ro.fortsoft.wicket.dashboard.web.DashboardContextAware;
 import ro.fortsoft.wicket.dashboard.web.DashboardPanel;
 import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
 
-
 /**
  * @author Decebal Suiu
  */

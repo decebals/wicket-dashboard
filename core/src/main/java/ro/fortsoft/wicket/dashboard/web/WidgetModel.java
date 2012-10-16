@@ -18,7 +18,6 @@ import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.web.util.CascadingLoadableDetachableModel;
 
-
 /**
  * @author Decebal Suiu
  */

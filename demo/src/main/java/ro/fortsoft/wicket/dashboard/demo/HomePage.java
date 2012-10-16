@@ -19,7 +19,6 @@ import org.apache.wicket.model.Model;
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.web.DashboardPanel;
 
-
 /**
  * @author Decebal Suiu
  */

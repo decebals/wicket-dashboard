@@ -19,7 +19,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import ro.fortsoft.wicket.dashboard.web.WidgetView;
 
-
 /**
  * @author Decebal Suiu
  */

@@ -28,7 +28,6 @@ import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
 import ro.fortsoft.wicket.dashboard.web.WidgetView;
 import ro.fortsoft.wicket.dashboard.web.util.ConfirmAjaxDecoratorDelegate;
 
-
 /**
  * @author Decebal Suiu
  */
