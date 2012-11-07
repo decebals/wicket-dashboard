@@ -46,12 +46,6 @@ Artifacts
 Using Maven
 -------------------
 
-First you must install the wicket dashboard artifacts in your local maven repository with:
-
-    mvn clean install
-
-I will upload these artifacts in maven central repository as soon as possible.
-
 In your pom.xml you must define the dependencies to wicket dashboard artifacts with:
 
 ```xml
@@ -94,19 +88,19 @@ In your application class make some initializations:
     public void init() {
         ...
 
-		// >>> begin dashboard settings
-		
-		// register some widgets
-		DashboardContext dashboardContext = new DashboardContext();
-		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
-		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
-		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
+        // >>> begin dashboard settings
+        
+        // register some widgets
+        DashboardContext dashboardContext = new DashboardContext();
+        WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
+        widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
+        widgetRegistry.registerWidget(new ChartWidgetDescriptor());
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-		widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
-		JqPlotWidget.setChartFactory(new DemoChartFactory());
-		
-		// add dashboard context injector
-		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
+        widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
+        JqPlotWidget.setChartFactory(new DemoChartFactory());
+        
+        // add dashboard context injector
+        DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
         getComponentInstantiationListeners().add(dashboardContextInjector);
                 
         // init dashbaord
@@ -116,10 +110,10 @@ In your application class make some initializations:
     }
 
     private void initDashboard(DashboardContext dashboardContext) {
-    	dashboard = dashboardContext.getDashboardPersiter().load();
-    	if (dashboard == null) {
-     	    dashboard = new DefaultDashboard("default", "Default");
-    	}
+        dashboard = dashboardContext.getDashboardPersiter().load();
+        if (dashboard == null) {
+            dashboard = new DefaultDashboard("default", "Default");
+        }
     }
 
 
