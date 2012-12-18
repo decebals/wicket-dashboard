@@ -103,10 +103,10 @@ In your application class make some initializations:
         DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
         getComponentInstantiationListeners().add(dashboardContextInjector);
                 
-        // init dashbaord
+        // init dashboard using the context created above
         initDashboard(dashboardContext);
         
-        // <<< end dashbaord settings
+        // <<< end dashboard settings
     }
 
     private void initDashboard(DashboardContext dashboardContext) {
@@ -117,7 +117,7 @@ In your application class make some initializations:
     }
 
 
-To configure wicket-dashboard see DashboardSettings class. In this class you can specify for example if you want to ignore
+To configure wicket-dashboard see **DashboardSettings** class. In this class you can specify for example if you want to ignore
 the jquery internal version, or to specify another versions for wicket-dashboard's resources.
 
 
@@ -136,7 +136,7 @@ In your web page add the dashboard panel:
     Dashboard dashboard = ...;
     add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
     
-If you need an dashboard context object in your wicket panel than implements **DashbaordContextAware** (see _AddWidgetPanel_ from demo).    
+If you need an dashboard context object in your wicket panel than implements **DashboardContextAware** (see _AddWidgetPanel_ from demo).    
 
 For more information please see the demo sources.
 
