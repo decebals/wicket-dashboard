@@ -117,6 +117,20 @@ In your application class make some initializations:
     }
 
 
+To configure wicket-dashboard settings see DashboardSettings class. In this class you can specify for example if you want to ignore
+the wicket-dashboard jquery internal version, or to specify another versions for wicket-dashboard's resources.
+
+
+    public void init() {
+        ...
+        
+        DashboardSettings dashboardSettings = DashboardSettings.get();
+        // I don't want to add the internal wicket-dashboard jquery to page head when I used DashbaordPanel
+        dashboardSettings.setIncludeJQuery(false); 
+
+        ...       
+    }
+
 In your web page add the dashboard panel:
 
     Dashboard dashboard = ...;
