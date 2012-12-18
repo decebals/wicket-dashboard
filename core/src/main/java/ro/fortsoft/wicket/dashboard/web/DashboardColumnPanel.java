@@ -12,18 +12,20 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
-import org.odlabs.wiquery.ui.sortable.SortableBehavior;
+import org.apache.wicket.util.template.PackageTextTemplate;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.DashboardUtils;
@@ -37,6 +39,8 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
 	
 	private static final long serialVersionUID = 1L;	
 		
+	private StopSortableAjaxBehavior stopSortableAjaxBehavior;
+	
 	public DashboardColumnPanel(String id, final IModel<Dashboard> dashboardModel, int columnIndex) {
 		super(id, dashboardModel);
 		
@@ -95,7 +99,7 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
 	}
 
 	private void addSortableBehavior(Component component) {
-		StopSortableAjaxBehavior stopSortableAjaxBehavior = new StopSortableAjaxBehavior() {
+		stopSortableAjaxBehavior = new StopSortableAjaxBehavior() {
 
 			private static final long serialVersionUID = 1L;
 
@@ -108,18 +112,35 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
 			}
 			
 		};
-		
-		SortableBehavior sortableBehavior = stopSortableAjaxBehavior.getSortableBehavior();
+
+		/*
 		sortableBehavior.setConnectWith(".column");
 		sortableBehavior.setHandle(".dragbox-header");
 		sortableBehavior.setCursor("move");
 		sortableBehavior.setForcePlaceholderSize(true);
 		sortableBehavior.setPlaceholder("placeholder");
 		sortableBehavior.setOpacity(0.4f);
+		*/
 		
 		component.add(stopSortableAjaxBehavior);
 	}
-	       	
+
+	@Override
+	public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+
+        CharSequence script = stopSortableAjaxBehavior.getSuccessScript();
+
+        Map<String, String> vars = new HashMap<String, String>();
+        vars.put("component", get("columnContainer").getMarkupId());
+        vars.put("stopBehavior", script.toString());
+
+        PackageTextTemplate template = new PackageTextTemplate(DashboardColumnPanel.class, "res/sort-behavior.template.js");
+        template.interpolate(vars);
+
+        response.renderOnDomReadyJavaScript(template.getString());
+    }
+    
 	/*
 	private class WidgetLoadingPanel extends AjaxLazyLoadPanel {
 

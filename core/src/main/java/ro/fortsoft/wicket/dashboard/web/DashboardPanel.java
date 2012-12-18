@@ -16,12 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.request.resource.PackageResourceReference;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
 
@@ -40,17 +38,10 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 		super(id, model);			
 
 		addColumnsPanel();
-	}
-	
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		super.renderHead(response);
 		
-		response.renderJavaScriptReference("js/jquery.json-2.2.min.js");
-        response.renderJavaScriptReference(new PackageResourceReference(DashboardPanel.class, "dashboard.js"));        
-        response.renderCSSReference(new PackageResourceReference(DashboardPanel.class, "dashboard.css"));
+		add(new DashboardResourcesBehavior());
 	}
-	
+		
 	public Dashboard getDashboard() {
 		return getModelObject();
 	}

@@ -17,9 +17,6 @@ import java.util.Map;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.odlabs.wiquery.core.javascript.JsScopeContext;
-import org.odlabs.wiquery.ui.core.JsScopeUiEvent;
-import org.odlabs.wiquery.ui.sortable.SortableBehavior;
 
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
 
@@ -35,36 +32,21 @@ public abstract class StopSortableAjaxBehavior extends AbstractDefaultAjaxBehavi
 	/** Sorted identifiant into the request */
 	private static final String JSON_DATA = "data";
 	
-	private SortableBehavior sortableBehavior;
-	
 	public StopSortableAjaxBehavior() {
 		super();
-		
-		this.sortableBehavior = new SortableBehavior();
-	}
-
-	public SortableBehavior getSortableBehavior() {
-		return sortableBehavior;
 	}
 
 	public abstract void saveLayout(Map<String, WidgetLocation> widgetLocations, AjaxRequestTarget target);
 	
 	@Override
-	protected void onBind() {
-		getComponent().add(sortableBehavior);
-		sortableBehavior.setStopEvent(new JsScopeUiEvent() {
+	protected CharSequence getSuccessScript() {
+		StringBuilder buffer = new StringBuilder();
+		buffer.append("var data = onStopWidgetMove();");
+		buffer.append("wicketAjaxGet('" + getCallbackUrl() 
+				+ "&" + JSON_DATA + "='+ data" 
+				+ ", null, null, function() { return true; })");
 
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void execute(JsScopeContext scopeContext) {
-				scopeContext.append("var data = onStopWidgetMove();");
-				scopeContext.append("wicketAjaxGet('" + getCallbackUrl() 
-						+ "&" + JSON_DATA + "='+ data" 
-						+ ", null, null, function() { return true; })");
-			}
-			
-		});
+		return buffer;
 	}
 
 	@Override

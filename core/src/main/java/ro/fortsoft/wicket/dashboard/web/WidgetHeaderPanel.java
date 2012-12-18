@@ -12,18 +12,17 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.IAjaxCallDecorator;
+import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
+import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.ContextRelativeResource;
-import org.odlabs.wiquery.core.events.Event;
-import org.odlabs.wiquery.core.events.MouseEvent;
-import org.odlabs.wiquery.core.events.WiQueryAjaxEventBehavior;
-import org.odlabs.wiquery.core.events.WiQueryEventBehavior;
-import org.odlabs.wiquery.core.javascript.JsScope;
-import org.odlabs.wiquery.core.javascript.JsStatement;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
@@ -40,47 +39,16 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 	public WidgetHeaderPanel(String id, IModel<Widget> model) {
 		super(id, model);		
 		
+        setMarkupId("header-" + getModelObject().getId());
+        
+		// TODO css class
 		String imagePath = "images/down.png";
 		if (getWidget().isCollapsed()) {
 			imagePath = "images/up.png";
 		}
 		Image toogle = new Image("toggle", new ContextRelativeResource(imagePath));
-		toogle.add(new WiQueryEventBehavior(new Event(MouseEvent.CLICK) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public JsScope callback() {
-				return JsScope.quickScope(getJsCode());
-			}
-			
-			private CharSequence getJsCode() {
-				/*
-				var content = $(this).parent().siblings('.dragbox-content'); 
-				if (content.css('display') == 'none') {
-					content.slideDown(400);
-					$(this).attr("src",  "../images/down.png");
-				} else {
-					content.slideUp(200);
-					buffer.append("$(this).attr("src", "../images/up.png");");
-				}
-				*/
-
-				StringBuilder buffer = new StringBuilder();
-				buffer.append("var content = $(this).parent().siblings('.dragbox-content');");
-				buffer.append("if (content.css('display') == 'none') {");
-				buffer.append("content.slideDown(400);");
-				buffer.append("$(this).attr(\"src\",  \"../images/down.png\");");
-				buffer.append("} else {");
-				buffer.append("content.slideUp(200);");
-				buffer.append("$(this).attr(\"src\", \"../images/up.png\");");
-				buffer.append("}");
-								
-				return buffer.toString();
-			}
-			
-		}));
-		toogle.add(new WiQueryAjaxEventBehavior(MouseEvent.CLICK) {
+        toogle.setOutputMarkupId(true);
+		toogle.add(new AjaxEventBehavior("onclick") {
 		
 			private static final long serialVersionUID = 1L;
 
@@ -94,38 +62,38 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 			}
 
 			@Override
-			public JsStatement statement() {
-				return null;
+			protected IAjaxCallDecorator getAjaxCallDecorator() {
+				return new AjaxCallDecorator() {
+
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public CharSequence decorateOnSuccessScript(Component c, CharSequence script) {
+                        StringBuilder buffer = new StringBuilder();
+                        buffer.append("var content = $('#").append(c.getMarkupId()).append("').parent().siblings('.dragbox-content');");
+                        buffer.append("if (content.css('display') == 'none') {");
+                        buffer.append("content.slideDown(400);");
+                        buffer.append("$(this).attr('src',  '../images/down.png');"); //TODO css class
+                        buffer.append("$(this).attr('title', 'Minimize');");
+                        buffer.append("} else {");
+                        buffer.append("content.slideUp(200);");
+                        buffer.append("$(this).attr('src', '../images/up.png');");
+                        buffer.append("$(this).attr('title', 'Show');");
+                        buffer.append("};");
+
+                        return buffer.append(script);
+					}
+					
+				};
 			}
 			
-		});
+		});			
 		add(toogle);
 		
 		add(new Label("title", getModelObject().getTitle()));
 		
 		WidgetActionsPanel actionsPanel = new WidgetActionsPanel("actions", model);
-		add(actionsPanel);
-		
-		add(new WiQueryEventBehavior(new Event(MouseEvent.MOUSEOVER) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public JsScope callback() {
-				return JsScope.quickScope("$(this).find('.dragbox-actions').show()");
-			}
-			
-		}));
-		add(new WiQueryEventBehavior(new Event(MouseEvent.MOUSEOUT) {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public JsScope callback() {
-				return JsScope.quickScope("$(this).find('.dragbox-actions').hide()");
-			}
-						
-		}));				
+		add(actionsPanel);		
 	}
 
 	public Widget getWidget() {
@@ -136,5 +104,18 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 	public void setDashboardContext(DashboardContext dashboardContext) {
 		this.dashboardContext = dashboardContext;
 	}
+
+    @Override
+    public void renderHead(IHeaderResponse response) {
+        super.renderHead(response);
+
+        StringBuilder statement = new StringBuilder("$('#").append(getMarkupId()).append("').on('mouseover', function(ev) {");
+        statement.append(" $(this).find('.dragbox-actions').show();").
+                  append("}).on('mouseout', function(ev) {").
+                  append(" $(this).find('.dragbox-actions').hide();").
+                  append("});");
+
+        response.renderOnDomReadyJavaScript(statement.toString());
+    }
 
 }
