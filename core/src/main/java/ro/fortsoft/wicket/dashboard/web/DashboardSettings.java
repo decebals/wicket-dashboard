@@ -36,7 +36,7 @@ public class DashboardSettings {
 	private ResourceReference jqueryJsonReference = new PackageResourceReference(
 			DashboardSettings.class, "res/jquery.json-2.2.min.js");
 
-	private boolean includeJQuery = true;
+	private boolean includeJQuery = false;
 	private boolean includeJQueryUI = true;
 	private boolean includeJQueryJson = true;
 	private boolean includeJavaScript = true;

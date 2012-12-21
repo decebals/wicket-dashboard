@@ -16,7 +16,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 import org.apache.wicket.IResourceListener;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.IRequestHandler;
@@ -46,7 +47,7 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		
-		response.renderJavaScriptReference(new PackageResourceReference(OpenFlashChart.class, "saveChartImage.js"));
+		response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(OpenFlashChart.class, "saveChartImage.js")));
 	}
 		
 	public void onResourceRequested() {

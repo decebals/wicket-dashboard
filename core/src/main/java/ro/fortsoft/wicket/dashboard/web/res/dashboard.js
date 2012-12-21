@@ -1,4 +1,4 @@
-function onStopWidgetMove() {
+function saveLayout() {
 	var items = [];
 	$("ul.column").each(function() {
 		var columnId = $(this).attr("id");

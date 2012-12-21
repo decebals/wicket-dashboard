@@ -12,15 +12,18 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.IAjaxCallDecorator;
-import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.GenericPanel;
+import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 
@@ -62,15 +65,17 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 			}
 
 			@Override
-			protected IAjaxCallDecorator getAjaxCallDecorator() {
-				return new AjaxCallDecorator() {
+            protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+                super.updateAjaxAttributes(attributes);
 
+                attributes.getAjaxCallListeners().add(new AjaxCallListener() {
+                	
 					private static final long serialVersionUID = 1L;
 
 					@Override
-					public CharSequence decorateOnSuccessScript(Component c, CharSequence script) {
+                    public CharSequence getSuccessHandler(Component component) {
                         StringBuilder buffer = new StringBuilder();
-                        buffer.append("var content = $('#").append(c.getMarkupId()).append("').parent().siblings('.dragbox-content');");
+                        buffer.append("var content = $('#").append(component.getMarkupId()).append("').parent().siblings('.dragbox-content');");
                         buffer.append("if (content.css('display') == 'none') {");
                         buffer.append("content.slideDown(400);");
                         buffer.append("$(this).attr('src',  '../images/down.png');"); //TODO css class
@@ -81,13 +86,23 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
                         buffer.append("$(this).attr('title', 'Show');");
                         buffer.append("};");
 
-                        return buffer.append(script);
+                        return buffer.append(super.getSuccessHandler(component));
 					}
 					
-				};
+				});
 			}
 			
-		});			
+		});
+		toogle.add(new AttributeModifier("title", new AbstractReadOnlyModel<String>() {
+			
+            private static final long serialVersionUID = 1L;
+
+			@Override
+            public String getObject() {
+                return getWidget().isCollapsed() ? "Show" : "Minimize";
+            }
+            
+        }));
 		add(toogle);
 		
 		add(new Label("title", getModelObject().getTitle()));
@@ -115,7 +130,7 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
                   append(" $(this).find('.dragbox-actions').hide();").
                   append("});");
 
-        response.renderOnDomReadyJavaScript(statement.toString());
+        response.render(OnDomReadyHeaderItem.forScript(statement.toString()));
     }
 
 }

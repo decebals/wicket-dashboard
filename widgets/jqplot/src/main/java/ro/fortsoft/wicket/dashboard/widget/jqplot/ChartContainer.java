@@ -16,7 +16,10 @@ import java.util.List;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.CssResourceReference;
@@ -71,15 +74,14 @@ public class ChartContainer extends WebMarkupContainer {
 			@Override
 			public void renderHead(Component component, IHeaderResponse response) {
 				super.renderHead(component, response);
-				response.renderJavaScriptReference(new JavaScriptResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.js"));
-				response.renderCSSReference(new CssResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.css"));
+				response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.js")));
+				response.render(CssHeaderItem.forReference(new CssResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.css")));
 				List<String> resources = JqPlotUtils.retriveJavaScriptResources(getChart());
 				for (String resource : resources) {
-					response.renderJavaScriptReference(new JavaScriptResourceReference(JqPlotBehavior.class, resource));
+					response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(JqPlotBehavior.class, resource)));
 				}
 				String json = createJquery();
-				response.renderOnDomReadyJavaScript(json);
-//				response.renderJavaScript(json, null);
+				response.render(OnDomReadyHeaderItem.forScript(json));
 			}
 
 		};

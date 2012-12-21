@@ -12,27 +12,18 @@
  */
 package ro.fortsoft.wicket.dashboard.web.util;
 
-import org.apache.wicket.ajax.IAjaxCallDecorator;
-import org.apache.wicket.ajax.calldecorator.AjaxPreprocessingCallDecorator;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
 
 /**
  * @author Decebal Suiu
  */
-public class ConfirmAjaxDecoratorDelegate extends AjaxPreprocessingCallDecorator {
+public class ConfirmAjaxCallListener extends AjaxCallListener {
 	
     private static final long serialVersionUID = 1L;
     
-    private String message;
-
-    public ConfirmAjaxDecoratorDelegate(IAjaxCallDecorator delegate, String message) {
-        super(delegate);
-        
-        this.message = message;
-    }
-
-    @Override
-    public CharSequence preDecorateScript(CharSequence script) {
-        return new StringBuilder("if(!confirm('").append(message).append("')) { return false; };").append(script);
+    public ConfirmAjaxCallListener(String confirmMessage) {
+        StringBuilder precondition = new StringBuilder("if(!confirm('").append(confirmMessage).append("')) { return false; };");
+        onPrecondition(precondition);
     }
 
 }

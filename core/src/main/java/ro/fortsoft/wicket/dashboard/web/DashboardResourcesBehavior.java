@@ -14,7 +14,9 @@ package ro.fortsoft.wicket.dashboard.web;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 
 /**
  * @author Decebal Suiu
@@ -30,23 +32,23 @@ public class DashboardResourcesBehavior extends Behavior {
 		DashboardSettings settings = DashboardSettings.get();
 		
 		if (settings.isIncludeJQuery()) {
-			response.renderJavaScriptReference(settings.getJQueryReference());
+			response.render(JavaScriptHeaderItem.forReference(settings.getJQueryReference()));
 		}
 
 		if (settings.isIncludeJQueryUI()) {
-			response.renderJavaScriptReference(settings.getJQueryUIReference());
+			response.render(JavaScriptHeaderItem.forReference(settings.getJQueryUIReference()));
 		}
 
 		if (settings.isIncludeJQueryJson()) {
-			response.renderJavaScriptReference(settings.getJQueryJsonReference());
+			response.render(JavaScriptHeaderItem.forReference(settings.getJQueryJsonReference()));
 		}
 
 		if (settings.isIncludeJavaScript()) {
-			response.renderJavaScriptReference(settings.getJavaScriptReference());
+			response.render(JavaScriptHeaderItem.forReference(settings.getJavaScriptReference()));
 		}
 		
 		if (settings.isIncludeCss()) {
-		    response.renderCSSReference(settings.getCssReference());
+			response.render(CssHeaderItem.forReference(settings.getCssReference()));
 		}
 	}
 

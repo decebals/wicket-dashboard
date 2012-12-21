@@ -16,8 +16,8 @@ import java.io.Serializable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.IAjaxCallDecorator;
-import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -26,7 +26,7 @@ import ro.fortsoft.wicket.dashboard.web.DashboardContext;
 import ro.fortsoft.wicket.dashboard.web.DashboardPanel;
 import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
 import ro.fortsoft.wicket.dashboard.web.WidgetView;
-import ro.fortsoft.wicket.dashboard.web.util.ConfirmAjaxDecoratorDelegate;
+import ro.fortsoft.wicket.dashboard.web.util.AjaxConfirmLink;
 
 /**
  * @author Decebal Suiu
@@ -100,7 +100,7 @@ public abstract class WidgetAction implements Serializable {
 
 		@Override
 		public AbstractLink getLink(String id) {
-			return new AjaxLink<Void>(id) {
+			AjaxConfirmLink<Void> deleteLink = new AjaxConfirmLink<Void>(id) {
 
 				private static final long serialVersionUID = 1L;
 
@@ -114,23 +114,27 @@ public abstract class WidgetAction implements Serializable {
 					// the widget is removed from ui with javascript (with a IAjaxCallDecorator) -> see getAjaxCallDecorator()
 				}
 				
-				@Override
-				protected IAjaxCallDecorator getAjaxCallDecorator() {
-					AjaxCallDecorator ajaxDecorator = new AjaxCallDecorator() {
-						
-						private static final long serialVersionUID = 1L;
-						
+
+	            @Override
+	            protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+	                super.updateAjaxAttributes(attributes);
+
+	                attributes.getAjaxCallListeners().add(new AjaxCallListener() {
+	                	
+	                    private static final long serialVersionUID = 1L;
+
 						@Override
-						public CharSequence decorateOnSuccessScript(Component c, CharSequence script) {
-							return "$('#widget-" + widget.getId() + "').remove();";
-						}
-						
-					};
-					
-					return new ConfirmAjaxDecoratorDelegate(ajaxDecorator, "Delete widget " + widget.getTitle() + "?");
-				}
+	                    public CharSequence getSuccessHandler(Component component) {
+	                        return "$('#widget-" + widget.getId() + "').remove();";
+	                    }
+	                    
+	                });
+	            }
 				
 			};
+			deleteLink.setConfirmMessage("Delete widget " + widget.getTitle() + "?");
+			
+			return deleteLink;
 		}
 		
 	}

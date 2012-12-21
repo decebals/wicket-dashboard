@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
 
@@ -37,17 +38,16 @@ public abstract class StopSortableAjaxBehavior extends AbstractDefaultAjaxBehavi
 	}
 
 	public abstract void saveLayout(Map<String, WidgetLocation> widgetLocations, AjaxRequestTarget target);
-	
-	@Override
-	protected CharSequence getSuccessScript() {
-		StringBuilder buffer = new StringBuilder();
-		buffer.append("var data = onStopWidgetMove();");
-		buffer.append("wicketAjaxGet('" + getCallbackUrl() 
-				+ "&" + JSON_DATA + "='+ data" 
-				+ ", null, null, function() { return true; })");
+		
+    @Override
+    protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+        super.updateAjaxAttributes(attributes);
 
-		return buffer;
-	}
+        StringBuilder buffer = new StringBuilder("var data = saveLayout();");
+        buffer.append("return {'" + JSON_DATA + "': data};");
+
+        attributes.getDynamicExtraParameters().add(buffer);
+    }
 
 	@Override
 	protected void respond(AjaxRequestTarget target) {

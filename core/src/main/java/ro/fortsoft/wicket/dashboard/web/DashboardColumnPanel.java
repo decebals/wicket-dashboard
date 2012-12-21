@@ -19,7 +19,8 @@ import java.util.Map;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -112,15 +113,6 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
 			}
 			
 		};
-
-		/*
-		sortableBehavior.setConnectWith(".column");
-		sortableBehavior.setHandle(".dragbox-header");
-		sortableBehavior.setCursor("move");
-		sortableBehavior.setForcePlaceholderSize(true);
-		sortableBehavior.setPlaceholder("placeholder");
-		sortableBehavior.setOpacity(0.4f);
-		*/
 		
 		component.add(stopSortableAjaxBehavior);
 	}
@@ -129,7 +121,7 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
 	public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
 
-        CharSequence script = stopSortableAjaxBehavior.getSuccessScript();
+        CharSequence script = stopSortableAjaxBehavior.getCallbackFunctionBody();
 
         Map<String, String> vars = new HashMap<String, String>();
         vars.put("component", get("columnContainer").getMarkupId());
@@ -138,7 +130,7 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
         PackageTextTemplate template = new PackageTextTemplate(DashboardColumnPanel.class, "res/sort-behavior.template.js");
         template.interpolate(vars);
 
-        response.renderOnDomReadyJavaScript(template.getString());
+        response.render(OnDomReadyHeaderItem.forScript(template.getString()));
     }
     
 	/*

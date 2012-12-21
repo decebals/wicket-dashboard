@@ -18,7 +18,7 @@
 		<dependency>
 		    <groupId>org.wicketstuff</groupId>
 		    <artifactId>jqplot</artifactId>
-		    <version>1.5.4</version>
+		    <version>1.5.8</version>
 		</dependency>
 
         <dependency>

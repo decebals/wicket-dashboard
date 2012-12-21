@@ -19,7 +19,9 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.resource.PackageResourceReference;
 
 /**
@@ -75,8 +77,9 @@ public class SWFObject extends Behavior {
 				flashUrl, id, width, height, version, "expressInstall.swf", parObj, attObj);
 
 		 // see http://old.nabble.com/Re%3A-Graphs%2C-Charts-and-Wicket-p21987222.html
-		if (AjaxRequestTarget.get() != null) {
-			AjaxRequestTarget.get().appendJavaScript(javascript);
+		AjaxRequestTarget target = RequestCycle.get().find(AjaxRequestTarget.class);
+		if (target != null) {
+			target.appendJavaScript(javascript);
 		}
 		
 		return javascript;
@@ -90,8 +93,8 @@ public class SWFObject extends Behavior {
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
-		response.renderJavaScriptReference(new PackageResourceReference(SWFObject.class, "swfobject-2.2.js"));
-		response.renderJavaScript(getJavaScript(), null);
+		response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(SWFObject.class, "swfobject-2.2.js")));
+		response.render(JavaScriptHeaderItem.forScript(getJavaScript(), null));
 	}
 
 	@Override
