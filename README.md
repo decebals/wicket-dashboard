@@ -45,6 +45,7 @@ Artifacts
 
 Using Maven
 -------------------
+All artifacts are uploaded to the Central Maven Repository.
 
 In your pom.xml you must define the dependencies to wicket dashboard artifacts with:
 
@@ -78,6 +79,8 @@ In your pom.xml you must define the dependencies to wicket dashboard artifacts w
 ```
 
 where ${wicket-dashboard.version} is the last wicket dashboard version.
+
+You may want to check for the latest released version using [Maven Search](http://search.maven.org/#search%7Cga%7C1%7Cwicket-dashboard)
 
 How to use
 -------------------
@@ -142,7 +145,6 @@ For more information please see the demo sources.
 
 Demo
 -------------------
-
 I have a tiny demo application. In this demo I have implemented three widgets types:
 a chart widget using [open flash chart] (http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot] (http://www.jqplot.com) and a loremipsum widget (display a Lorem Ipsum).
 
@@ -159,7 +161,6 @@ You can see a screenshot from demo application in [wiki page] (https://github.co
 
 License
 --------------
-  
 Copyright 2012 Decebal Suiu
  
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
