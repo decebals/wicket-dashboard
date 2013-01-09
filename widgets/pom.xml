@@ -3,13 +3,13 @@
     
     <parent>
         <groupId>ro.fortsoft.wicket.dashboard</groupId>
-        <artifactId>pom</artifactId>
+        <artifactId>wicket-dashboard-parent</artifactId>
         <version>0.6-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
-    <artifactId>pom</artifactId>
+    <artifactId>wicket-dashboard-widgets-parent</artifactId>
     <version>0.6-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Wicket Dashboard Widgets</name>
@@ -27,6 +27,7 @@
         <module>ofchart</module>
         <module>jqplot</module>
         <module>loremipsum</module>
+        <module>justgage</module>
     </modules>
 
 </project>

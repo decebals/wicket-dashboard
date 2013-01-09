@@ -19,11 +19,14 @@ import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.DefaultDashboard;
 import ro.fortsoft.wicket.dashboard.WidgetRegistry;
 import ro.fortsoft.wicket.dashboard.demo.jqplot.DemoChartFactory;
+import ro.fortsoft.wicket.dashboard.demo.justgage.DemoJustGageFactory;
 import ro.fortsoft.wicket.dashboard.demo.ofchart.DemoChartDataFactory;
 import ro.fortsoft.wicket.dashboard.web.DashboardContext;
 import ro.fortsoft.wicket.dashboard.web.DashboardContextInjector;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidget;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidgetDescriptor;
+import ro.fortsoft.wicket.dashboard.widget.justgage.JustGageWidget;
+import ro.fortsoft.wicket.dashboard.widget.justgage.JustGageWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.loremipsum.LoremIpsumWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.ofchart.ChartWidget;
 import ro.fortsoft.wicket.dashboard.widget.ofchart.ChartWidgetDescriptor;
@@ -64,6 +67,8 @@ public class WicketApplication extends WebApplication {
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
 		widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
 		JqPlotWidget.setChartFactory(new DemoChartFactory());
+		widgetRegistry.registerWidget(new JustGageWidgetDescriptor());
+		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
 		
 		// add dashboard context injector
 		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);

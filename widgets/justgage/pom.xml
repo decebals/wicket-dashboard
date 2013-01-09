@@ -8,24 +8,9 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>wicket-dashboard-jqplot</artifactId>
+    <artifactId>wicket-dashboard-justgage</artifactId>
     <version>0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>JqPlot Widget</name>
-
-    <dependencies>
-        <!-- JqPlot -->
-        <dependency>
-            <groupId>org.wicketstuff</groupId>
-            <artifactId>jqplot</artifactId>
-            <version>1.5.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.com.digilabs.jqplot</groupId>
-            <artifactId>jqplot4java</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-    </dependencies>
+    <name>JustGage Widget</name>
 
 </project>
