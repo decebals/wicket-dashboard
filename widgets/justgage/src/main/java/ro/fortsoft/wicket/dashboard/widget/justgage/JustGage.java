@@ -12,18 +12,44 @@
  */
 package ro.fortsoft.wicket.dashboard.widget.justgage;
 
+import ro.fortsoft.wicket.dashboard.widget.justgage.option.Option;
+
 /**
  * @author Decebal Suiu
  */
 public class JustGage {
 
+	// This field is set by JustGageWidgetView !!! 
+	@Option(required = true)
+	private String id;
+	
+	@Option(required = true)
 	private String title;
+	
+	@Option(required = true)
 	private int value;
+	
+	@Option
 	private int min;
+	
+	@Option
 	private int max;
+	
+	@Option
 	private String gaugeColor;
+	
+	@Option
 	private String label;
 	
+	public String getId() {
+		return id;
+	}
+
+	public JustGage setId(String id) {
+		this.id = id;
+		return this;
+	}
+
 	public JustGage setValue(int value) {
 		this.value = value;
 		return this;

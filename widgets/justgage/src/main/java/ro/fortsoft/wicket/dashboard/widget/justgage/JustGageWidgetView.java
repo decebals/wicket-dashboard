@@ -22,6 +22,7 @@ import org.apache.wicket.request.resource.ResourceReference;
 
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.web.WidgetView;
+import ro.fortsoft.wicket.dashboard.widget.justgage.option.JavaScriptOptionsRenderer;
 
 /**
  * @author Decebal Suiu
@@ -67,38 +68,19 @@ public class JustGageWidgetView extends WidgetView {
 		
 		JustGageWidget widget = (JustGageWidget) getModelObject();		
 		JustGage justGage = widget.getJustGage();
+		justGage.setId(gaugeId);
 		
 		StringBuilder function = new StringBuilder();
 		function.append("var " + gaugeId + " = ");
 		function.append("new JustGage({");
-		appendOption("id", gaugeId, true, function);
-		appendOption("value", justGage.getValue(), true, function);
-		appendOption("min", justGage.getMin(), false, function);
-		appendOption("max", justGage.getMax(), false, function);
-		appendOption("gaugeColor", justGage.getGaugeColor(), false, function);
-		appendOption("label", justGage.getLabel(), false, function);
-		appendOption("title", justGage.getTitle(), false, function);
-		function.deleteCharAt(function.length() - 1); // delete last ","
+		JavaScriptOptionsRenderer.renderOptions(justGage, function);
 		function.append("});");
+
+//		System.out.println(function);
 		
 	 	return function;
 	}
-	
-	private StringBuilder appendOption(String name, Object value, boolean required, StringBuilder function) {
-		if ((value == null) && !required ) {
-			return function;
-		}
 		
-		String optionValue;
-		if (value instanceof String) {
-			optionValue = "\"" + value + "\"";
-		} else {
-			optionValue = value.toString();
-		}
-		
-		return function.append(name + ':' + optionValue + ','); 
-	}
-	
 	/*
 	private String getGaugeId() {
 //		return "gauge-" + getModelObject().getId();
