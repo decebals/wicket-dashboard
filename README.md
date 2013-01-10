@@ -5,7 +5,7 @@ A dashboard is a panel with quick access to information or common tasks.
 
 Features/Benefits
 -------------------
-With wicket-dasboard you can easily add a dashboard with standard and custom widgets to your wicket application.  
+With wicket-dashboard you can easily add a dashboard with standard and custom widgets to your wicket application.  
 For a dashboard you can specify the numbers of columns, drag and drop widgets, remove widgets, add new widgets, change widget settings, 
 collapse widgets, or perform any custom action added by you to widget.  
 Also you can save and load the dashboard from a repository (file, database).
@@ -38,9 +38,10 @@ Artifacts
 -------------------
 - Wicket Dashboard Core `wicket-dashboard-core` (jar)
 - Wicket Dashboard (Standard) Widgets
-    - loremipsum `wicket-dashboard-loremispum`  (jar)
     - ofchart `wicket-dashboard-ofchart`        (jar)
     - jqplot `wicket-dashboard-jqplot`          (jar)
+    - justgage `wicket-dashboard-justgage`      (jar)
+    - loremipsum `wicket-dashboard-loremispum`  (jar)
 - Wicket Dashboard Demo `wicket-dashboard-demo` (war)
 
 Using Maven
@@ -67,6 +68,13 @@ In your pom.xml you must define the dependencies to wicket dashboard artifacts w
 <dependency>
     <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
     <artifactId>wicket-dashboard-jqplot</artifactId>
+    <version>${wicket-dashboard.version}</version>
+</dependency>
+
+<!-- OPTIONAL -->
+<dependency>
+    <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
+    <artifactId>wicket-dashboard-justgage</artifactId>
     <version>${wicket-dashboard.version}</version>
 </dependency>
 
@@ -120,6 +128,11 @@ In your application class make some initializations:
     }
 
 
+In your web page add the dashboard panel:
+
+    Dashboard dashboard = ...;
+    add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
+
 To configure wicket-dashboard see **DashboardSettings** class. In this class you can specify for example if you want to ignore
 the jquery internal version, or to specify another versions for wicket-dashboard's resources.
 
@@ -133,11 +146,6 @@ the jquery internal version, or to specify another versions for wicket-dashboard
 
         ...       
     }
-
-In your web page add the dashboard panel:
-
-    Dashboard dashboard = ...;
-    add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
     
 If you need an dashboard context object in your wicket panel than implements **DashboardContextAware** (see _AddWidgetPanel_ from demo).    
 
@@ -146,7 +154,7 @@ For more information please see the demo sources.
 Demo
 -------------------
 I have a tiny demo application. In this demo I have implemented three widgets types:
-a chart widget using [open flash chart] (http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot] (http://www.jqplot.com) and a loremipsum widget (display a Lorem Ipsum).
+a chart widget using [open flash chart](http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot](http://www.jqplot.com), a handy widget for generating and animating nice & clean gauges using [justgage](http://justgage.com) and a loremipsum widget (display a Lorem Ipsum).
 
 The demo application is in demo package.
 To run the demo application use:  
