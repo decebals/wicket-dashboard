@@ -23,7 +23,12 @@ public class DemoJustGageFactory implements JustGageFactory{
 
 	@Override
 	public JustGage createJustGage(JustGageWidget widget) {
-		return new JustGage().setValue(4).setMin(0).setMax(10).setTitle("Beers").setGaugeColor("#F78000");
+		return new JustGage().setValue(4)
+				.setMin(0)
+				.setMax(10)
+				.setTitle("Beers")
+				.setGaugeColor("#F78000")
+				.setLabel("average");
 	}
 	
 }

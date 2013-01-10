@@ -22,6 +22,7 @@ public class JustGage {
 	private int min;
 	private int max;
 	private String gaugeColor;
+	private String label;
 	
 	public JustGage setValue(int value) {
 		this.value = value;
@@ -65,6 +66,15 @@ public class JustGage {
 
 	public JustGage setGaugeColor(String gaugeColor) {
 		this.gaugeColor = gaugeColor;
+		return this;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public JustGage setLabel(String label) {
+		this.label = label;
 		return this;
 	}
 

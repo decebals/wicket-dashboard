@@ -68,18 +68,35 @@ public class JustGageWidgetView extends WidgetView {
 		JustGageWidget widget = (JustGageWidget) getModelObject();		
 		JustGage justGage = widget.getJustGage();
 		
-		StringBuilder builder = new StringBuilder();
-		builder.append("var " + gaugeId + " = ");
-		builder.append("new JustGage({");
-		builder.append("id: \"" + gaugeId + "\",");
-		builder.append("value: " + justGage.getValue() + ",");
-		builder.append("min: " + justGage.getMin() + ",");
-		builder.append("max: " + justGage.getMax() + ",");
-		builder.append("gaugeColor: \"" + justGage.getGaugeColor() + "\",");
-		builder.append("title: \"" + justGage.getTitle() + "\"");
-		builder.append("});");
-
-	 	return builder;
+		StringBuilder function = new StringBuilder();
+		function.append("var " + gaugeId + " = ");
+		function.append("new JustGage({");
+		appendOption("id", gaugeId, true, function);
+		appendOption("value", justGage.getValue(), true, function);
+		appendOption("min", justGage.getMin(), false, function);
+		appendOption("max", justGage.getMax(), false, function);
+		appendOption("gaugeColor", justGage.getGaugeColor(), false, function);
+		appendOption("label", justGage.getLabel(), false, function);
+		appendOption("title", justGage.getTitle(), false, function);
+		function.deleteCharAt(function.length() - 1); // delete last ","
+		function.append("});");
+		
+	 	return function;
+	}
+	
+	private StringBuilder appendOption(String name, Object value, boolean required, StringBuilder function) {
+		if ((value == null) && !required ) {
+			return function;
+		}
+		
+		String optionValue;
+		if (value instanceof String) {
+			optionValue = "\"" + value + "\"";
+		} else {
+			optionValue = value.toString();
+		}
+		
+		return function.append(name + ':' + optionValue + ','); 
 	}
 	
 	/*
