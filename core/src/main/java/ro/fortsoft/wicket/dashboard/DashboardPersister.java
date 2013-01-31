@@ -15,7 +15,7 @@ package ro.fortsoft.wicket.dashboard;
 /**
  * @author Decebal Suiu
  */
-public interface DashboardPersiter {
+public interface DashboardPersister {
 
 	public Dashboard load();
 	

@@ -14,7 +14,7 @@ package ro.fortsoft.wicket.dashboard.web;
 
 import java.io.File;
 
-import ro.fortsoft.wicket.dashboard.DashboardPersiter;
+import ro.fortsoft.wicket.dashboard.DashboardPersister;
 import ro.fortsoft.wicket.dashboard.DefaultWidgetActionsFactory;
 import ro.fortsoft.wicket.dashboard.DefaultWidgetFactory;
 import ro.fortsoft.wicket.dashboard.DefaultWidgetRegistry;
@@ -30,7 +30,7 @@ public class DashboardContext {
 	
 	private WidgetFactory widgetFactory;
 	private WidgetRegistry widgetRegistry;
-	private DashboardPersiter dashboardPersiter;
+	private DashboardPersister dashboardPersister;
 	private WidgetActionsFactory widgetActionsFactory;
 	
 	public DashboardContext() {
@@ -56,12 +56,12 @@ public class DashboardContext {
 		this.widgetRegistry = widgetRegistry;
 	}
 
-	public DashboardPersiter getDashboardPersiter() {
-		return dashboardPersiter;
+	public DashboardPersister getDashboardPersiter() {
+		return dashboardPersister;
 	}
 
-	public void setDashboardPersiter(DashboardPersiter dashboardPersiter) {
-		this.dashboardPersiter = dashboardPersiter;
+	public void setDashboardPersiter(DashboardPersister dashboardPersister) {
+		this.dashboardPersister = dashboardPersister;
 	}
 
 	public WidgetActionsFactory getWidgetActionsFactory() {
