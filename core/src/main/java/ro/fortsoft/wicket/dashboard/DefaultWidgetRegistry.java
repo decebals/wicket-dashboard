@@ -43,9 +43,9 @@ public class DefaultWidgetRegistry implements WidgetRegistry {
 	}
 
 	@Override
-	public WidgetDescriptor getWidgetDescriptor(String widgetName) {
+	public WidgetDescriptor getWidgetDescriptorByClassName(String widgetClassName) {
 		for (WidgetDescriptor widgetDescriptor : widgetDescriptors) {
-			if (widgetDescriptor.getName().equals(widgetName)) {
+			if (widgetDescriptor.getWidgetClassName().equals(widgetClassName)) {
 				return widgetDescriptor;
 			}
 		}
@@ -53,4 +53,15 @@ public class DefaultWidgetRegistry implements WidgetRegistry {
 		return null;
 	}
 	
+	@Override	
+	public WidgetDescriptor getWidgetDescriptorByTypeName(String widgetTypeName) {
+		for (WidgetDescriptor widgetDescriptor : widgetDescriptors) {
+			if (widgetDescriptor.getTypeName().equals(widgetTypeName)) {
+				return widgetDescriptor;
+			}
+		}
+		
+		return null;		
+	}
+
 }

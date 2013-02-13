@@ -37,4 +37,9 @@ public class ChartWidgetDescriptor implements WidgetDescriptor {
 		return ChartWidget.class.getName();
 	}
 
+	@Override
+	public String getTypeName() {
+		return "widget.ofchart";
+	}
+
 }

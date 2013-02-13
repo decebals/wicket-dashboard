@@ -30,10 +30,9 @@ public class LoremIpsumWidget extends AbstractWidget {
 	
 	private transient LoremIpsum loremIpsum;
 	
-	public LoremIpsumWidget(String id) {
+	public LoremIpsumWidget() {
 		super();
 		
-		this.id = id; 
 		title = "Text";
 	}
 

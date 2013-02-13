@@ -47,10 +47,9 @@ public class ChartWidget extends AbstractWidget {
 
 	private static ChartDataFactory chartDataFactory;	
 	
-	public ChartWidget(String id) {
+	public ChartWidget() {
 		super();
 		
-		this.id = id;
 		title = "Chart";
 	}
 
