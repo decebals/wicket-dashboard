@@ -25,12 +25,10 @@ public class DefaultWidgetFactory implements WidgetFactory {
 		String widgetClassName = widgetDescriptor.getWidgetClassName();
 		try {
 			Class<Widget> widgetClass = (Class<Widget>) Class.forName(widgetClassName);
-			Class<?>[] types = new Class[] { String.class };
-			Object[] arguments = new String[] { UUID.randomUUID().toString() };
-//			Constructor<Widget> constructor = widgetClass.getConstructor();
-			Constructor<Widget> constructor = widgetClass.getConstructor(types);
-//			Widget widget = constructor.newInstance();
-			Widget widget = constructor.newInstance(arguments);
+			Constructor<Widget> constructor = widgetClass.getConstructor();
+			Widget widget = constructor.newInstance();
+			String widgetId = createWidgetId(widgetDescriptor, widget);
+			widget.setId(widgetId);
 			widget.init();
 			
 			return widget;
@@ -45,4 +43,8 @@ public class DefaultWidgetFactory implements WidgetFactory {
 		return null;
 	}
 
+	protected String createWidgetId(WidgetDescriptor widgetDescriptor, Widget widget) {
+		return UUID.randomUUID().toString();
+	}
+	
 }

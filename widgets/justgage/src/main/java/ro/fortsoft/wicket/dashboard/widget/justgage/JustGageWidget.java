@@ -27,10 +27,9 @@ public class JustGageWidget extends AbstractWidget {
 		
 	private static JustGageFactory justGageFactory;
 	
-	public JustGageWidget(String id) {
+	public JustGageWidget() {
 		super();
 		
-		this.id = id; 
 		title = "JustGage";
 	}
 

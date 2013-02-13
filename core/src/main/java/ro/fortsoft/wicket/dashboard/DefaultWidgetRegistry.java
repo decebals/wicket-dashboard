@@ -26,14 +26,42 @@ public class DefaultWidgetRegistry implements WidgetRegistry {
 		widgetDescriptors = new ArrayList<WidgetDescriptor>();
 	}
 	
+	@Override
 	public List<WidgetDescriptor> getWidgetDescriptors() {
 		return widgetDescriptors;
 	}
 
+	public void setWidgetDescriptors(List<WidgetDescriptor> widgetDescriptors) {
+		this.widgetDescriptors = widgetDescriptors;
+	}
+
+	@Override
 	public void registerWidget(WidgetDescriptor widgetDescriptor) {
 		if (widgetDescriptor != null) {
 			widgetDescriptors.add(widgetDescriptor);
 		}
+	}
+
+	@Override
+	public WidgetDescriptor getWidgetDescriptorByClassName(String widgetClassName) {
+		for (WidgetDescriptor widgetDescriptor : widgetDescriptors) {
+			if (widgetDescriptor.getWidgetClassName().equals(widgetClassName)) {
+				return widgetDescriptor;
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override	
+	public WidgetDescriptor getWidgetDescriptorByTypeName(String widgetTypeName) {
+		for (WidgetDescriptor widgetDescriptor : widgetDescriptors) {
+			if (widgetDescriptor.getTypeName().equals(widgetTypeName)) {
+				return widgetDescriptor;
+			}
+		}
+		
+		return null;		
 	}
 
 }

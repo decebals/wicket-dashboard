@@ -23,4 +23,8 @@ public interface WidgetRegistry {
 	
 	public List<WidgetDescriptor> getWidgetDescriptors();
 	
+	public WidgetDescriptor getWidgetDescriptorByClassName(String widgetClassName);
+	
+	public WidgetDescriptor getWidgetDescriptorByTypeName(String widgetTypeName);
+	
 }

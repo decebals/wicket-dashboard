@@ -37,4 +37,9 @@ public class JustGageWidgetDescriptor implements WidgetDescriptor {
 		return JustGageWidget.class.getName();
 	}
 
+	@Override
+	public String getTypeName() {
+		return "widget.justgage";
+	}
+
 }

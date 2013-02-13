@@ -35,26 +35,32 @@ public abstract class AbstractWidget implements Widget {
 		location = new WidgetLocation();
 	}
     
+    @Override
     public String getId() {
 		return id;
 	}
 
+    @Override
 	public void setId(String id) {
 		this.id = id;
 	}
 
+    @Override
 	public String getTitle() {
 		return title;
 	}
 
+    @Override
 	public void setTitle(String title) {
 		this.title = title;
 	}
 
+    @Override
 	public boolean isCollapsed() {
 		return collapsed;
 	}
 
+    @Override
 	public void setCollapsed(boolean collapsed) {
 		this.collapsed = collapsed;
 //		getInternalSettings().put(COLLAPSED, Boolean.toString(collapsed));
@@ -74,18 +80,22 @@ public abstract class AbstractWidget implements Widget {
 		// do nothing
 	}
 	
+    @Override
 	public boolean hasSettings() {
 		return false;
 	}
 
+    @Override
 	public Map<String, String> getSettings() {
 		return settings;
 	}
 
+    @Override
 	public void setSettings(Map<String, String> settings) {
 		this.settings = settings;
 	}
 
+    @Override
 	public Panel createSettingsPanel(String settingsPanelId) {
 		return null;
 	}

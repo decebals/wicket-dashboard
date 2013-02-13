@@ -36,7 +36,7 @@ public class ChartContainer extends WebMarkupContainer {
 
 	private static final long serialVersionUID = 1L;
 
-	public ChartContainer(String id, IModel<Chart<?>> model) {
+	public ChartContainer(String id, IModel<? extends Chart<?>> model) {
 		super(id, model);
 
 		setOutputMarkupId(true);

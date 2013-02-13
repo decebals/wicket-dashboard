@@ -37,4 +37,9 @@ public class JqPlotWidgetDescriptor implements WidgetDescriptor {
 		return JqPlotWidget.class.getName();
 	}
 
+	@Override
+	public String getTypeName() {
+		return "widget.jqplot";
+	}
+
 }

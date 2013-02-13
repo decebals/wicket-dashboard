@@ -23,7 +23,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 /**
  * @author Decebal Suiu
  */
-public class XStreamDashboardPersister implements DashboardPersiter {
+public class XStreamDashboardPersister implements DashboardPersister {
 	
 	private File file;
 	private XStream xstream;

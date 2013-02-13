@@ -45,10 +45,9 @@ public class JqPlotWidget extends AbstractWidget {
 
 	private static ChartFactory chartFactory;
 	
-	public JqPlotWidget(String id) {
+	public JqPlotWidget() {
 		super();
 		
-		this.id = id; 
 		title = "JqPlot";
 	}
 	

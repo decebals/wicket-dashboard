@@ -15,16 +15,29 @@ package ro.fortsoft.wicket.dashboard;
 import java.io.Serializable;
 
 /**
+ * Widget definition descriptor.
+ * 
  * @author Decebal Suiu
  */
 public interface WidgetDescriptor extends Serializable {
 
+	/**
+	 * Returns a UUID string that represents the widget type name.
+	 */
+	public String getTypeName();
+	
+	/**
+	 * Returns the widget name that user will see in the list of available widgets. 
+	 */
 	public String getName();
 	
 	public String getProvider();
 	
 	public String getDescription();
 	
+	/**
+	 * Returns the classname of the widget.
+	 */
 	public String getWidgetClassName();
 	
 }

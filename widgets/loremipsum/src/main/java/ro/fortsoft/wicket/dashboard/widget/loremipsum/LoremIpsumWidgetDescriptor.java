@@ -36,5 +36,10 @@ public class LoremIpsumWidgetDescriptor implements WidgetDescriptor {
 	public String getWidgetClassName() {
 		return LoremIpsumWidget.class.getName();
 	}
+	
+	@Override
+	public String getTypeName() {
+		return "widget.loremipsum";
+	}
 
 }

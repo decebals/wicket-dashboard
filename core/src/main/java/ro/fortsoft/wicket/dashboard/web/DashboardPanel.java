@@ -75,7 +75,7 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 
 			@Override
 			protected void populateItem(LoopItem item) {
-			    float columnPanelWidth = 100 / columnCount;
+			    float columnPanelWidth = 100f / columnCount;
 		    	DashboardColumnPanel columnPanel = new DashboardColumnPanel("column", getModel(), item.getIndex());
 		    	columnPanel.setRenderBodyOnly(true);
 		    	columnPanel.getColumnContainer().add(AttributeModifier.replace("style", "width: " + columnPanelWidth + "%;"));		    	
