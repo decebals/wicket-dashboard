@@ -12,9 +12,9 @@
     <artifactId>wicket-dashboard-parent</artifactId>
     <version>0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
-	<name>Wicket Pivot</name>
-	<description>Simple web pivot table using Apache Wicket</description>
-    <url>https://github.com/decebals/wicket-pivot</url>
+	<name>Wicket Dashboard</name>  	
+    <description>Simple web dashboard using Apache Wicket</description>  	
+	<url>https://github.com/decebals/wicket-dashboard</url>
 
     <licenses>
         <license>
