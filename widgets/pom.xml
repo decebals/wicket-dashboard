@@ -12,7 +12,7 @@
     <artifactId>wicket-dashboard-widgets-parent</artifactId>
     <version>0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Wicket Dashboard Widgets</name>
+    <name>Wicket Dashboard Widgets Parent</name>
 
     <dependencies>
         <dependency>
