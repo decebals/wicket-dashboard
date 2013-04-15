@@ -26,24 +26,21 @@ import com.google.gson.Gson;
 /**
  * @author Decebal Suiu
  */
-public abstract class StopSortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
+public abstract class SortableAjaxBehavior extends AbstractDefaultAjaxBehavior {
 
 	private static final long serialVersionUID = 1L;
 
 	/** Sorted identifiant into the request */
 	private static final String JSON_DATA = "data";
 	
-	public StopSortableAjaxBehavior() {
-		super();
-	}
-
-	public abstract void saveLayout(Map<String, WidgetLocation> widgetLocations, AjaxRequestTarget target);
+	public abstract void onSort(AjaxRequestTarget target, Map<String, WidgetLocation> widgetLocations);
 		
     @Override
     protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
         super.updateAjaxAttributes(attributes);
 
-        StringBuilder buffer = new StringBuilder("var data = saveLayout();");
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("var data = serializeWidgetLocations();");
         buffer.append("return {'" + JSON_DATA + "': data};");
 
         attributes.getDynamicExtraParameters().add(buffer);
@@ -51,7 +48,7 @@ public abstract class StopSortableAjaxBehavior extends AbstractDefaultAjaxBehavi
 
 	@Override
 	protected void respond(AjaxRequestTarget target) {
-		String jsonData = this.getComponent().getRequest().getRequestParameters().getParameterValue(JSON_DATA).toString();
+		String jsonData = getComponent().getRequest().getRequestParameters().getParameterValue(JSON_DATA).toString();
 		Item[] items = getItems(jsonData);
 		Map<String, WidgetLocation> locations = new HashMap<String, WidgetLocation>();
 		for (Item item : items) {
@@ -59,7 +56,7 @@ public abstract class StopSortableAjaxBehavior extends AbstractDefaultAjaxBehavi
 			locations.put(item.widget, location);
 		}
 		
-		saveLayout(locations, target);
+		onSort(target, locations);
 	}
 
 	private Item[] getItems(String jsonData) {

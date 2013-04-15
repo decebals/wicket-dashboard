@@ -124,8 +124,10 @@ public class AddWidgetPanel extends GenericPanel<Dashboard> implements Dashboard
 				public void onClick(AjaxRequestTarget target) {
 					WidgetFactory widgetFactory = dashboardContext.getWidgetFactory();
 					Widget widget = widgetFactory.createWidget(model.getObject());
-					Dashboard dashboard = getDashboard();
 					widget.setTitle(getUniqueWidgetTitle(widget.getTitle(), count));
+					// DashboardPanel is on other page
+//					send(getPage(), Broadcast.BREADTH, new DashboardEvent(target, DashboardEvent.EventType.WIDGET_ADDED, widget));
+					Dashboard dashboard = getDashboard();
 					dashboard.addWidget(widget);
 					dashboardContext.getDashboardPersiter().save(dashboard);
 					message = "added";

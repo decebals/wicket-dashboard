@@ -19,6 +19,7 @@ import java.util.Map;
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -29,7 +30,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.template.PackageTextTemplate;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
-import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
 
@@ -40,7 +40,7 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
 	
 	private static final long serialVersionUID = 1L;	
 		
-	private StopSortableAjaxBehavior stopSortableAjaxBehavior;
+	private SortableAjaxBehavior sortableAjaxBehavior;
 	
 	public DashboardColumnPanel(String id, final IModel<Dashboard> dashboardModel, int columnIndex) {
 		super(id, dashboardModel);
@@ -100,28 +100,24 @@ class DashboardColumnPanel extends GenericPanel<Dashboard> {
 	}
 
 	private void addSortableBehavior(Component component) {
-		stopSortableAjaxBehavior = new StopSortableAjaxBehavior() {
+		sortableAjaxBehavior = new SortableAjaxBehavior() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			public void saveLayout(Map<String, WidgetLocation> widgetLocations, AjaxRequestTarget target) {
-				Dashboard dashboard = getDashboard();
-				DashboardUtils.updateWidgetLocations(dashboard, widgetLocations);
-				DashboardContext dashboardContext = findParent(DashboardPanel.class).getDashboardContext();
-				dashboardContext.getDashboardPersiter().save(dashboard);
+			public void onSort(AjaxRequestTarget target, Map<String, WidgetLocation> widgetLocations) {
+				send(getPage(), Broadcast.BREADTH, new DashboardEvent(target, DashboardEvent.EventType.WIDGETS_SORTED, widgetLocations));
 			}
 			
 		};
-		
-		component.add(stopSortableAjaxBehavior);
+		component.add(sortableAjaxBehavior);
 	}
 
 	@Override
 	public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
 
-        CharSequence script = stopSortableAjaxBehavior.getCallbackFunctionBody();
+        CharSequence script = sortableAjaxBehavior.getCallbackFunctionBody();
 
         Map<String, String> vars = new HashMap<String, String>();
         vars.put("component", get("columnContainer").getMarkupId());

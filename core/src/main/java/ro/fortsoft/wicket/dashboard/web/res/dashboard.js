@@ -1,4 +1,4 @@
-function saveLayout() {
+function serializeWidgetLocations() {
 	var items = [];
 	$("ul.column").each(function() {
 		var columnId = $(this).attr("id");

@@ -19,11 +19,11 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import ro.fortsoft.wicket.dashboard.web.DashboardContext;
-import ro.fortsoft.wicket.dashboard.web.DashboardPanel;
+import ro.fortsoft.wicket.dashboard.web.DashboardEvent;
 import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
 import ro.fortsoft.wicket.dashboard.web.WidgetView;
 import ro.fortsoft.wicket.dashboard.web.util.AjaxConfirmLink;
@@ -36,7 +36,7 @@ public abstract class WidgetAction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected Widget widget;	
-	protected String label;
+	protected String label; // for the moment is unused
 	protected String image;
 	protected String tooltip;
 
@@ -45,7 +45,6 @@ public abstract class WidgetAction implements Serializable {
 	}
 	
 	public abstract AbstractLink getLink(String id);
-
  
 	public String getLabel() {
 		return label;
@@ -106,14 +105,9 @@ public abstract class WidgetAction implements Serializable {
 
 				@Override
 				public void onClick(AjaxRequestTarget target) {
-					DashboardPanel dashboardPanel = findParent(DashboardPanel.class);
-					Dashboard dashboard = dashboardPanel.getDashboard();
-					dashboard.deleteWidget(widget.getId());
-					DashboardContext dashboardContext = dashboardPanel.getDashboardContext();
-					dashboardContext.getDashboardPersiter().save(dashboard);
-					// the widget is removed from ui with javascript (with a IAjaxCallDecorator) -> see getAjaxCallDecorator()
+					send(getPage(), Broadcast.BREADTH, new DashboardEvent(target, DashboardEvent.EventType.WIDGET_REMOVED, widget));
+					// the widget is removed from ui with javascript (with a IAjaxCallListener) -> see getAjaxCallListener()
 				}
-				
 
 	            @Override
 	            protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
