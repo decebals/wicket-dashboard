@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.Collections;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -54,6 +55,9 @@ public class XStreamDashboardPersister implements DashboardPersister {
 
 	@Override
 	public void save(Dashboard dashboard) {
+		// sort widgets
+		Collections.sort(dashboard.getWidgets(), new WidgetComparator());
+		
 		try {
 			xstream.toXML(dashboard, new FileOutputStream(file));
 		} catch (FileNotFoundException e) {

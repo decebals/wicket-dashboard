@@ -15,20 +15,42 @@ package ro.fortsoft.wicket.dashboard;
 import java.util.List;
 import java.util.Map;
 
+import ro.fortsoft.wicket.dashboard.web.DashboardEvent;
+
 /**
  * @author Decebal Suiu
  */
 public class DashboardUtils {
 	
-	public static void updateWidgetLocations(Dashboard dashboard, Map<String, WidgetLocation> widgetLocations) {
-		List<Widget> widgets = dashboard.getWidgets();
-        for (Widget widget : widgets) {
-            String id = widget.getId();
-            WidgetLocation location = widgetLocations.get(id);
-            if (!location.equals(widget.getLocation())) {
-                widget.setLocation(location);
-            }                         
-        }
+	@SuppressWarnings("unchecked")
+	public static void updateWidgetLocations(Dashboard dashboard, DashboardEvent dashboardEvent) {
+		DashboardEvent.EventType eventType = dashboardEvent.getType();
+		if (DashboardEvent.EventType.WIDGET_ADDED == eventType) {
+			List<Widget> widgets = dashboard.getWidgets(0);
+	        for (Widget widget : widgets) {
+	        	widget.getLocation().incrementRow();
+	        }
+		} else if (DashboardEvent.EventType.WIDGET_REMOVED == eventType) {
+			Widget widgetRemoved = (Widget) dashboardEvent.getDetail();
+			WidgetLocation widgetRemovedLocation = widgetRemoved.getLocation();
+			List<Widget> widgets = dashboard.getWidgets(widgetRemovedLocation.getColumn());
+	        for (Widget widget : widgets) {
+	        	WidgetLocation widgetLocation = widget.getLocation();
+	        	if (widgetLocation.getRow() > widgetRemovedLocation.getRow()) {
+	        		widget.getLocation().decrementRow();
+	        	}
+	        }			
+		} else if (DashboardEvent.EventType.WIDGETS_SORTED == eventType) {
+			Map<String, WidgetLocation> widgetLocations = (Map<String, WidgetLocation>) dashboardEvent.getDetail();
+			List<Widget> widgets = dashboard.getWidgets();
+	        for (Widget widget : widgets) {
+	            String id = widget.getId();
+	            WidgetLocation location = widgetLocations.get(id);
+	            if (!location.equals(widget.getLocation())) {
+	                widget.setLocation(location);
+	            }                         
+	        }
+		}
 	}
-	
+
 }

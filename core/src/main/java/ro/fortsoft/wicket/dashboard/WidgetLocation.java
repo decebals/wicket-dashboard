@@ -48,6 +48,14 @@ public class WidgetLocation implements Serializable {
 		this.row = row;
 	}
 	
+	public void incrementRow() {
+		row++;
+	}
+	
+	public void decrementRow() {
+		row--;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

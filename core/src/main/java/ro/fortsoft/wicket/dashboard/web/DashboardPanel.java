@@ -14,7 +14,6 @@ package ro.fortsoft.wicket.dashboard.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.event.IEvent;
@@ -26,7 +25,6 @@ import org.apache.wicket.model.IModel;
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
-import ro.fortsoft.wicket.dashboard.WidgetLocation;
 
 /**
  * @author Decebal Suiu
@@ -81,27 +79,24 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 	}
 
 	private void onWidgetAdded(DashboardEvent dashboardEvent) {
-		System.out.println("DashboardPanel.onWidgetAdded()");
 		Widget addedWidget = (Widget) dashboardEvent.getDetail();
 		Dashboard dashboard = getDashboard();
+		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
 		dashboard.addWidget(addedWidget);
 		dashboardContext.getDashboardPersiter().save(dashboard);
 	}
 
 	private void onWidgetRemoved(DashboardEvent dashboardEvent) {
-		System.out.println("DashboardPanel.onWidgetRemoved()");
 		Widget removedWidget = (Widget) dashboardEvent.getDetail();
 		Dashboard dashboard = getDashboard();
+		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
 		dashboard.deleteWidget(removedWidget.getId());
 		dashboardContext.getDashboardPersiter().save(dashboard);
 	}
 
-	@SuppressWarnings("unchecked")
 	protected void onWidgetsSorted(DashboardEvent dashboardEvent) {
-		System.out.println("DashboardPanel.onWidgetsSorted()");
-		Map<String, WidgetLocation> widgetLocations = (Map<String, WidgetLocation>) dashboardEvent.getDetail();
 		Dashboard dashboard = getDashboard();
-		DashboardUtils.updateWidgetLocations(dashboard, widgetLocations);
+		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
 		dashboardContext.getDashboardPersiter().save(dashboard);		
 	}
 

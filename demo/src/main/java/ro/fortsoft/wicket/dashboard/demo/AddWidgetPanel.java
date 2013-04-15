@@ -25,11 +25,13 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
+import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.WidgetFactory;
 import ro.fortsoft.wicket.dashboard.web.DashboardContext;
 import ro.fortsoft.wicket.dashboard.web.DashboardContextAware;
+import ro.fortsoft.wicket.dashboard.web.DashboardEvent;
 
 /**
  * @author Decebal Suiu
@@ -128,6 +130,7 @@ public class AddWidgetPanel extends GenericPanel<Dashboard> implements Dashboard
 					// DashboardPanel is on other page
 //					send(getPage(), Broadcast.BREADTH, new DashboardEvent(target, DashboardEvent.EventType.WIDGET_ADDED, widget));
 					Dashboard dashboard = getDashboard();
+					DashboardUtils.updateWidgetLocations(dashboard, new DashboardEvent(target, DashboardEvent.EventType.WIDGET_ADDED, widget));
 					dashboard.addWidget(widget);
 					dashboardContext.getDashboardPersiter().save(dashboard);
 					message = "added";
