@@ -167,6 +167,11 @@ In the internet browser type http://localhost:8081/.
 
 You can see a screenshot from demo application in [wiki page] (https://github.com/decebals/wicket-dashboard/wiki).
 
+Mailing list
+--------------
+
+Much of the conversation between developers and users is managed through [mailing list] (http://groups.google.com/group/wicket-dashboard).
+
 License
 --------------
 Copyright 2012 Decebal Suiu
