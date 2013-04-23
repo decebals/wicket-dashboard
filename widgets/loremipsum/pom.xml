@@ -4,12 +4,12 @@
     <parent>
         <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
         <artifactId>wicket-dashboard-widgets-parent</artifactId>
-        <version>0.7-SNAPSHOT</version>
+        <version>0.7</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-loremipsum</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.7</version>
     <packaging>jar</packaging>
     <name>LoremIpsum Widget</name>
 
