@@ -18,12 +18,10 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
+import org.apache.wicket.markup.html.image.ContextImage;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.request.resource.ContextRelativeResource;
-import org.apache.wicket.request.resource.IResource;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
@@ -42,21 +40,17 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 		
         setMarkupId("header-" + getModelObject().getId());
         
-		final Image toogle = new Image("toggle") {
+		final ContextImage toogle = new ContextImage("toggle", new AbstractReadOnlyModel<String>() {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected IResource getImageResource() {
-				String imagePath = "images/down.png";
-				if (getWidget().isCollapsed()) {
-					imagePath = "images/up.png";
-				}
-				
-				return new ContextRelativeResource(imagePath);
+			public String getObject() {
+                return getWidget().isCollapsed() ? "images/up.png" : "images/down.png";
 			}
 			
-		};
+		});
+
         toogle.setOutputMarkupId(true);
 		toogle.add(new AjaxEventBehavior("onclick") {
 		
