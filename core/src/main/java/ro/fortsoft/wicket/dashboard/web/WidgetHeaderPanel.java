@@ -13,11 +13,8 @@
 package ro.fortsoft.wicket.dashboard.web;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxCallListener;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.basic.Label;
@@ -26,6 +23,7 @@ import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.ContextRelativeResource;
+import org.apache.wicket.request.resource.IResource;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
@@ -44,12 +42,21 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 		
         setMarkupId("header-" + getModelObject().getId());
         
-		// TODO css class
-		String imagePath = "images/down.png";
-		if (getWidget().isCollapsed()) {
-			imagePath = "images/up.png";
-		}
-		Image toogle = new Image("toggle", new ContextRelativeResource(imagePath));
+		final Image toogle = new Image("toggle") {
+
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected IResource getImageResource() {
+				String imagePath = "images/down.png";
+				if (getWidget().isCollapsed()) {
+					imagePath = "images/up.png";
+				}
+				
+				return new ContextRelativeResource(imagePath);
+			}
+			
+		};
         toogle.setOutputMarkupId(true);
 		toogle.add(new AjaxEventBehavior("onclick") {
 		
@@ -58,38 +65,20 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 			@Override
 			protected void onEvent(AjaxRequestTarget target) {
 				Widget widget = getWidget();
+				
+				// change widget's collapsed property
 				widget.setCollapsed(!widget.isCollapsed());
 				
+				// save the new state of widget/dashboard
 				Dashboard dashboard = findParent(DashboardPanel.class).getDashboard();
 				dashboardContext.getDashboardPersiter().save(dashboard);
-			}
-
-			@Override
-            protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-                super.updateAjaxAttributes(attributes);
-
-                attributes.getAjaxCallListeners().add(new AjaxCallListener() {
-                	
-					private static final long serialVersionUID = 1L;
-
-					@Override
-                    public CharSequence getSuccessHandler(Component component) {
-                        StringBuilder buffer = new StringBuilder();
-                        buffer.append("var content = $('#").append(component.getMarkupId()).append("').parent().siblings('.dragbox-content');");
-                        buffer.append("if (content.css('display') == 'none') {");
-                        buffer.append("content.slideDown(400);");
-                        buffer.append("$(this).attr('src',  '../images/down.png');"); //TODO css class
-                        buffer.append("$(this).attr('title', 'Minimize');");
-                        buffer.append("} else {");
-                        buffer.append("content.slideUp(200);");
-                        buffer.append("$(this).attr('src', '../images/up.png');");
-                        buffer.append("$(this).attr('title', 'Show');");
-                        buffer.append("};");
-
-                        return buffer.append(super.getSuccessHandler(component));
-					}
-					
-				});
+				                
+				// change toggle's image
+				target.add(toogle);
+				
+				// hide/show the widget's view
+				WidgetView widgetView = findParent(WidgetPanel.class).getWidgetView();
+				target.add(widgetView);
 			}
 			
 		});

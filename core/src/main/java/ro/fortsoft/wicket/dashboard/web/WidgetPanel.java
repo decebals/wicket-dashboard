@@ -12,7 +12,6 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -38,8 +37,6 @@ public class WidgetPanel extends GenericPanel<Widget> {
 			
 		setOutputMarkupId(true);
 		
-		add(AttributeModifier.append("class", "dragbox"));
-		
 		widgetHeaderPanel = new WidgetHeaderPanel("header", model);
 		add(widgetHeaderPanel);
 		
@@ -48,7 +45,6 @@ public class WidgetPanel extends GenericPanel<Widget> {
 		} else {
 			settingsPanel = new EmptyPanel("settings");
 		}
-		settingsPanel.setOutputMarkupId(true);
 		settingsPanel.setOutputMarkupPlaceholderTag(true);
 		settingsPanel.setVisible(false);
 		add(settingsPanel);

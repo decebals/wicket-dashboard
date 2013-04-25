@@ -12,7 +12,6 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 
@@ -27,16 +26,19 @@ public class WidgetView extends GenericPanel<Widget> {
 	
 	public WidgetView(String id, IModel<Widget> model) {
 		super(id, model);
-		
-		setOutputMarkupId(true);
-		
-		if (getWidget().isCollapsed()) {
-			add(AttributeModifier.append("style", "display: none"));
-		}		
+
+		setOutputMarkupPlaceholderTag(true);		
 	}
 	
 	public Widget getWidget() {
 		return getModelObject();
+	}
+
+	@Override
+	protected void onConfigure() {
+		super.onConfigure();
+		
+		setVisible(!getWidget().isCollapsed());
 	}	
 	
 }
