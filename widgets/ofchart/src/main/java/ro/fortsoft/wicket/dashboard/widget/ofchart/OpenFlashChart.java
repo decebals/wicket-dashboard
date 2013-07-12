@@ -12,23 +12,20 @@
  */
 package ro.fortsoft.wicket.dashboard.widget.ofchart;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-
-import org.apache.wicket.IResourceListener;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.Url;
-import org.apache.wicket.request.handler.TextRequestHandler;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
+
+import ro.fortsoft.wicket.dashboard.Widget;
 
 /**
  * http://cwiki.apache.org/WICKET/open-flash-chart-and-wicket.html
  */
-public class OpenFlashChart extends GenericPanel<String> implements IResourceListener {	
+public class OpenFlashChart extends GenericPanel<Widget> {	
 
 	private static final long serialVersionUID = 1L;
 	
@@ -36,8 +33,8 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 	private String height;
 	private SWFObject swf;
 
-	public OpenFlashChart(String id, String width, String height, IModel<String> jsonModel) {
-		super(id, jsonModel);
+	public OpenFlashChart(String id, String width, String height, IModel<Widget> model) {
+		super(id, model);
 
 		this.width = width;
 		this.height = height;
@@ -50,22 +47,17 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 		response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(OpenFlashChart.class, "res/saveChartImage.js")));
 	}
 		
-	public void onResourceRequested() {
-		IRequestHandler requestHandler = new TextRequestHandler(getModelObject());
-		requestHandler.respond(getRequestCycle());
-	}
-	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		
-		String swfURL = toAbsolutePath(urlFor(new PackageResourceReference(OpenFlashChart.class, "res/open-flash-chart.swf"), null).toString());
+		String swfUrl = toAbsolutePath(urlFor(new PackageResourceReference(OpenFlashChart.class, "res/open-flash-chart.swf"), null).toString());
 		
 		// see http://ofc2dz.com/OFC2/downloads/ofc2Downloads.html
 		// http://ofc2dz.com/OFC2/examples/MiscellaneousPatches.html (Passing the Char Parameter "ID" when saving images (23-Feb-2009))
-		swfURL = swfURL.concat("?id=").concat(getMarkupId());
-//		System.out.println("swfURL = " + swfURL);
-		swf = new SWFObject(swfURL, width, height, "9.0.0");
+		swfUrl = swfUrl.concat("?id=").concat(getMarkupId());
+//		System.out.println("swfUrl = " + swfUrl);
+		swf = new SWFObject(swfUrl, width, height, "9.0.0");
 		add(swf);
 	}
 	
@@ -79,19 +71,16 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 		super.onBeforeRender();
 	}
 
-	private String getUrlForJson() { 
-		CharSequence dataPath = urlFor(IResourceListener.INTERFACE, null);
-		try {
-			dataPath = URLEncoder.encode(dataPath.toString(), "UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException("Error encoding dataPath for Chart Json data file.", e);
-		}
+	private String getUrlForJson() {
+		PageParameters parameters = new PageParameters();
+		parameters.add("widgetId", getModelObject().getId());
+		String jsonUrl = urlFor(new DataResourceReference(), parameters).toString();
 		
-		return toAbsolutePath(dataPath.toString());
+		return toAbsolutePath(jsonUrl);
 	}
 
 	private String toAbsolutePath(String relativePath) {
 		return getRequestCycle().getUrlRenderer().renderFullUrl(Url.parse(relativePath));
-	}
+	}	
 	
 }

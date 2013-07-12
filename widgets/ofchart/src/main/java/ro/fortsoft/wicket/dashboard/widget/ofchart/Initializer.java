@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Decebal Suiu
+ * Copyright 2013 Decebal Suiu
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
  * the License. You may obtain a copy of the License in the LICENSE file, or at:
@@ -12,24 +12,23 @@
  */
 package ro.fortsoft.wicket.dashboard.widget.ofchart;
 
-import org.apache.wicket.model.IModel;
-
-import ro.fortsoft.wicket.dashboard.Widget;
-import ro.fortsoft.wicket.dashboard.web.WidgetView;
+import org.apache.wicket.Application;
+import org.apache.wicket.IInitializer;
+import org.apache.wicket.protocol.http.WebApplication;
 
 /**
  * @author Decebal Suiu
  */
-public class ChartWidgetView extends WidgetView {
+public class Initializer implements IInitializer {
 
-	private static final long serialVersionUID = 1L;
+	@Override
+	public void init(Application application) {
+		((WebApplication) application).mountResource("widget-ofc-data", new DataResourceReference());
+	}
 
-	public ChartWidgetView(String id, IModel<Widget> model) {
-		super(id, model);
-
-		// TODO put width, height in settings
-		add(new OpenFlashChart("chart", "100%", "300", model));
-//		add(new OpenFlashChart("chart", "100%", "100%", model));
+	@Override
+	public void destroy(Application application) {
+		// does noting
 	}
 
 }
