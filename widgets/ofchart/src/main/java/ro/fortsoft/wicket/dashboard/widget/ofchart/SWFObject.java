@@ -93,7 +93,7 @@ public class SWFObject extends Behavior {
 
 	@Override
 	public void renderHead(Component component, IHeaderResponse response) {
-		response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(SWFObject.class, "swfobject-2.2.js")));
+		response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(SWFObject.class, "res/swfobject-2.2.js")));
 		response.render(JavaScriptHeaderItem.forScript(getJavaScript(), null));
 	}
 

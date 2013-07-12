@@ -47,7 +47,7 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 		
-		response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(OpenFlashChart.class, "saveChartImage.js")));
+		response.render(JavaScriptHeaderItem.forReference(new PackageResourceReference(OpenFlashChart.class, "res/saveChartImage.js")));
 	}
 		
 	public void onResourceRequested() {
@@ -59,7 +59,7 @@ public class OpenFlashChart extends GenericPanel<String> implements IResourceLis
 	protected void onInitialize() {
 		super.onInitialize();
 		
-		String swfURL = toAbsolutePath(urlFor(new PackageResourceReference(OpenFlashChart.class, "open-flash-chart.swf"), null).toString());
+		String swfURL = toAbsolutePath(urlFor(new PackageResourceReference(OpenFlashChart.class, "res/open-flash-chart.swf"), null).toString());
 		
 		// see http://ofc2dz.com/OFC2/downloads/ofc2Downloads.html
 		// http://ofc2dz.com/OFC2/examples/MiscellaneousPatches.html (Passing the Char Parameter "ID" when saving images (23-Feb-2009))
