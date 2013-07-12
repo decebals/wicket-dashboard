@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface WidgetRegistry {
 
-	public void registerWidget(WidgetDescriptor widgetDescriptor);
+	public WidgetRegistry registerWidget(WidgetDescriptor widgetDescriptor);
 	
 	public List<WidgetDescriptor> getWidgetDescriptors();
 	

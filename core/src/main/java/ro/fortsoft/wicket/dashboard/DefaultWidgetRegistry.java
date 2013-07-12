@@ -36,10 +36,12 @@ public class DefaultWidgetRegistry implements WidgetRegistry {
 	}
 
 	@Override
-	public void registerWidget(WidgetDescriptor widgetDescriptor) {
+	public WidgetRegistry registerWidget(WidgetDescriptor widgetDescriptor) {
 		if (widgetDescriptor != null) {
 			widgetDescriptors.add(widgetDescriptor);
 		}
+		
+		return this;
 	}
 
 	@Override
