@@ -16,13 +16,12 @@ import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
+import ro.fortsoft.wicket.dashboard.DashboardContextInitializer;
 import ro.fortsoft.wicket.dashboard.DefaultDashboard;
-import ro.fortsoft.wicket.dashboard.WidgetRegistry;
 import ro.fortsoft.wicket.dashboard.demo.jqplot.DemoChartFactory;
 import ro.fortsoft.wicket.dashboard.demo.justgage.DemoJustGageFactory;
 import ro.fortsoft.wicket.dashboard.demo.ofchart.DemoChartDataFactory;
 import ro.fortsoft.wicket.dashboard.web.DashboardContext;
-import ro.fortsoft.wicket.dashboard.web.DashboardContextInjector;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidget;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.justgage.JustGageWidget;
@@ -60,24 +59,25 @@ public class WicketApplication extends WebApplication {
 		// >>> begin dashboard settings
 		
 		// register some widgets
-		DashboardContext dashboardContext = new DashboardContext();
-		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
-		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
-		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
-        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-		widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
-		JqPlotWidget.setChartFactory(new DemoChartFactory());
-		widgetRegistry.registerWidget(new JustGageWidgetDescriptor());
-		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+		DashboardContext dashboardContext = getDashboardContext();
+		dashboardContext.getWidgetRegistry()
+			.registerWidget(new LoremIpsumWidgetDescriptor())
+			.registerWidget(new ChartWidgetDescriptor())
+			.registerWidget(new JqPlotWidgetDescriptor())
+			.registerWidget(new JustGageWidgetDescriptor());
 		
-		// add dashboard context injector
-		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
-        getComponentInstantiationListeners().add(dashboardContextInjector);
-                
-        // init dashbaord
-        initDashboard(dashboardContext);
+		// add a custom action for all widgets
+		dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
+
+		// set some (data) factory
+        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
+		JqPlotWidget.setChartFactory(new DemoChartFactory());
+		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+				
+        // init dashboard from context
+        initDashboard();
         
-        // <<< end dashbaord settings
+        // <<< end dashboard settings
 	}
 
 	public Class<? extends Page> getHomePage() {
@@ -88,8 +88,12 @@ public class WicketApplication extends WebApplication {
 		return dashboard;
 	}
 
-	private void initDashboard(DashboardContext dashboardContext) {
-		dashboard = dashboardContext.getDashboardPersiter().load();
+	private DashboardContext getDashboardContext() {
+		return getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
+	}
+	
+	private void initDashboard() {
+		dashboard = getDashboardContext().getDashboardPersiter().load();
     	if (dashboard == null) {
     		dashboard = new DefaultDashboard("default", "Default");
     	}

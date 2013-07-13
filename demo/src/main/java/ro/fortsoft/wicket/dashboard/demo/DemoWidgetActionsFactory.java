@@ -12,26 +12,23 @@
  */
 package ro.fortsoft.wicket.dashboard.demo;
 
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
+import java.util.List;
 
-import ro.fortsoft.wicket.dashboard.Dashboard;
+import ro.fortsoft.wicket.dashboard.DefaultWidgetActionsFactory;
 import ro.fortsoft.wicket.dashboard.Widget;
+import ro.fortsoft.wicket.dashboard.WidgetAction;
 
 /**
  * @author Decebal Suiu
  */
-public class WidgetPage extends WebPage {
+public class DemoWidgetActionsFactory extends DefaultWidgetActionsFactory {
 
-	private static final long serialVersionUID = 1L;
-	
-	public WidgetPage(PageParameters parameters) {
-		super(parameters);
+	@Override
+	public List<WidgetAction> createWidgetActions(Widget widget) {
+		List<WidgetAction> widgetActions = super.createWidgetActions(widget);
+		widgetActions.add(0, new DetachWidgetAction(widget));
 		
-		String widgetId = parameters.get("id").toString();
-		Dashboard dashboard = WicketApplication.get().getDashboard();
-		Widget widget = dashboard.getWidget(widgetId);
-		add(widget.createView("widget"));
+		return widgetActions;
 	}
 
 }
