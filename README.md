@@ -99,33 +99,40 @@ In your application class make some initializations:
     public void init() {
         ...
 
-        // >>> begin dashboard settings
-        
-        // register some widgets
-        DashboardContext dashboardContext = new DashboardContext();
-        WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
-        widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
-        widgetRegistry.registerWidget(new ChartWidgetDescriptor());
+    	// >>> begin dashboard settings
+		
+		// register some widgets
+		DashboardContext dashboardContext = getDashboardContext();
+		dashboardContext.getWidgetRegistry()
+			.registerWidget(new LoremIpsumWidgetDescriptor())
+			.registerWidget(new ChartWidgetDescriptor())
+			.registerWidget(new JqPlotWidgetDescriptor())
+			.registerWidget(new JustGageWidgetDescriptor());
+		
+		// add a custom action for all widgets
+		dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
+
+		// set some (data) factory
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-        widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
-        JqPlotWidget.setChartFactory(new DemoChartFactory());
-        
-        // add dashboard context injector
-        DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
-        getComponentInstantiationListeners().add(dashboardContextInjector);
-                
-        // init dashboard using the context created above
-        initDashboard(dashboardContext);
+		JqPlotWidget.setChartFactory(new DemoChartFactory());
+		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+				
+        // init dashboard from context
+        initDashboard();
         
         // <<< end dashboard settings
     }
 
-    private void initDashboard(DashboardContext dashboardContext) {
-        dashboard = dashboardContext.getDashboardPersiter().load();
-        if (dashboard == null) {
-            dashboard = new DefaultDashboard("default", "Default");
-        }
-    }
+    private DashboardContext getDashboardContext() {
+		return getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
+	}
+	
+	private void initDashboard() {
+		dashboard = getDashboardContext().getDashboardPersiter().load();
+    	if (dashboard == null) {
+    		dashboard = new DefaultDashboard("default", "Default");
+    	}
+	}
 
 
 In your web page add the dashboard panel:
