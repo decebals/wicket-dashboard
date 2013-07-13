@@ -15,7 +15,7 @@ package ro.fortsoft.wicket.dashboard.web;
 import java.util.List;
 
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.markup.html.image.ContextImage;
+import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -56,7 +56,7 @@ public class WidgetActionsPanel extends GenericPanel<Widget> implements Dashboar
 			protected void populateItem(ListItem<WidgetAction> item) {
 				WidgetAction action = item.getModelObject();
 				AbstractLink link = action.getLink("link");
-				link.add(new ContextImage("image", action.getImage()));
+				link.add(new Image("image", action.getImage()));
 				link.add(AttributeModifier.replace("title", action.getTooltip()));
 				item.add(link);
 			}

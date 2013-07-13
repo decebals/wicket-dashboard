@@ -22,6 +22,8 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.request.resource.ContextRelativeResource;
+import org.apache.wicket.request.resource.IResource;
 
 import ro.fortsoft.wicket.dashboard.web.DashboardEvent;
 import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
@@ -37,7 +39,7 @@ public abstract class WidgetAction implements Serializable {
 
 	protected Widget widget;	
 	protected String label; // for the moment is unused
-	protected String image;
+	protected IResource image;
 	protected String tooltip;
 
 	public WidgetAction(Widget widget) {
@@ -50,7 +52,7 @@ public abstract class WidgetAction implements Serializable {
 		return label;
 	}
 
-	public String getImage() {
+	public IResource getImage() {
 		return image;
 	}
 
@@ -65,7 +67,7 @@ public abstract class WidgetAction implements Serializable {
 		public Refresh(Widget widget) {
 			super(widget);
 			
-			image = "images/refresh.gif";
+			image = new ContextRelativeResource("images/refresh.gif");
 			tooltip = "Refresh";
 		}
 
@@ -93,7 +95,7 @@ public abstract class WidgetAction implements Serializable {
 		public Delete(Widget widget) {
 			super(widget);
 			
-			image = "images/delete.gif";
+			image = new ContextRelativeResource("images/delete.gif");
 			tooltip = "Delete";
 		}
 
@@ -140,7 +142,7 @@ public abstract class WidgetAction implements Serializable {
 		public Settings(Widget widget) {
 			super(widget);
 			
-			image = "images/edit.png";
+			image = new ContextRelativeResource("images/edit.png");
 			tooltip = "Settings";
 		}
 
