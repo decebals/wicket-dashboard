@@ -3,6 +3,8 @@ Simple wicket dashboard
 
 A dashboard is a panel with quick access to information or common tasks.
 
+Current build status: [![Build Status](https://buildhive.cloudbees.com/job/decebals/job/wicket-dashboard/badge/icon)](https://buildhive.cloudbees.com/job/decebals/job/wicket-dashboard/)
+
 Features/Benefits
 -------------------
 With wicket-dashboard you can easily add a dashboard with standard and custom widgets to your wicket application.  
