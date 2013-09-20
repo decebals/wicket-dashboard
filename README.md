@@ -11,6 +11,7 @@ With wicket-dashboard you can easily add a dashboard with standard and custom wi
 For a dashboard you can specify the numbers of columns, drag and drop widgets, remove widgets, add new widgets, change widget settings, 
 collapse widgets, or perform any custom action added by you to widget.  
 Also you can save and load the dashboard from a repository (file, database).
+Support for internationalization.
 
 Components
 -------------------
@@ -159,6 +160,15 @@ the jquery internal version, or to specify another versions for wicket-dashboard
 If you need an dashboard context object in your wicket panel than implements **DashboardContextAware** (see _AddWidgetPanel_ from demo).    
 
 For more information please see the demo sources.
+
+Internationalization
+-------------------
+Wicket-dashboard has support for internationalization. 
+Supported languages:
+- English
+- Romanian
+ 
+If you want support for another languages please create and send a pull request (or an email) with the translation of [wicket-package.properties](https://github.com/decebals/wicket-dashboard/blob/master/core/src/main/java/ro/fortsoft/wicket/dashboard/wicket-package.properties).
 
 Demo
 -------------------
