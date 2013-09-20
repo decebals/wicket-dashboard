@@ -18,13 +18,7 @@
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>jqplot</artifactId>
-            <version>1.5.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.com.digilabs.jqplot</groupId>
-            <artifactId>jqplot4java</artifactId>
-            <version>1.2.3</version>
+            <version>6.8.0</version>
         </dependency>
     </dependencies>
 
