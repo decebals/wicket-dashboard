@@ -55,7 +55,7 @@ public class WicketApplication extends WebApplication {
 		// mounts
 		mountPage("add-widget", AddWidgetPage.class);
 		mountPage("widget", WidgetPage.class);
-
+		
 		// >>> begin dashboard settings
 		
 		// register some widgets
@@ -80,9 +80,21 @@ public class WicketApplication extends WebApplication {
         // <<< end dashboard settings
 	}
 
+	@Override
 	public Class<? extends Page> getHomePage() {
 		return HomePage.class;
 	}
+
+	/*
+	// for test locale
+	@Override
+	public Session newSession(Request request, Response response) {
+		Session session = super.newSession(request, response);
+		session.setLocale(new Locale("ro", "RO"));
+
+		return session;
+	}
+	*/
 
 	public Dashboard getDashboard() {
 		return dashboard;
