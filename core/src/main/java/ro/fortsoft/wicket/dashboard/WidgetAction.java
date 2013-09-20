@@ -22,6 +22,10 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.request.resource.ContextRelativeResource;
 import org.apache.wicket.request.resource.IResource;
 
@@ -38,9 +42,8 @@ public abstract class WidgetAction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected Widget widget;	
-	protected String label; // for the moment is unused
 	protected IResource image;
-	protected String tooltip;
+	protected IModel<String> tooltip;
 
 	public WidgetAction(Widget widget) {
 		this.widget = widget;
@@ -48,15 +51,11 @@ public abstract class WidgetAction implements Serializable {
 	
 	public abstract AbstractLink getLink(String id);
  
-	public String getLabel() {
-		return label;
-	}
-
 	public IResource getImage() {
 		return image;
 	}
 
-	public String getTooltip() {
+	public IModel<String> getTooltip() {
 		return tooltip;
 	}
 
@@ -68,7 +67,7 @@ public abstract class WidgetAction implements Serializable {
 			super(widget);
 			
 			image = new ContextRelativeResource("images/refresh.gif");
-			tooltip = "Refresh";
+			tooltip = new ResourceModel("refresh");
 		}
 
 		@Override
@@ -96,7 +95,7 @@ public abstract class WidgetAction implements Serializable {
 			super(widget);
 			
 			image = new ContextRelativeResource("images/delete.gif");
-			tooltip = "Delete";
+			tooltip = new ResourceModel("delete");
 		}
 
 		@Override
@@ -128,7 +127,8 @@ public abstract class WidgetAction implements Serializable {
 	            }
 				
 			};
-			deleteLink.setConfirmMessage("Delete widget " + widget.getTitle() + "?");
+			IModel<String> resourceModel = new StringResourceModel("deleteAsk", deleteLink, Model.of(widget.getTitle()));
+			deleteLink.setConfirmMessage(resourceModel.getObject());
 			
 			return deleteLink;
 		}
@@ -143,7 +143,7 @@ public abstract class WidgetAction implements Serializable {
 			super(widget);
 			
 			image = new ContextRelativeResource("images/edit.png");
-			tooltip = "Settings";
+			tooltip = new ResourceModel("settings");
 		}
 
 		@Override

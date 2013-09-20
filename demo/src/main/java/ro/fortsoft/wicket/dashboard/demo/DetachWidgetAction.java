@@ -15,6 +15,7 @@ package ro.fortsoft.wicket.dashboard.demo;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.PopupSettings;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.request.resource.PackageResourceReference;
 
@@ -32,7 +33,7 @@ public class DetachWidgetAction extends WidgetAction {
 		super(widget);
 		
 		image = new PackageResourceReference(HomePage.class, "detach.png").getResource();
-		tooltip = "Detach";
+		tooltip = new ResourceModel("detach");
 	}
 
 	@Override

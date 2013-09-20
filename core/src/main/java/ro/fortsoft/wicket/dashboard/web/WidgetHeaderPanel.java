@@ -82,7 +82,7 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 
 			@Override
             public String getObject() {
-                return getWidget().isCollapsed() ? "Show" : "Minimize";
+                return getWidget().isCollapsed() ? getString("expand") : getString("collapse");
             }
             
         }));
