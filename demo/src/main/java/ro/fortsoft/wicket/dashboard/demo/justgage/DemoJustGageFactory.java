@@ -19,7 +19,7 @@ import ro.fortsoft.wicket.dashboard.widget.justgage.JustGageWidget;
 /**
  * @author Decebal Suiu
  */
-public class DemoJustGageFactory implements JustGageFactory{
+public class DemoJustGageFactory implements JustGageFactory {
 
 	@Override
 	public JustGage createJustGage(JustGageWidget widget) {
