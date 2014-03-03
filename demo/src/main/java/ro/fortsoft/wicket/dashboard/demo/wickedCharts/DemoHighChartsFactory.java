@@ -57,36 +57,36 @@ public class DemoHighChartsFactory implements HighChartsFactory {
                 break;
             }
             case LINE: {
-				options = new BasicLineOptions();
-				break;
+                options = new BasicLineOptions();
+                break;
             }
             case PIE: {
-				options = new PieWithLegendOptions();
-				break;
+                options = new PieWithLegendOptions();
+                break;
             }
             case SCATTER: {
-				options = new ScatterPlotOptions();
-				break;
+                options = new ScatterPlotOptions();
+                break;
             }
             case SPLINE: {
                 options = new SplineUpdatingOptions();
                 break;
             }
             case GAUGE: {
-				options = new AngularGaugeOptions();
-				break;
+                options = new AngularGaugeOptions();
+                break;
             }
             case COLUMNRANGE: {
-				options = new ColumnRangeOptions();
-				break;
+                options = new ColumnRangeOptions();
+                break;
             }
             case AREARANGE: {
-				options = new AreaRangeOptions();
-				break;
+                options = new AreaRangeOptions();
+                break;
             }
             case BUBBLE: {
-				options = new BubbleChart3DOptions();
-				break;
+                options = new BubbleChart3DOptions();
+                break;
             }
             default: {
                 options = new Options();
