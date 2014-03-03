@@ -21,6 +21,7 @@ import ro.fortsoft.wicket.dashboard.DefaultDashboard;
 import ro.fortsoft.wicket.dashboard.demo.jqplot.DemoChartFactory;
 import ro.fortsoft.wicket.dashboard.demo.justgage.DemoJustGageFactory;
 import ro.fortsoft.wicket.dashboard.demo.ofchart.DemoChartDataFactory;
+import ro.fortsoft.wicket.dashboard.demo.wickedCharts.DemoHighChartsFactory;
 import ro.fortsoft.wicket.dashboard.web.DashboardContext;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidget;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidgetDescriptor;
@@ -29,6 +30,8 @@ import ro.fortsoft.wicket.dashboard.widget.justgage.JustGageWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.loremipsum.LoremIpsumWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.ofchart.ChartWidget;
 import ro.fortsoft.wicket.dashboard.widget.ofchart.ChartWidgetDescriptor;
+import ro.fortsoft.wicket.dashboard.widgets.wicked.charts.HighChartsWidget;
+import ro.fortsoft.wicket.dashboard.widgets.wicked.charts.HighChartsWidgetDescriptor;
 
 /**
  * @author Decebal Suiu
@@ -64,7 +67,8 @@ public class WicketApplication extends WebApplication {
 			.registerWidget(new LoremIpsumWidgetDescriptor())
 			.registerWidget(new ChartWidgetDescriptor())
 			.registerWidget(new JqPlotWidgetDescriptor())
-			.registerWidget(new JustGageWidgetDescriptor());
+			.registerWidget(new JustGageWidgetDescriptor())
+            .registerWidget(new HighChartsWidgetDescriptor());
 		
 		// add a custom action for all widgets
 		dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
@@ -73,6 +77,7 @@ public class WicketApplication extends WebApplication {
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
 		JqPlotWidget.setChartFactory(new DemoChartFactory());
 		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+        HighChartsWidget.setHighChartsFactory(new DemoHighChartsFactory());
 				
         // init dashboard from context
         initDashboard();
