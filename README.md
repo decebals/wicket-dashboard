@@ -185,8 +185,8 @@ If you want support for another languages please create and send a pull request 
 
 Demo
 -------------------
-I have a tiny demo application. In this demo I have implemented three widgets types:
-a chart widget using [open flash chart](http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot](http://www.jqplot.com), a handy widget for generating and animating nice & clean gauges using [justgage](http://justgage.com) and a loremipsum widget (display a Lorem Ipsum).
+I have a tiny demo application. In this demo I have implemented four widgets types:
+a chart widget using [open flash chart](http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot](http://www.jqplot.com), a chart using [HighCharts](http://www.HighCharts.com), a handy widget for generating and animating nice & clean gauges using [justgage](http://justgage.com) and a loremipsum widget (display a Lorem Ipsum).
 
 The demo application is in demo package.
 To run the demo application use:  
