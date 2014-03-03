@@ -74,6 +74,12 @@
             <artifactId>wicket-dashboard-justgage</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
+            <artifactId>wicket-dashboard-wicked-charts</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         
         <!-- Logs -->        
         <dependency>

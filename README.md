@@ -44,6 +44,7 @@ Artifacts
     - ofchart `wicket-dashboard-ofchart`        (jar)
     - jqplot `wicket-dashboard-jqplot`          (jar)
     - justgage `wicket-dashboard-justgage`      (jar)
+    - wicked-charts `wicket-dashboard-wicked-charts` (jar)
     - loremipsum `wicket-dashboard-loremispum`  (jar)
 - Wicket Dashboard Demo `wicket-dashboard-demo` (war)
 
@@ -83,6 +84,15 @@ In your pom.xml you must define the dependencies to wicket dashboard artifacts w
 
 <!-- OPTIONAL -->
 <dependency>
+    <!-- Wicked-Charts is the open source code project that integrates HighCharts in Wicket. -->
+    <!-- HighCharts is a commercial product and a license might be required (http://www.HighCharts.com) -->
+    <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
+    <artifactId>wicket-dashboard-wicked-charts</artifactId>
+    <version>${wicket-dashboard.version}</version>
+</dependency>
+
+<!-- OPTIONAL -->
+<dependency>
     <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
     <artifactId>wicket-dashboard-loremipsum</artifactId>
     <version>${wicket-dashboard.version}</version>
@@ -110,7 +120,8 @@ In your application class make some initializations:
 			.registerWidget(new LoremIpsumWidgetDescriptor())
 			.registerWidget(new ChartWidgetDescriptor())
 			.registerWidget(new JqPlotWidgetDescriptor())
-			.registerWidget(new JustGageWidgetDescriptor());
+			.registerWidget(new JustGageWidgetDescriptor())
+			.registerWidget(new HighChartsWidgetDescriptor());
 		
 		// add a custom action for all widgets
 		dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
@@ -119,7 +130,8 @@ In your application class make some initializations:
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
 		JqPlotWidget.setChartFactory(new DemoChartFactory());
 		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
-				
+		HighChartsWidget.setHighChartsFactory(new DemoHighChartsFactory());
+
         // init dashboard from context
         initDashboard();
         

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <parent>
@@ -14,6 +14,14 @@
     <packaging>pom</packaging>
     <name>Wicket Dashboard Widgets Parent</name>
 
+    <properties>
+        <jofc2.version>1.0.1-SNAPSHOT</jofc2.version>
+        <jqPlot.version>6.8.0</jqPlot.version>
+        <loremipsum.version>1.0</loremipsum.version>
+        <justGage.version>1.0.1</justGage.version>
+        <wickedCharts.version>1.5.0</wickedCharts.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>ro.fortsoft.wicket.dashboard</groupId>
@@ -22,12 +30,13 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    
+
     <modules>
         <module>ofchart</module>
         <module>jqplot</module>
         <module>loremipsum</module>
         <module>justgage</module>
+        <module>wicked-charts</module>
     </modules>
 
 </project>
