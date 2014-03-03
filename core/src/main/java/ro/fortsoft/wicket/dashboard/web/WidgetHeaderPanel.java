@@ -22,14 +22,14 @@ import org.apache.wicket.markup.html.image.ContextImage;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.PropertyModel;
+
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
 
 /**
  * @author Decebal Suiu
  */
-public class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContextAware {
+class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContextAware {
 
 	private static final long serialVersionUID = 1L;	
 	
@@ -87,9 +87,9 @@ public class WidgetHeaderPanel extends GenericPanel<Widget> implements Dashboard
             
         }));
 		add(toogle);
-
-        add(new Label("title", new PropertyModel<String>(model, "title")));
-
+		
+		add(new Label("title", getModelObject().getTitle()));
+		
 		WidgetActionsPanel actionsPanel = new WidgetActionsPanel("actions", model);
 		add(actionsPanel);		
 	}

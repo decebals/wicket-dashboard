@@ -12,10 +12,11 @@
  */
 package ro.fortsoft.wicket.dashboard.widget.ofchart;
 
-import org.apache.wicket.request.resource.AbstractResource;
-import ro.fortsoft.wicket.dashboard.Dashboard;
-
 import java.io.IOException;
+
+import org.apache.wicket.request.resource.AbstractResource;
+
+import ro.fortsoft.wicket.dashboard.Dashboard;
 
 /**
  * @author Decebal Suiu
@@ -43,11 +44,13 @@ public class DataResource extends AbstractResource {
 		ResourceResponse response = new ResourceResponse(); 
 		response.setContentType("application/json"); 
 		response.setWriteCallback(new WriteCallback() {
+
 			@Override
 			public void writeData(Attributes attributes) throws IOException {
 				attributes.getResponse().write(widget.getChartData());
 			}
-	    });
+			
+	    }); 
 		
 	    return response; 
 	}
