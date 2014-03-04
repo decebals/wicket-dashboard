@@ -197,12 +197,12 @@ To run the demo application use:
 
 In the internet browser type http://localhost:8081/.
 
-You can see a screenshot from demo application in [wiki page] (https://github.com/decebals/wicket-dashboard/wiki).
+You can see a screenshot of the demo application on the project's [wiki page] (https://github.com/decebals/wicket-dashboard/wiki).
 
 Mailing list
 --------------
 
-Much of the conversation between developers and users is managed through [mailing list] (http://groups.google.com/group/wicket-dashboard).
+Much of the conversation between developers and users is managed through the project's [mailing list] (http://groups.google.com/group/wicket-dashboard).
 
 License
 --------------
