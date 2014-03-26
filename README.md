@@ -180,6 +180,7 @@ Supported languages:
 - English
 - French
 - Romanian
+- German
  
 If you want support for another languages please create and send a pull request (or an email) with the translation of [wicket-package.properties](https://github.com/decebals/wicket-dashboard/blob/master/core/src/main/java/ro/fortsoft/wicket/dashboard/wicket-package.properties).
 
