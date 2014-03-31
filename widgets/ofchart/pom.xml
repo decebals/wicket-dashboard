@@ -4,12 +4,12 @@
     <parent>
         <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
         <artifactId>wicket-dashboard-widgets-parent</artifactId>
-        <version>0.10-SNAPSHOT</version>
+        <version>0.10</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-ofchart</artifactId>
-    <version>0.10-SNAPSHOT</version>
+    <version>0.10</version>
     <packaging>jar</packaging>
     <name>OpenFlashChart Widget</name>
 
