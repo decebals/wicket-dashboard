@@ -16,13 +16,13 @@ import org.apache.wicket.Page;
 import org.apache.wicket.protocol.http.WebApplication;
 
 import ro.fortsoft.wicket.dashboard.Dashboard;
+import ro.fortsoft.wicket.dashboard.DashboardContextInitializer;
 import ro.fortsoft.wicket.dashboard.DefaultDashboard;
-import ro.fortsoft.wicket.dashboard.WidgetRegistry;
 import ro.fortsoft.wicket.dashboard.demo.jqplot.DemoChartFactory;
 import ro.fortsoft.wicket.dashboard.demo.justgage.DemoJustGageFactory;
 import ro.fortsoft.wicket.dashboard.demo.ofchart.DemoChartDataFactory;
+import ro.fortsoft.wicket.dashboard.demo.wickedCharts.DemoHighChartsFactory;
 import ro.fortsoft.wicket.dashboard.web.DashboardContext;
-import ro.fortsoft.wicket.dashboard.web.DashboardContextInjector;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidget;
 import ro.fortsoft.wicket.dashboard.widget.jqplot.JqPlotWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.justgage.JustGageWidget;
@@ -30,6 +30,8 @@ import ro.fortsoft.wicket.dashboard.widget.justgage.JustGageWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.loremipsum.LoremIpsumWidgetDescriptor;
 import ro.fortsoft.wicket.dashboard.widget.ofchart.ChartWidget;
 import ro.fortsoft.wicket.dashboard.widget.ofchart.ChartWidgetDescriptor;
+import ro.fortsoft.wicket.dashboard.widgets.wicked.charts.HighChartsWidget;
+import ro.fortsoft.wicket.dashboard.widgets.wicked.charts.HighChartsWidgetDescriptor;
 
 /**
  * @author Decebal Suiu
@@ -56,40 +58,59 @@ public class WicketApplication extends WebApplication {
 		// mounts
 		mountPage("add-widget", AddWidgetPage.class);
 		mountPage("widget", WidgetPage.class);
-
+		
 		// >>> begin dashboard settings
 		
 		// register some widgets
-		DashboardContext dashboardContext = new DashboardContext();
-		WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
-		widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
-		widgetRegistry.registerWidget(new ChartWidgetDescriptor());
-        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-		widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
-		JqPlotWidget.setChartFactory(new DemoChartFactory());
-		widgetRegistry.registerWidget(new JustGageWidgetDescriptor());
-		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+		DashboardContext dashboardContext = getDashboardContext();
+		dashboardContext.getWidgetRegistry()
+			.registerWidget(new LoremIpsumWidgetDescriptor())
+			.registerWidget(new ChartWidgetDescriptor())
+			.registerWidget(new JqPlotWidgetDescriptor())
+			.registerWidget(new JustGageWidgetDescriptor())
+            .registerWidget(new HighChartsWidgetDescriptor());
 		
-		// add dashboard context injector
-		DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
-        getComponentInstantiationListeners().add(dashboardContextInjector);
-                
-        // init dashbaord
-        initDashboard(dashboardContext);
+		// add a custom action for all widgets
+		dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
+
+		// set some (data) factory
+        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
+		JqPlotWidget.setChartFactory(new DemoChartFactory());
+		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+        HighChartsWidget.setHighChartsFactory(new DemoHighChartsFactory());
+				
+        // init dashboard from context
+        initDashboard();
         
-        // <<< end dashbaord settings
+        // <<< end dashboard settings
 	}
 
+	@Override
 	public Class<? extends Page> getHomePage() {
 		return HomePage.class;
 	}
+
+	/*
+	// for test locale
+	@Override
+	public Session newSession(Request request, Response response) {
+		Session session = super.newSession(request, response);
+		session.setLocale(new Locale("ro", "RO"));
+
+		return session;
+	}
+	*/
 
 	public Dashboard getDashboard() {
 		return dashboard;
 	}
 
-	private void initDashboard(DashboardContext dashboardContext) {
-		dashboard = dashboardContext.getDashboardPersiter().load();
+	private DashboardContext getDashboardContext() {
+		return getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
+	}
+	
+	private void initDashboard() {
+		dashboard = getDashboardContext().getDashboardPersiter().load();
     	if (dashboard == null) {
     		dashboard = new DefaultDashboard("default", "Default");
     	}

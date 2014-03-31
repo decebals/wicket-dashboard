@@ -4,12 +4,12 @@
     <parent>
         <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
         <artifactId>wicket-dashboard-widgets-parent</artifactId>
-        <version>0.9-SNAPSHOT</version>
+        <version>0.10-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-jqplot</artifactId>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.10-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JqPlot Widget</name>
 
@@ -18,13 +18,7 @@
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>jqplot</artifactId>
-            <version>1.5.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.com.digilabs.jqplot</groupId>
-            <artifactId>jqplot4java</artifactId>
-            <version>1.2.3</version>
+            <version>${jqPlot.version}</version>
         </dependency>
     </dependencies>
 

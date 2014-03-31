@@ -18,8 +18,7 @@ ul.column {
 	background: #fff;
 	position: relative;
 	border: 1px solid #ddd;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .dragbox-header {

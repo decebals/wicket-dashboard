@@ -22,14 +22,14 @@ import org.apache.wicket.markup.html.image.ContextImage;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
-
+import org.apache.wicket.model.PropertyModel;
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
 
 /**
  * @author Decebal Suiu
  */
-class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContextAware {
+public class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContextAware {
 
 	private static final long serialVersionUID = 1L;	
 	
@@ -77,18 +77,15 @@ class WidgetHeaderPanel extends GenericPanel<Widget> implements DashboardContext
 			
 		});
 		toogle.add(new AttributeModifier("title", new AbstractReadOnlyModel<String>() {
-			
             private static final long serialVersionUID = 1L;
-
 			@Override
             public String getObject() {
-                return getWidget().isCollapsed() ? "Show" : "Minimize";
+                return getWidget().isCollapsed() ? getString("expand") : getString("collapse");
             }
-            
         }));
 		add(toogle);
 		
-		add(new Label("title", getModelObject().getTitle()));
+		add(new Label("title", new PropertyModel(model, "title")));
 		
 		WidgetActionsPanel actionsPanel = new WidgetActionsPanel("actions", model);
 		add(actionsPanel);		

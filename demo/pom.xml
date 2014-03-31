@@ -4,12 +4,12 @@
     <parent>
         <groupId>ro.fortsoft.wicket.dashboard</groupId>
         <artifactId>wicket-dashboard-parent</artifactId>
-        <version>0.9-SNAPSHOT</version>
+        <version>0.10-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-demo</artifactId>
-    <version>0.9-SNAPSHOT</version>
+    <version>0.10-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Wicket Dashboard Demo</name>
         
@@ -72,6 +72,12 @@
         <dependency>
             <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
             <artifactId>wicket-dashboard-justgage</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
+            <artifactId>wicket-dashboard-wicked-charts</artifactId>
             <version>${project.version}</version>
         </dependency>
         

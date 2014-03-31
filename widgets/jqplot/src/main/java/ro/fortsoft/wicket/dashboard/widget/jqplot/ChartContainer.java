@@ -24,6 +24,7 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.CssResourceReference;
 import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.resource.JQueryPluginResourceReference;
 import org.wicketstuff.jqplot.behavior.JqPlotBehavior;
 
 import br.com.digilabs.jqplot.Chart;
@@ -74,7 +75,8 @@ public class ChartContainer extends WebMarkupContainer {
 			@Override
 			public void renderHead(Component component, IHeaderResponse response) {
 				super.renderHead(component, response);
-				response.render(JavaScriptHeaderItem.forReference(new JavaScriptResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.js")));
+				
+				response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.js")));
 				response.render(CssHeaderItem.forReference(new CssResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.css")));
 				List<String> resources = JqPlotUtils.retriveJavaScriptResources(getChart());
 				for (String resource : resources) {

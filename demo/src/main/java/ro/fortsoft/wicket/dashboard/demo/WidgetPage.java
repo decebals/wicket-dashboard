@@ -29,10 +29,8 @@ public class WidgetPage extends WebPage {
 		super(parameters);
 		
 		String widgetId = parameters.get("id").toString();
-		System.out.println("widgetId = " + widgetId);
 		Dashboard dashboard = WicketApplication.get().getDashboard();
 		Widget widget = dashboard.getWidget(widgetId);
-		System.out.println("widget = " + widget);
 		add(widget.createView("widget"));
 	}
 

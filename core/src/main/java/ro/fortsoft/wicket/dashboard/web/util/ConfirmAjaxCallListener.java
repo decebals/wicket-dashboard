@@ -13,6 +13,7 @@
 package ro.fortsoft.wicket.dashboard.web.util;
 
 import org.apache.wicket.ajax.attributes.AjaxCallListener;
+import org.apache.wicket.core.util.string.JavaScriptUtils;
 
 /**
  * @author Decebal Suiu
@@ -22,7 +23,8 @@ public class ConfirmAjaxCallListener extends AjaxCallListener {
     private static final long serialVersionUID = 1L;
     
     public ConfirmAjaxCallListener(String confirmMessage) {
-        StringBuilder precondition = new StringBuilder("if(!confirm('").append(confirmMessage).append("')) { return false; };");
+        CharSequence message = JavaScriptUtils.escapeQuotes(confirmMessage);
+        StringBuilder precondition = new StringBuilder("if(!confirm('").append(message).append("')) { return false; };");
         onPrecondition(precondition);
     }
 

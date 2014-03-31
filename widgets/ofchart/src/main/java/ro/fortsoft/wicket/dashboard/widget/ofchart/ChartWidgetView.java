@@ -13,7 +13,6 @@
 package ro.fortsoft.wicket.dashboard.widget.ofchart;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.web.WidgetView;
@@ -28,18 +27,9 @@ public class ChartWidgetView extends WidgetView {
 	public ChartWidgetView(String id, IModel<Widget> model) {
 		super(id, model);
 
-		final ChartWidget widget = (ChartWidget) model.getObject();
 		// TODO put width, height in settings
-		add(new OpenFlashChart("chart", "100%", "300", new LoadableDetachableModel<String>() {
-
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public String load() {
-				return widget.getChartData();
-			}
-			
-		}));
+		add(new OpenFlashChart("chart", "100%", "300", model));
+//		add(new OpenFlashChart("chart", "100%", "100%", model));
 	}
 
 }

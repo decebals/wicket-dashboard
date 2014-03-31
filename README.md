@@ -3,12 +3,15 @@ Simple wicket dashboard
 
 A dashboard is a panel with quick access to information or common tasks.
 
+Current build status: [![Build Status](https://buildhive.cloudbees.com/job/decebals/job/wicket-dashboard/badge/icon)](https://buildhive.cloudbees.com/job/decebals/job/wicket-dashboard/)
+
 Features/Benefits
 -------------------
 With wicket-dashboard you can easily add a dashboard with standard and custom widgets to your wicket application.  
 For a dashboard you can specify the numbers of columns, drag and drop widgets, remove widgets, add new widgets, change widget settings, 
 collapse widgets, or perform any custom action added by you to widget.  
-Also you can save and load the dashboard from a repository (file, database).
+Also you can save and load the dashboard from a repository (file, database).  
+Support for internationalization.
 
 Components
 -------------------
@@ -41,6 +44,7 @@ Artifacts
     - ofchart `wicket-dashboard-ofchart`        (jar)
     - jqplot `wicket-dashboard-jqplot`          (jar)
     - justgage `wicket-dashboard-justgage`      (jar)
+    - wicked-charts `wicket-dashboard-wicked-charts` (jar)
     - loremipsum `wicket-dashboard-loremispum`  (jar)
 - Wicket Dashboard Demo `wicket-dashboard-demo` (war)
 
@@ -80,6 +84,15 @@ In your pom.xml you must define the dependencies to wicket dashboard artifacts w
 
 <!-- OPTIONAL -->
 <dependency>
+    <!-- Wicked-Charts is the open source code project that integrates HighCharts in Wicket. -->
+    <!-- HighCharts is a commercial product and a license might be required (http://www.HighCharts.com) -->
+    <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
+    <artifactId>wicket-dashboard-wicked-charts</artifactId>
+    <version>${wicket-dashboard.version}</version>
+</dependency>
+
+<!-- OPTIONAL -->
+<dependency>
     <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
     <artifactId>wicket-dashboard-loremipsum</artifactId>
     <version>${wicket-dashboard.version}</version>
@@ -99,33 +112,42 @@ In your application class make some initializations:
     public void init() {
         ...
 
-        // >>> begin dashboard settings
-        
-        // register some widgets
-        DashboardContext dashboardContext = new DashboardContext();
-        WidgetRegistry widgetRegistry = dashboardContext.getWidgetRegistry();
-        widgetRegistry.registerWidget(new LoremIpsumWidgetDescriptor());
-        widgetRegistry.registerWidget(new ChartWidgetDescriptor());
+    	// >>> begin dashboard settings
+		
+		// register some widgets
+		DashboardContext dashboardContext = getDashboardContext();
+		dashboardContext.getWidgetRegistry()
+			.registerWidget(new LoremIpsumWidgetDescriptor())
+			.registerWidget(new ChartWidgetDescriptor())
+			.registerWidget(new JqPlotWidgetDescriptor())
+			.registerWidget(new JustGageWidgetDescriptor())
+			.registerWidget(new HighChartsWidgetDescriptor());
+		
+		// add a custom action for all widgets
+		dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
+
+		// set some (data) factory
         ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-        widgetRegistry.registerWidget(new JqPlotWidgetDescriptor());
-        JqPlotWidget.setChartFactory(new DemoChartFactory());
-        
-        // add dashboard context injector
-        DashboardContextInjector dashboardContextInjector = new DashboardContextInjector(dashboardContext);
-        getComponentInstantiationListeners().add(dashboardContextInjector);
-                
-        // init dashboard using the context created above
-        initDashboard(dashboardContext);
+		JqPlotWidget.setChartFactory(new DemoChartFactory());
+		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+		HighChartsWidget.setHighChartsFactory(new DemoHighChartsFactory());
+
+        // init dashboard from context
+        initDashboard();
         
         // <<< end dashboard settings
     }
 
-    private void initDashboard(DashboardContext dashboardContext) {
-        dashboard = dashboardContext.getDashboardPersiter().load();
-        if (dashboard == null) {
-            dashboard = new DefaultDashboard("default", "Default");
-        }
-    }
+    private DashboardContext getDashboardContext() {
+		return getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
+	}
+	
+	private void initDashboard() {
+		dashboard = getDashboardContext().getDashboardPersiter().load();
+    	if (dashboard == null) {
+    		dashboard = new DefaultDashboard("default", "Default");
+    	}
+	}
 
 
 In your web page add the dashboard panel:
@@ -151,10 +173,21 @@ If you need an dashboard context object in your wicket panel than implements **D
 
 For more information please see the demo sources.
 
+Internationalization
+-------------------
+Wicket-dashboard has support for internationalization. 
+Supported languages:
+- English
+- French
+- Romanian
+- German
+ 
+If you want support for another languages please create and send a pull request (or an email) with the translation of [wicket-package.properties](https://github.com/decebals/wicket-dashboard/blob/master/core/src/main/java/ro/fortsoft/wicket/dashboard/wicket-package.properties).
+
 Demo
 -------------------
-I have a tiny demo application. In this demo I have implemented three widgets types:
-a chart widget using [open flash chart](http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqplot](http://www.jqplot.com), a handy widget for generating and animating nice & clean gauges using [justgage](http://justgage.com) and a loremipsum widget (display a Lorem Ipsum).
+I have a tiny demo application. In this demo I have implemented four widgets types:
+a chart widget using [Open Flash Chart 2](http://teethgrinder.co.uk/open-flash-chart-2), a chart widget using [jqPlot](http://www.jqplot.com), a chart using [HighCharts](http://www.HighCharts.com), a handy widget for generating and animating nice & clean gauges using [JustGage](http://justgage.com) and a LoremIpsum widget (display a Lorem Ipsum).
 
 The demo application is in demo package.
 To run the demo application use:  
@@ -165,12 +198,12 @@ To run the demo application use:
 
 In the internet browser type http://localhost:8081/.
 
-You can see a screenshot from demo application in [wiki page] (https://github.com/decebals/wicket-dashboard/wiki).
+You can see a screenshot of the demo application on the project's [wiki page] (https://github.com/decebals/wicket-dashboard/wiki).
 
 Mailing list
 --------------
 
-Much of the conversation between developers and users is managed through [mailing list] (http://groups.google.com/group/wicket-dashboard).
+Much of the conversation between developers and users is managed through the project's [mailing list] (http://groups.google.com/group/wicket-dashboard).
 
 License
 --------------
