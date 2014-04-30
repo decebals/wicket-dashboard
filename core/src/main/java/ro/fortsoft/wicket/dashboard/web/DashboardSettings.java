@@ -1,11 +1,11 @@
 /*
  * Copyright 2012 Decebal Suiu
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
  * the License. You may obtain a copy of the License in the LICENSE file, or at:
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -31,13 +31,10 @@ public class DashboardSettings {
 			DashboardSettings.class, "res/dashboard.css");
 	private ResourceReference jqueryReference = new PackageResourceReference(
 			DashboardSettings.class, "res/jquery-1.8.3.min.js");
-	private ResourceReference jqueryUIReference = new PackageResourceReference(
-			DashboardSettings.class, "res/jquery-ui-1.9.2.min.js");
 	private ResourceReference jqueryJsonReference = new PackageResourceReference(
 			DashboardSettings.class, "res/jquery.json-2.2.min.js");
 
 	private boolean includeJQuery = false;
-	private boolean includeJQueryUI = true;
 	private boolean includeJQueryJson = true;
 	private boolean includeJavaScript = true;
 	private boolean includeCss = true;
@@ -54,15 +51,6 @@ public class DashboardSettings {
 
 	public DashboardSettings setIncludeJQuery(boolean includeJQuery) {
 		this.includeJQuery = includeJQuery;
-		return this;
-	}
-
-	public boolean isIncludeJQueryUI() {
-		return includeJQueryUI;
-	}
-
-	public DashboardSettings setIncludeJQueryUI(boolean includeJQueryUI) {
-		this.includeJQueryUI = includeJQueryUI;
 		return this;
 	}
 
@@ -101,15 +89,6 @@ public class DashboardSettings {
 		return this;
 	}
 
-	public ResourceReference getJQueryUIReference() {
-		return jqueryUIReference;
-	}
-
-	public DashboardSettings setJQueryUIReference(ResourceReference jqueryUIReference) {
-		this.jqueryUIReference = jqueryUIReference;
-		return this;
-	}
-
 	public ResourceReference getJQueryJsonReference() {
 		return jqueryJsonReference;
 	}
@@ -139,7 +118,7 @@ public class DashboardSettings {
 
 	/**
 	 * Retrieves the instance of settings object.
-	 * 
+	 *
 	 * @return settings instance
 	 */
 	public static DashboardSettings get() {
@@ -154,8 +133,8 @@ public class DashboardSettings {
 				}
 			}
 		}
-		
+
 		return application.getMetaData(KEY);
 	}
-	
+
 }

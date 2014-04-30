@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <html xmlns:wicket="http://wicket.apache.org/">
 <wicket:panel>
+    <div wicket:id="columns">
+        <div wicket:id="column"></div>
+    </div>
+</wicket:panel>
+
+<wicket:fragment wicket:id="columnFragment">
     <ul wicket:id="columnContainer" class="column">
-        <li wicket:id="widgetList">
+        <li wicket:id="widgetList" class="widget">
             <div wicket:id="widget" class="dragbox"></div>
         </li>
     </ul>
-</wicket:panel>
+</wicket:fragment>
 </html>

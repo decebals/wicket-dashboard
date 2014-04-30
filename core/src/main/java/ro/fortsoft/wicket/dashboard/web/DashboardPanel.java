@@ -1,54 +1,52 @@
 /*
  * Copyright 2012 Decebal Suiu
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
  * the License. You may obtain a copy of the License in the LICENSE file, or at:
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
 package ro.fortsoft.wicket.dashboard.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.event.IEvent;
-import org.apache.wicket.markup.html.list.Loop;
-import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
-
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
+import ro.fortsoft.wicket.dashboard.web.layout.DashboardLayout;
+import ro.fortsoft.wicket.dashboard.web.layout.column.ColumnDashboardLayout;
+import ro.fortsoft.wicket.dashboard.web.layout.grid.GridDashboardLayout;
 
 /**
  * @author Decebal Suiu
  */
 public class DashboardPanel extends GenericPanel<Dashboard> implements DashboardContextAware {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private transient DashboardContext dashboardContext;
-	
-	private List<DashboardColumnPanel> columnPanels;
-	
-	public DashboardPanel(String id, IModel<Dashboard> model) {
-		super(id, model);			
 
-		addColumnsPanel();
-		
-		add(new DashboardResourcesBehavior());
+	public DashboardPanel(String id, IModel<Dashboard> model) {
+		super(id, model);
 	}
-		
-	public Dashboard getDashboard() {
+
+    @Override
+    protected void onInitialize() {
+        super.onInitialize();
+
+        add(createDashboardLayout("layout", getModel()));
+        add(new DashboardResourcesBehavior());
+    }
+
+    public Dashboard getDashboard() {
 		return getModelObject();
 	}
-	
+
 	@Override
 	public void setDashboardContext(DashboardContext dashboardContext) {
 		this.dashboardContext = dashboardContext;
@@ -64,70 +62,48 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 	@Override
 	public void onEvent(IEvent<?> event) {
 		super.onEvent(event);
-		
+
 		if (event.getPayload() instanceof DashboardEvent) {
-			DashboardEvent dashboardEvent = (DashboardEvent) event.getPayload();
-			DashboardEvent.EventType eventType = dashboardEvent.getType();
-			if (DashboardEvent.EventType.WIDGET_ADDED == eventType) {
-				onWidgetAdded(dashboardEvent);
-			} else if (DashboardEvent.EventType.WIDGET_REMOVED == eventType) {
-				onWidgetRemoved(dashboardEvent);
-			} else if (DashboardEvent.EventType.WIDGETS_SORTED == eventType) {
-				onWidgetsSorted(dashboardEvent);
-			}
+            onDashboardEvent((DashboardEvent) event.getPayload());
 		}
 	}
 
-	private void onWidgetAdded(DashboardEvent dashboardEvent) {
-		Widget addedWidget = (Widget) dashboardEvent.getDetail();
+    protected DashboardLayout createDashboardLayout(String id, IModel<Dashboard> model) {
+        return new ColumnDashboardLayout(id, model);
+//        return new GridDashboardLayout(id, model);
+    }
+
+    protected void onWidgetsSorted(DashboardEvent event) {
 		Dashboard dashboard = getDashboard();
-		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
-		dashboard.addWidget(addedWidget);
+		DashboardUtils.updateWidgetLocations(dashboard, event);
 		dashboardContext.getDashboardPersiter().save(dashboard);
 	}
 
-	private void onWidgetRemoved(DashboardEvent dashboardEvent) {
-		Widget removedWidget = (Widget) dashboardEvent.getDetail();
-		Dashboard dashboard = getDashboard();
-		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
-		dashboard.deleteWidget(removedWidget.getId());
-		dashboardContext.getDashboardPersiter().save(dashboard);
-	}
+    protected void onWidgetAdded(DashboardEvent event) {
+        Widget addedWidget = (Widget) event.getDetail();
+        Dashboard dashboard = getDashboard();
+        DashboardUtils.updateWidgetLocations(dashboard, event);
+        dashboard.addWidget(addedWidget);
+        dashboardContext.getDashboardPersiter().save(dashboard);
+    }
 
-	protected void onWidgetsSorted(DashboardEvent dashboardEvent) {
-		Dashboard dashboard = getDashboard();
-		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
-		dashboardContext.getDashboardPersiter().save(dashboard);		
-	}
+    protected void onWidgetRemoved(DashboardEvent event) {
+        Widget removedWidget = (Widget) event.getDetail();
+        Dashboard dashboard = getDashboard();
+        DashboardUtils.updateWidgetLocations(dashboard, event);
+        dashboard.deleteWidget(removedWidget.getId());
+        dashboardContext.getDashboardPersiter().save(dashboard);
+    }
 
-	private void addColumnsPanel() {
-		final int columnCount = getDashboard().getColumnCount();
-		Loop columnsView = new Loop("columns", columnCount) {
-			
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			protected void onBeforeRender() {
-				if (!hasBeenRendered()) {
-					columnPanels = new ArrayList<DashboardColumnPanel>();
-				}
-				
-				super.onBeforeRender();
-			}
-
-			@Override
-			protected void populateItem(LoopItem item) {
-			    float columnPanelWidth = 100f / columnCount;
-		    	DashboardColumnPanel columnPanel = new DashboardColumnPanel("column", getModel(), item.getIndex());
-		    	columnPanel.setRenderBodyOnly(true);
-		    	columnPanel.getColumnContainer().add(AttributeModifier.replace("style", "width: " + columnPanelWidth + "%;"));		    	
-		    	item.add(columnPanel);
-		    	
-		    	columnPanels.add(columnPanel);
-			}
-			
-		};
-		add(columnsView);
-	}
+    private void onDashboardEvent(DashboardEvent event) {
+        DashboardEvent.EventType eventType = event.getType();
+        if (DashboardEvent.EventType.WIDGET_ADDED == eventType) {
+            onWidgetAdded(event);
+        } else if (DashboardEvent.EventType.WIDGET_REMOVED == eventType) {
+            onWidgetRemoved(event);
+        } else if (DashboardEvent.EventType.WIDGETS_SORTED == eventType) {
+            onWidgetsSorted(event);
+        }
+    }
 
 }

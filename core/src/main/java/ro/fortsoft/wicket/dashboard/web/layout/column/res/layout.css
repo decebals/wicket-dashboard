@@ -1,0 +1,23 @@
+.column {
+	/*
+	width: 49.5%;
+	*/
+	margin-right: .5%;
+	min-height: 320px;
+	float: left;
+}
+
+ul.column {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.dragbox {
+	margin: 5px 2px 20px;
+}
+
+.placeholder {
+	background: #f0f0f0;
+	border: 1px dashed #ddd;
+}
