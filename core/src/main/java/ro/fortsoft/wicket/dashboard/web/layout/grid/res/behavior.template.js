@@ -11,13 +11,6 @@ $('.gridster>ul').gridster({
     resize: {
         enabled: true,
         stop: function(e, ui, widget) {
-            /*
-            // retrieves the new dimensions (use these dimensions in resizeBehavior)
-            var columnSpan = this.resize_coords.grid.size_x;
-            var rowSpan = this.resize_coords.grid.size_y;
-
-            ${resizeBehavior};
-            */
             ${stopBehavior};
         }
     }
