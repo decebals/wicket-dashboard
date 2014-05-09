@@ -80,6 +80,8 @@ public class WidgetLocation implements Serializable {
 		int result = 1;
 		result = prime * result + column;
 		result = prime * result + row;
+        result = prime * result + columnSpan;
+        result = prime * result + rowSpan;
 
 		return result;
 	}
@@ -105,6 +107,12 @@ public class WidgetLocation implements Serializable {
 		if (row != other.row) {
 			return false;
 		}
+        if (rowSpan != other.rowSpan) {
+            return false;
+        }
+        if (columnSpan != other.columnSpan) {
+            return false;
+        }
 
 		return true;
 	}

@@ -54,6 +54,8 @@ public abstract class LayoutAjaxBehavior extends AbstractDefaultAjaxBehavior {
 		Map<String, WidgetLocation> locations = new HashMap<String, WidgetLocation>();
 		for (Item item : items) {
 			WidgetLocation location = new WidgetLocation(item.column, item.row);
+            location.setRowSpan(item.rowSpan);
+            location.setColumnSpan(item.columnSpan);
 			locations.put(item.widget, location);
 		}
 
@@ -86,10 +88,10 @@ public abstract class LayoutAjaxBehavior extends AbstractDefaultAjaxBehavior {
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("Item[");
 			buffer.append("widget = ").append(widget);
-			buffer.append(" column = ").append(column);
-			buffer.append(" row = ").append(row);
-            buffer.append(" columnSpan = ").append(columnSpan);
-            buffer.append(" rowSpan = ").append(rowSpan);
+			buffer.append(", column = ").append(column);
+			buffer.append(", row = ").append(row);
+            buffer.append(", columnSpan = ").append(columnSpan);
+            buffer.append(", rowSpan = ").append(rowSpan);
 			buffer.append("]");
 
 			return buffer.toString();

@@ -5,7 +5,7 @@ $('#${component}').sortable({
     placeholder: 'placeholder',
     cursor: 'move',
     opacity: 0.5,
-    stop: function(event, ui) {
+    stop: function(e, ui) {
         ${stopBehavior}
     }
 });

@@ -1,7 +1,7 @@
 var Dashboard = Dashboard || {};
 
 Dashboard.DefaultLayout = {
-    serialize : function () {
+    serialize: function () {
         var items = [];
         $("ul.column").each(function () {
             var columnId = $(this).attr("id");
