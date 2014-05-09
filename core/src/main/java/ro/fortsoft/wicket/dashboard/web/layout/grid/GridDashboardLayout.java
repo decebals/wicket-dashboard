@@ -12,11 +12,7 @@
  */
 package ro.fortsoft.wicket.dashboard.web.layout.grid;
 
-import com.google.gson.Gson;
 import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -44,7 +40,6 @@ public class GridDashboardLayout extends DashboardLayout {
 	private static final long serialVersionUID = 1L;
 
     private LayoutAjaxBehavior layoutAjaxBehavior;
-//    private WidgetResizeAjaxBehavior widgetResizeBehavior;
 
     public GridDashboardLayout(String id, IModel<Dashboard> model) {
         super(id, model);
@@ -65,12 +60,8 @@ public class GridDashboardLayout extends DashboardLayout {
 
         CharSequence script = layoutAjaxBehavior.getCallbackFunctionBody();
 
-//        CharSequence resizeScript = widgetResizeBehavior.getCallbackFunctionBody();
-//        System.out.println("resizeScript = " + resizeScript);
-
         Map<String, String> vars = new HashMap<String, String>();
         vars.put("stopBehavior", script.toString());
-//        vars.put("resizeBehavior", resizeScript.toString());
 
         PackageTextTemplate template = new PackageTextTemplate(GridDashboardLayout.class, "res/behavior.template.js");
         template.interpolate(vars);
@@ -86,21 +77,6 @@ public class GridDashboardLayout extends DashboardLayout {
 
         layoutAjaxBehavior = createLayoutAjaxBehavior("Dashboard.GridLayout.serialize");
         add(layoutAjaxBehavior);
-
-        /*
-        widgetResizeBehavior = new WidgetResizeAjaxBehavior() {
-
-            @Override
-            public void onWidgetResized(AjaxRequestTarget target, String widgetId, int rowSpan, int columnSpan) {
-                System.out.println("GridDashboardLayout.onWidgetResized");
-                System.out.println("widgetId = " + widgetId);
-                System.out.println("rowSpan = " + rowSpan);
-                System.out.println("columnSpan = " + columnSpan);
-            }
-
-        };
-        add(widgetResizeBehavior);
-        */
     }
 
     private void addWidgets() {
@@ -129,62 +105,6 @@ public class GridDashboardLayout extends DashboardLayout {
         };
 
         add(listView);
-    }
-
-    private abstract class WidgetResizeAjaxBehavior extends AbstractDefaultAjaxBehavior {
-
-        private static final long serialVersionUID = 1L;
-
-        private static final String JSON_DATA = "data";
-
-        public abstract void onWidgetResized(AjaxRequestTarget target, String widgetId, int rowSpan, int columnSpan);
-
-        @Override
-        protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
-            super.updateAjaxAttributes(attributes);
-
-            StringBuilder buffer = new StringBuilder();
-            buffer.append("var data = Dashboard.GridLayout.resize(e, ui, widget, columnSpan, rowSpan);");
-            buffer.append("return {'" + JSON_DATA + "': data};");
-
-            attributes.getDynamicExtraParameters().add(buffer);
-        }
-
-        @Override
-        protected void respond(AjaxRequestTarget target) {
-            String jsonData = getComponent().getRequest().getRequestParameters().getParameterValue(JSON_DATA).toString();
-            Info info = getInfo(jsonData);
-            onWidgetResized(target, info.widget, info.rowSpan, info.columnSpan);
-        }
-
-        private Info getInfo(String jsonData) {
-            Gson gson = new Gson();
-            Info info = gson.fromJson(jsonData, Info.class);
-//            System.out.println("info = " + info);
-
-            return info;
-        }
-
-    }
-
-    static class Info {
-
-        public String widget;
-        public int columnSpan;
-        public int rowSpan;
-
-        @Override
-        public String toString() {
-            StringBuffer buffer = new StringBuffer();
-            buffer.append("Info[");
-            buffer.append("widget = ").append(widget);
-            buffer.append(" columnSpan = ").append(columnSpan);
-            buffer.append(" rowSpan = ").append(rowSpan);
-            buffer.append("]");
-
-            return buffer.toString();
-        }
-
     }
 
 }
