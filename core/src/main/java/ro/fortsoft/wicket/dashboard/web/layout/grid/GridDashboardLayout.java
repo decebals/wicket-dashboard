@@ -27,6 +27,7 @@ import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
 import ro.fortsoft.wicket.dashboard.web.layout.DashboardLayout;
 import ro.fortsoft.wicket.dashboard.web.layout.LayoutAjaxBehavior;
+import ro.fortsoft.wicket.dashboard.web.layout.WidgetLoadingPanel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -39,10 +40,29 @@ public class GridDashboardLayout extends DashboardLayout {
 
 	private static final long serialVersionUID = 1L;
 
+    private int widgetBaseWidth = 600;
+    private int widgetBaseHeight = 330;
+
     private LayoutAjaxBehavior layoutAjaxBehavior;
 
     public GridDashboardLayout(String id, IModel<Dashboard> model) {
         super(id, model);
+    }
+
+    public int getWidgetBaseWidth() {
+        return widgetBaseWidth;
+    }
+
+    public void setWidgetBaseWidth(int widgetBaseWidth) {
+        this.widgetBaseWidth = widgetBaseWidth;
+    }
+
+    public int getWidgetBaseHeight() {
+        return widgetBaseHeight;
+    }
+
+    public void setWidgetBaseHeight(int widgetBaseHeight) {
+        this.widgetBaseHeight = widgetBaseHeight;
     }
 
     @Override
@@ -61,6 +81,8 @@ public class GridDashboardLayout extends DashboardLayout {
         CharSequence script = layoutAjaxBehavior.getCallbackFunctionBody();
 
         Map<String, String> vars = new HashMap<String, String>();
+        vars.put("widgetBaseWidth", String.valueOf(widgetBaseWidth));
+        vars.put("widgetBaseHeight", String.valueOf(widgetBaseHeight));
         vars.put("stopBehavior", script.toString());
 
         PackageTextTemplate template = new PackageTextTemplate(GridDashboardLayout.class, "res/behavior.template.js");
@@ -89,7 +111,8 @@ public class GridDashboardLayout extends DashboardLayout {
             protected void populateItem(ListItem<Widget> item) {
                 Widget widget = item.getModelObject();
                 String widgetId = widget.getId();
-                item.add(createWidgetPanel("widget", widgetId));
+//                item.add(createWidgetPanel("widget", widgetId));
+                item.add(new WidgetLoadingPanel("widget", item.getModel()));
 
                 item.setOutputMarkupId(true);
                 item.setMarkupId("widget-" + widgetId);

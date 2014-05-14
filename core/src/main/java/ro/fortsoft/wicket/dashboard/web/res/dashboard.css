@@ -17,7 +17,7 @@
 
 .dragbox-header img {
     margin: 0;
-    padding: 0px;
+    padding: 0;
 }
 
 .dragbox-toggle {
@@ -33,14 +33,14 @@
 
 .dragbox-actions {
 	float: right;
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	display: none;
 }
 
 .dragbox-actions ul {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .dragbox-actions ul li {
@@ -53,8 +53,8 @@
 }
 
 .dragbox-actions ul li a img {
-	border: 0px;
-	margin: 0px;
+	border: 0;
+	margin: 0;
 }
 
 .dragbox-content {
@@ -63,4 +63,14 @@
 	margin: 5px;
 	line-height: 1.5em;
 	overflow: auto;
+}
+
+.widget-loading {
+    height: 150px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.widget-loading .widget-title {
+    font-weight: bold;
 }

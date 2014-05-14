@@ -30,6 +30,7 @@ import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.web.layout.DashboardLayout;
 import ro.fortsoft.wicket.dashboard.web.layout.LayoutAjaxBehavior;
+import ro.fortsoft.wicket.dashboard.web.layout.WidgetLoadingPanel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,7 +118,8 @@ public class ColumnDashboardLayout extends DashboardLayout {
                 @Override
                 protected void populateItem(ListItem<Widget> item) {
                     String widgetId = item.getModelObject().getId();
-                    item.add(createWidgetPanel("widget", widgetId));
+//                    item.add(createWidgetPanel("widget", widgetId));
+                    item.add(new WidgetLoadingPanel("widget", item.getModel()));
 
                     item.setOutputMarkupId(true);
                     item.setMarkupId("widget-" + widgetId);

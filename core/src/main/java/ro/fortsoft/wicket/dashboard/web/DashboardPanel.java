@@ -69,8 +69,8 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 	}
 
     protected DashboardLayout createDashboardLayout(String id, IModel<Dashboard> model) {
-        return new ColumnDashboardLayout(id, model);
-//        return new GridDashboardLayout(id, model);
+//        return new ColumnDashboardLayout(id, model);
+        return new GridDashboardLayout(id, model);
     }
 
     protected void onWidgetsSorted(DashboardEvent event) {

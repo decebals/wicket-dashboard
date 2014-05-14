@@ -9,11 +9,11 @@
 
 ul.column {
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
-.dragbox {
+.widget {
 	margin: 5px 2px 20px;
 }
 
