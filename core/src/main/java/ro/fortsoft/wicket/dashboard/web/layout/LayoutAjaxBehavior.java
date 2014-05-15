@@ -42,7 +42,7 @@ public abstract class LayoutAjaxBehavior extends AbstractDefaultAjaxBehavior {
 
         StringBuilder buffer = new StringBuilder();
         buffer.append("var data = " + getSerializeFunctionName() + "();");
-        buffer.append("return {'" + JSON_DATA + "': data};");
+        buffer.append("return { '" + JSON_DATA + "': data };");
 
         attributes.getDynamicExtraParameters().add(buffer);
     }

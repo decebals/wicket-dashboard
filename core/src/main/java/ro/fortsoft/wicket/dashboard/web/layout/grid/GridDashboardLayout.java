@@ -13,6 +13,9 @@
 package ro.fortsoft.wicket.dashboard.web.layout.grid;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
@@ -22,9 +25,12 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.util.template.PackageTextTemplate;
+import org.apache.wicket.util.visit.IVisit;
+import org.apache.wicket.util.visit.IVisitor;
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
+import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
 import ro.fortsoft.wicket.dashboard.web.layout.DashboardLayout;
 import ro.fortsoft.wicket.dashboard.web.layout.LayoutAjaxBehavior;
 import ro.fortsoft.wicket.dashboard.web.layout.WidgetLoadingPanel;
@@ -44,6 +50,7 @@ public class GridDashboardLayout extends DashboardLayout {
     private int widgetBaseHeight = 330;
 
     private LayoutAjaxBehavior layoutAjaxBehavior;
+    private WidgetResizeAjaxBehavior widgetResizeBehavior;
 
     public GridDashboardLayout(String id, IModel<Dashboard> model) {
         super(id, model);
@@ -78,17 +85,7 @@ public class GridDashboardLayout extends DashboardLayout {
         // add css contributions
         response.render(CssHeaderItem.forReference(new PackageResourceReference(GridDashboardLayout.class, "res/layout.css")));
 
-        CharSequence script = layoutAjaxBehavior.getCallbackFunctionBody();
-
-        Map<String, String> vars = new HashMap<String, String>();
-        vars.put("widgetBaseWidth", String.valueOf(widgetBaseWidth));
-        vars.put("widgetBaseHeight", String.valueOf(widgetBaseHeight));
-        vars.put("stopBehavior", script.toString());
-
-        PackageTextTemplate template = new PackageTextTemplate(GridDashboardLayout.class, "res/behavior.template.js");
-        template.interpolate(vars);
-
-        response.render(OnDomReadyHeaderItem.forScript(template.getString()));
+        response.render(OnDomReadyHeaderItem.forScript(getJavaScript()));
     }
 
     @Override
@@ -99,6 +96,44 @@ public class GridDashboardLayout extends DashboardLayout {
 
         layoutAjaxBehavior = createLayoutAjaxBehavior("Dashboard.GridLayout.serialize");
         add(layoutAjaxBehavior);
+
+        widgetResizeBehavior = new WidgetResizeAjaxBehavior() {
+
+            @Override
+            public void onWidgetResized(final AjaxRequestTarget target, final String widgetId) {
+                visitChildren(WidgetPanel.class, new IVisitor<WidgetPanel, Void>() {
+
+                    @Override
+                    public void component(WidgetPanel object, IVisit<Void> visit) {
+                        if (widgetId.equals(object.getModelObject().getId())) {
+                            visit.stop();
+                            // refresh the resized widget panel
+                            target.add(object);
+                        }
+                    }
+
+                });
+
+            }
+
+        };
+        add(widgetResizeBehavior);
+    }
+
+    private String getJavaScript() {
+        CharSequence script = layoutAjaxBehavior.getCallbackFunctionBody();
+        CharSequence widgetResizeScript = widgetResizeBehavior.getCallbackFunctionBody();
+
+        Map<String, String> vars = new HashMap<String, String>();
+        vars.put("widgetBaseWidth", String.valueOf(widgetBaseWidth));
+        vars.put("widgetBaseHeight", String.valueOf(widgetBaseHeight));
+        vars.put("stopBehavior", script.toString());
+        vars.put("widgetResizeBehavior", widgetResizeScript.toString());
+
+        PackageTextTemplate template = new PackageTextTemplate(GridDashboardLayout.class, "res/behavior.template.js");
+        template.interpolate(vars);
+
+        return template.getString();
     }
 
     private void addWidgets() {
@@ -128,6 +163,33 @@ public class GridDashboardLayout extends DashboardLayout {
         };
 
         add(listView);
+    }
+
+    private abstract class WidgetResizeAjaxBehavior extends AbstractDefaultAjaxBehavior {
+
+        private static final long serialVersionUID = 1L;
+
+        private static final String WIDGET_ID = "widgetId";
+
+        public abstract void onWidgetResized(AjaxRequestTarget target, String widgetId);
+
+        @Override
+        protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+            super.updateAjaxAttributes(attributes);
+
+            StringBuilder buffer = new StringBuilder();
+            buffer.append("var widgetId = widget.attr('id').substring(7);"); // 'widget-'.length;
+            buffer.append("return { '" + WIDGET_ID + "': widgetId };");
+
+            attributes.getDynamicExtraParameters().add(buffer);
+        }
+
+        @Override
+        protected void respond(AjaxRequestTarget target) {
+            String widgetId = getComponent().getRequest().getRequestParameters().getParameterValue(WIDGET_ID).toString();
+            onWidgetResized(target, widgetId);
+        }
+
     }
 
 }
