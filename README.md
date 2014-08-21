@@ -1,6 +1,5 @@
 Simple wicket dashboard
 =====================
-
 A dashboard is a panel with quick access to information or common tasks.
 
 Current build status: [![Build Status](https://buildhive.cloudbees.com/job/decebals/job/wicket-dashboard/badge/icon)](https://buildhive.cloudbees.com/job/decebals/job/wicket-dashboard/)
@@ -202,8 +201,23 @@ You can see a screenshot of the demo application on the project's [wiki page] (h
 
 Mailing list
 --------------
-
 Much of the conversation between developers and users is managed through the project's [mailing list] (http://groups.google.com/group/wicket-dashboard).
+
+Versioning
+------------
+Wicket-dashboard will be maintained under the Semantic Versioning guidelines as much as possible.
+
+Releases will be numbered with the follow format:
+
+`<major>.<minor>.<patch>`
+
+And constructed with the following guidelines:
+
+* Breaking backward compatibility bumps the major
+* New additions without breaking backward compatibility bumps the minor
+* Bug fixes and misc changes bump the patch
+
+For more information on SemVer, please visit http://semver.org/. 
 
 License
 --------------

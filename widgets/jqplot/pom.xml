@@ -5,12 +5,12 @@
     <parent>
         <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
         <artifactId>wicket-dashboard-widgets-parent</artifactId>
-        <version>0.11-SNAPSHOT</version>
+        <version>0.11.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-jqplot</artifactId>
-    <version>0.11-SNAPSHOT</version>
+    <version>0.11.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>JqPlot Widget</name>
 
