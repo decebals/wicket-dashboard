@@ -17,11 +17,14 @@ import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 import ro.fortsoft.wicket.dashboard.Dashboard;
+import ro.fortsoft.wicket.dashboard.Settings;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
 import ro.fortsoft.wicket.dashboard.web.*;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * @author Decebal Suiu
@@ -72,6 +75,28 @@ public abstract class DashboardLayout extends GenericPanel<Dashboard> {
             }
 
         };
+    }
+
+    protected Properties getDefaultProperties() {
+        Properties defaults = new Properties();
+        try {
+            defaults.load(getClass().getResourceAsStream("layout.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return defaults;
+    }
+
+    protected Settings getSettings() {
+        Properties defaults = getDefaultProperties();
+        for (String key : defaults.stringPropertyNames()) {
+            if (!getDashboard().getSettings().containsKey(key)) {
+                getDashboard().getSettings().put(key, defaults.getProperty(key));
+            }
+        }
+
+        return getDashboard().getSettings();
     }
 
 }

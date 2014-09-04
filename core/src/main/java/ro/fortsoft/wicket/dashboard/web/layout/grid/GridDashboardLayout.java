@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Decebal Suiu
+ * Copyright 2014 Decebal Suiu
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
  * the License. You may obtain a copy of the License in the LICENSE file, or at:
@@ -22,12 +22,14 @@ import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import ro.fortsoft.wicket.dashboard.Dashboard;
+import ro.fortsoft.wicket.dashboard.Settings;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.WidgetLocation;
 import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
@@ -46,30 +48,11 @@ public class GridDashboardLayout extends DashboardLayout {
 
 	private static final long serialVersionUID = 1L;
 
-    private int widgetBaseWidth = 600;
-    private int widgetBaseHeight = 330;
-
     private LayoutAjaxBehavior layoutAjaxBehavior;
     private WidgetResizeAjaxBehavior widgetResizeBehavior;
 
     public GridDashboardLayout(String id, IModel<Dashboard> model) {
         super(id, model);
-    }
-
-    public int getWidgetBaseWidth() {
-        return widgetBaseWidth;
-    }
-
-    public void setWidgetBaseWidth(int widgetBaseWidth) {
-        this.widgetBaseWidth = widgetBaseWidth;
-    }
-
-    public int getWidgetBaseHeight() {
-        return widgetBaseHeight;
-    }
-
-    public void setWidgetBaseHeight(int widgetBaseHeight) {
-        this.widgetBaseHeight = widgetBaseHeight;
     }
 
     @Override
@@ -124,9 +107,17 @@ public class GridDashboardLayout extends DashboardLayout {
         CharSequence script = layoutAjaxBehavior.getCallbackFunctionBody();
         CharSequence widgetResizeScript = widgetResizeBehavior.getCallbackFunctionBody();
 
+        Settings settings = getSettings();
+        String widgetWidth = settings.getValueAsString("widgetWidth");
+        String widgetHeight = settings.getValueAsString("widgetHeight");
+        String widgetHorizontalMargin = settings.getValueAsString("widgetHorizontalMargin");
+        String widgetVerticalMargin = settings.getValueAsString("widgetVerticalMargin");
+
         Map<String, String> vars = new HashMap<String, String>();
-        vars.put("widgetBaseWidth", String.valueOf(widgetBaseWidth));
-        vars.put("widgetBaseHeight", String.valueOf(widgetBaseHeight));
+        vars.put("widgetBaseWidth", widgetWidth);
+        vars.put("widgetBaseHeight", widgetHeight);
+        vars.put("widgetHorizontalMargin", widgetHorizontalMargin);
+        vars.put("widgetVerticalMargin", widgetVerticalMargin);
         vars.put("stopBehavior", script.toString());
         vars.put("widgetResizeBehavior", widgetResizeScript.toString());
 
@@ -147,7 +138,10 @@ public class GridDashboardLayout extends DashboardLayout {
                 Widget widget = item.getModelObject();
                 String widgetId = widget.getId();
 //                item.add(createWidgetPanel("widget", widgetId));
-                item.add(new WidgetLoadingPanel("widget", item.getModel()));
+//                item.add(new WidgetLoadingPanel("widget", item.getModel()));
+                Panel loadingPanel = new WidgetLoadingPanel("widget", item.getModel());
+                loadingPanel.add(AttributeModifier.append("style", "height: " + getSettings().getValueAsString("widgetHeight") + "px;"));
+                item.add(loadingPanel);
 
                 item.setOutputMarkupId(true);
                 item.setMarkupId("widget-" + widgetId);

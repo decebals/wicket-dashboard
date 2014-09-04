@@ -1,11 +1,11 @@
 /*
  * Copyright 2012 Decebal Suiu
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
  * the License. You may obtain a copy of the License in the LICENSE file, or at:
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -45,13 +45,13 @@ public class ChartContainer extends WebMarkupContainer {
 
 	private String createJquery() {
 		Chart<?> chart = getChart();
-		
+
 		StringBuilder builder = new StringBuilder();
 		builder.append("$.jqplot('").append(getMarkupId()).append("', ");
 		builder.append(chart.getChartData().toJsonString());
 		builder.append(", ");
 		builder.append(JqPlotUtils.jqPlotToJson(chart.getChartConfiguration()));
-		builder.append(");\r\n");
+		builder.append(");");
 
 		return builder.toString();
 	}
@@ -66,7 +66,7 @@ public class ChartContainer extends WebMarkupContainer {
 	private Chart<?> getChart() {
 		return (Chart<?>) getDefaultModelObject();
 	}
-	
+
 	private Behavior getJqPlotBehavior() {
 		return new Behavior() {
 
@@ -75,7 +75,7 @@ public class ChartContainer extends WebMarkupContainer {
 			@Override
 			public void renderHead(Component component, IHeaderResponse response) {
 				super.renderHead(component, response);
-				
+
 				response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.js")));
 				response.render(CssHeaderItem.forReference(new CssResourceReference(JqPlotBehavior.class, "jquery.jqplot.min.css")));
 				List<String> resources = JqPlotUtils.retriveJavaScriptResources(getChart());

@@ -1,6 +1,6 @@
 $('.gridster>ul').gridster({
     widget_selector: 'li.widget',
-    widget_margins: [10, 10],
+    widget_margins: [${widgetHorizontalMargin}, ${widgetVerticalMargin}],
     widget_base_dimensions: [${widgetBaseWidth}, ${widgetBaseHeight}],
     min_cols: 1,
     draggable: {

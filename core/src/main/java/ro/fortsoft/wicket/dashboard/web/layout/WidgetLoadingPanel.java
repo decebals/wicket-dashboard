@@ -31,20 +31,32 @@ public class WidgetLoadingPanel extends AjaxLazyLoadPanel {
 
     @Override
     public Component getLazyLoadComponent(String id) {
+        // for test only
+        /*
+        try {
+            Thread.sleep(40 * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        */
+
         return findParent(DashboardLayout.class).createWidgetPanel(id, getWidgetModel());
     }
 
     @Override
     public Component getLoadingComponent(final String markupId) {
-        return new Label(markupId, getLoadingText()).setEscapeModelStrings(false);
+        return new Label(markupId, getLoadingText()).setEscapeModelStrings(false).setRenderBodyOnly(true);
     }
 
     private String getLoadingText() {
         String widgetTitle = getWidgetModel().getObject().getTitle();
 
         StringBuilder text = new StringBuilder();
-        text.append("<div class='dragbox widget-loading'>");
+//        text.append("<div class='dragbox widget-loading'>");
+        text.append("<div class='widget-loading'>");
+        text.append("<div class='widget-loading-message'>");
         text.append("<span class='widget-title'>" + widgetTitle + "</span> is loading ...");
+        text.append("</div>");
         text.append("</div>");
 
         return text.toString();

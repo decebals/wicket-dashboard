@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Decebal Suiu
+ * Copyright 2014 Decebal Suiu
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
  * the License. You may obtain a copy of the License in the LICENSE file, or at:
@@ -23,10 +23,12 @@ import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.markup.html.panel.Fragment;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import ro.fortsoft.wicket.dashboard.Dashboard;
+import ro.fortsoft.wicket.dashboard.Settings;
 import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.web.layout.DashboardLayout;
 import ro.fortsoft.wicket.dashboard.web.layout.LayoutAjaxBehavior;
@@ -70,7 +72,9 @@ public class ColumnDashboardLayout extends DashboardLayout {
     }
 
 	private void addColumns() {
-		final int columnCount = getDashboard().getColumnCount();
+        Settings settings = getSettings();
+		final int columnCount = settings.getValueAsInt("columnCount");
+
 		Loop columnsView = new Loop("columns", columnCount) {
 
 			private static final long serialVersionUID = 1L;
@@ -119,7 +123,11 @@ public class ColumnDashboardLayout extends DashboardLayout {
                 protected void populateItem(ListItem<Widget> item) {
                     String widgetId = item.getModelObject().getId();
 //                    item.add(createWidgetPanel("widget", widgetId));
-                    item.add(new WidgetLoadingPanel("widget", item.getModel()));
+//                    item.add(new WidgetLoadingPanel("widget", item.getModel()));
+                    Panel loadingPanel = new WidgetLoadingPanel("widget", item.getModel());
+                    loadingPanel.add(AttributeModifier.append("style", "height: 330px"));
+                    item.add(loadingPanel);
+//                    item.add(AttributeModifier.append("style", "height: 330px"));
 
                     item.setOutputMarkupId(true);
                     item.setMarkupId("widget-" + widgetId);

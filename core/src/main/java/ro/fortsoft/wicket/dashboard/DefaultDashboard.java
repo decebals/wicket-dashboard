@@ -25,13 +25,12 @@ public class DefaultDashboard implements Dashboard {
 
 	private String id;
 	private String title;
-	private int columnCount;
+    private Settings settings;
 	private List<Widget> widgets;
 
 	public DefaultDashboard(String id, String title) {
 		this.id = id;
 		this.title = title;
-		columnCount = 2;
 		widgets = new ArrayList<Widget>();
 	}
 
@@ -48,16 +47,6 @@ public class DefaultDashboard implements Dashboard {
 	@Override
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	@Override
-	public int getColumnCount() {
-		return columnCount;
-	}
-
-	@Override
-	public void setColumnCount(int columnCount) {
-		this.columnCount = columnCount;
 	}
 
 	@Override
@@ -108,12 +97,23 @@ public class DefaultDashboard implements Dashboard {
 		}
 	}
 
-	@Override
+    @Override
+    public Settings getSettings() {
+        return settings;
+    }
+
+    @Override
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+
+    @Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("DefaultDashboard[");
 		buffer.append("id = ").append(id);
 		buffer.append(", title = ").append(title);
+        buffer.append(", settings = ").append(settings);
 		buffer.append(", widgets = ").append(widgets);
 		buffer.append("]");
 
