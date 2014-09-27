@@ -22,12 +22,9 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.event.Broadcast;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.model.ResourceModel;
-import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.resource.ContextRelativeResource;
-import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.model.*;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 
 import ro.fortsoft.wicket.dashboard.web.DashboardEvent;
 import ro.fortsoft.wicket.dashboard.web.WidgetPanel;
@@ -42,16 +39,17 @@ public abstract class WidgetAction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	protected Widget widget;	
-	protected IResource image;
+	protected ResourceReference image;
 	protected IModel<String> tooltip;
 
-	public WidgetAction(Widget widget) {
+	public WidgetAction(Widget widget, ResourceReference image) {
 		this.widget = widget;
+		this.image = image;
 	}
 	
 	public abstract AbstractLink getLink(String id);
  
-	public IResource getImage() {
+	public ResourceReference getImage() {
 		return image;
 	}
 
@@ -64,9 +62,8 @@ public abstract class WidgetAction implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		public Refresh(Widget widget) {
-			super(widget);
+			super(widget, new PackageResourceReference(WidgetAction.class, "refresh.gif"));
 			
-			image = new ContextRelativeResource("images/refresh.gif");
 			tooltip = new ResourceModel("refresh");
 		}
 
@@ -92,9 +89,8 @@ public abstract class WidgetAction implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		public Delete(Widget widget) {
-			super(widget);
+			super(widget, new PackageResourceReference(WidgetAction.class, "delete.gif"));
 			
-			image = new ContextRelativeResource("images/delete.gif");
 			tooltip = new ResourceModel("delete");
 		}
 
@@ -140,9 +136,8 @@ public abstract class WidgetAction implements Serializable {
 		private static final long serialVersionUID = 1L;
 
 		public Settings(Widget widget) {
-			super(widget);
+			super(widget, new PackageResourceReference(WidgetAction.class, "edit.png"));
 			
-			image = new ContextRelativeResource("images/edit.png");
 			tooltip = new ResourceModel("settings");
 		}
 
