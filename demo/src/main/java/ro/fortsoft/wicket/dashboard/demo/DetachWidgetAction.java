@@ -30,9 +30,8 @@ public class DetachWidgetAction extends WidgetAction {
 	private static final long serialVersionUID = 1L;
 
 	public DetachWidgetAction(Widget widget) {
-		super(widget);
+		super(widget, new PackageResourceReference(HomePage.class, "detach.png"));
 		
-		image = new PackageResourceReference(HomePage.class, "detach.png").getResource();
 		tooltip = new ResourceModel("detach");
 	}
 
