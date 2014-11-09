@@ -25,7 +25,7 @@ A view can be for example a chart or a table.
 - **WidgetFactory** is the object that creates widgets using the widget descriptors.
 - **WidgetRegistry** is the object that stores all active widget descriptors. You can register a new widget 
 using a widget descriptor.
-- **DashboardPersiter** is responsible for dashboard load and save. XStreamDashboardPersister is a concrete implementation
+- **DashboardPersister** is responsible for dashboard load and save. XStreamDashboardPersister is a concrete implementation
 that save/load a dashboard to/from a file.
 - **DashboardPanel** is a wicket panel that displays a dashboard.
 - **WidgetPanel** is a wicket panel that displays a widget. It contains a header panel, a settings panel (if the
@@ -142,7 +142,7 @@ In your application class make some initializations:
 	}
 	
 	private void initDashboard() {
-		dashboard = getDashboardContext().getDashboardPersiter().load();
+		dashboard = getDashboardContext().getDashboardPersister().load();
     	if (dashboard == null) {
     		dashboard = new DefaultDashboard("default", "Default");
     	}
