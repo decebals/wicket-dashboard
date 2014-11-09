@@ -83,7 +83,7 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 		Dashboard dashboard = getDashboard();
 		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
 		dashboard.addWidget(addedWidget);
-		dashboardContext.getDashboardPersiter().save(dashboard);
+		dashboardContext.getDashboardPersister().save(dashboard);
 	}
 
 	private void onWidgetRemoved(DashboardEvent dashboardEvent) {
@@ -91,13 +91,13 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 		Dashboard dashboard = getDashboard();
 		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
 		dashboard.deleteWidget(removedWidget.getId());
-		dashboardContext.getDashboardPersiter().save(dashboard);
+		dashboardContext.getDashboardPersister().save(dashboard);
 	}
 
 	protected void onWidgetsSorted(DashboardEvent dashboardEvent) {
 		Dashboard dashboard = getDashboard();
 		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
-		dashboardContext.getDashboardPersiter().save(dashboard);		
+		dashboardContext.getDashboardPersister().save(dashboard);
 	}
 
 	private void addColumnsPanel() {

@@ -62,7 +62,7 @@ public class HighChartsSettingsPanel extends GenericPanel<HighChartsWidget> impl
                 getModelObject().updateChart();
 
                 Dashboard dashboard = findParent(DashboardPanel.class).getDashboard();
-                dashboardContext.getDashboardPersiter().save(dashboard);
+                dashboardContext.getDashboardPersister().save(dashboard);
 
                 hideSettingPanel(target);
 

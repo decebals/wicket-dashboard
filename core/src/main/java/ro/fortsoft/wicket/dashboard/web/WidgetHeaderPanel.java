@@ -67,7 +67,7 @@ public class WidgetHeaderPanel extends GenericPanel<Widget> implements Dashboard
 
 				// save the new state of widget/dashboard
 				Dashboard dashboard = findParent(DashboardPanel.class).getDashboard();
-				dashboardContext.getDashboardPersiter().save(dashboard);
+				dashboardContext.getDashboardPersister().save(dashboard);
 
 				// change toggle's image
 				target.add(toggle);

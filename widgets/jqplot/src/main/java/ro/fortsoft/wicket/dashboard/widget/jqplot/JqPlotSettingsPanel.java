@@ -58,7 +58,7 @@ public class JqPlotSettingsPanel extends GenericPanel<JqPlotWidget> implements D
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
             	getModelObject().getSettings().put("chartType", chartType);
 				Dashboard dashboard = findParent(DashboardPanel.class).getDashboard();
-				dashboardContext.getDashboardPersiter().save(dashboard);
+				dashboardContext.getDashboardPersister().save(dashboard);
 
             	hideSettingPanel(target);
             	// TODO
