@@ -36,7 +36,7 @@ public class DashboardContext {
 	public DashboardContext() {
 		setWidgetFactory(new DefaultWidgetFactory());
 		setWidgetRegistry(new DefaultWidgetRegistry());
-		setDashboardPersiter(new XStreamDashboardPersister(new File("dashboard.xml")));
+		setDashboardPersister(new XStreamDashboardPersister(new File("dashboard.xml")));
 		setWidgetActionsFactory(new DefaultWidgetActionsFactory());
 	}
 	
@@ -56,11 +56,27 @@ public class DashboardContext {
 		this.widgetRegistry = widgetRegistry;
 	}
 
+	/**
+	 * @deprecated use {@link #getDashboardPersister()} instead
+	 */
+	@Deprecated
 	public DashboardPersister getDashboardPersiter() {
 		return dashboardPersister;
 	}
 
+	public DashboardPersister getDashboardPersister() {
+		return dashboardPersister;
+	}
+
+	/**
+	 * @deprecated use {@link #setDashboardPersister(DashboardPersister)} instead
+	 */
+	@Deprecated
 	public void setDashboardPersiter(DashboardPersister dashboardPersister) {
+		this.dashboardPersister = dashboardPersister;
+	}
+
+	public void setDashboardPersister(DashboardPersister dashboardPersister) {
 		this.dashboardPersister = dashboardPersister;
 	}
 

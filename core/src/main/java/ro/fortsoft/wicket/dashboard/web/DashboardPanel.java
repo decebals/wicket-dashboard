@@ -12,20 +12,19 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.event.IEvent;
-import org.apache.wicket.markup.head.CssHeaderItem;
-import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
+
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Decebal Suiu
@@ -37,7 +36,6 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 	private transient DashboardContext dashboardContext;
 
 	private List<DashboardColumnPanel> columnPanels;
-    private IModel<Boolean> rtlModel;
 
 	public DashboardPanel(String id, IModel<Dashboard> model) {
 		super(id, model);
@@ -80,25 +78,7 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 		}
 	}
 
-    /**
-     * Use this method if you want to add RightToLeft support.
-     *
-     * @param rtlModel
-     */
-    public void setRtlModel(IModel<Boolean> rtlModel) {
-        this.rtlModel = rtlModel;
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
-
-        if ((rtlModel != null) && (rtlModel.getObject() == Boolean.TRUE)) {
-            response.render(CssHeaderItem.forReference(DashboardSettings.get().getRtlCssReference()));
-        }
-    }
-
-    private void onWidgetAdded(DashboardEvent dashboardEvent) {
+	private void onWidgetAdded(DashboardEvent dashboardEvent) {
 		Widget addedWidget = (Widget) dashboardEvent.getDetail();
 		Dashboard dashboard = getDashboard();
 		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
