@@ -1,11 +1,11 @@
 /*
  * Copyright 2012 Decebal Suiu
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with
  * the License. You may obtain a copy of the License in the LICENSE file, or at:
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -29,6 +29,8 @@ public class DashboardSettings {
 			DashboardSettings.class, "res/dashboard.js");
 	private ResourceReference cssReference = new PackageResourceReference(
 			DashboardSettings.class, "res/dashboard.css");
+    private ResourceReference rtlCssReference = new PackageResourceReference(
+            DashboardSettings.class, "res/dashboard-rtl.css");
 	private ResourceReference jqueryReference = new PackageResourceReference(
 			DashboardSettings.class, "res/jquery-1.8.3.min.js");
 	private ResourceReference jqueryUIReference = new PackageResourceReference(
@@ -41,6 +43,7 @@ public class DashboardSettings {
 	private boolean includeJQueryJson = true;
 	private boolean includeJavaScript = true;
 	private boolean includeCss = true;
+    private boolean rtl = false;
 
 	/**
 	 * Private constructor, use {@link #get()} instead.
@@ -137,9 +140,26 @@ public class DashboardSettings {
 		return this;
 	}
 
-	/**
+    public ResourceReference getRtlCssReference() {
+        return rtlCssReference;
+    }
+
+    public DashboardSettings setRtlCssReference(ResourceReference rtlCssReference) {
+        this.rtlCssReference = rtlCssReference;
+        return this;
+    }
+
+    public boolean isRtl() {
+        return rtl;
+    }
+
+    public void setRtl(boolean rtl) {
+        this.rtl = rtl;
+    }
+
+    /**
 	 * Retrieves the instance of settings object.
-	 * 
+	 *
 	 * @return settings instance
 	 */
 	public static DashboardSettings get() {
@@ -154,8 +174,8 @@ public class DashboardSettings {
 				}
 			}
 		}
-		
+
 		return application.getMetaData(KEY);
 	}
-	
+
 }
