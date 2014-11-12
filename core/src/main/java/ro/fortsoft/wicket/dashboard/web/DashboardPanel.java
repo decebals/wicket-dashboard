@@ -12,19 +12,18 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
-
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Decebal Suiu
@@ -83,7 +82,7 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 		Dashboard dashboard = getDashboard();
 		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
 		dashboard.addWidget(addedWidget);
-		dashboardContext.getDashboardPersiter().save(dashboard);
+		dashboardContext.getDashboardPersister().save(dashboard);
 	}
 
 	private void onWidgetRemoved(DashboardEvent dashboardEvent) {
@@ -91,13 +90,13 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
 		Dashboard dashboard = getDashboard();
 		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
 		dashboard.deleteWidget(removedWidget.getId());
-		dashboardContext.getDashboardPersiter().save(dashboard);
+		dashboardContext.getDashboardPersister().save(dashboard);
 	}
 
 	protected void onWidgetsSorted(DashboardEvent dashboardEvent) {
 		Dashboard dashboard = getDashboard();
 		DashboardUtils.updateWidgetLocations(dashboard, dashboardEvent);
-		dashboardContext.getDashboardPersiter().save(dashboard);
+		dashboardContext.getDashboardPersister().save(dashboard);
 	}
 
 	private void addColumnsPanel() {
