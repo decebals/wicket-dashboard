@@ -39,7 +39,7 @@ public class DataResourceReference extends ResourceReference {
 	// TODO
 	private Dashboard getDashboard() {
 		DashboardContext dashboardContext = Application.get().getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
-		Dashboard dashboard = dashboardContext.getDashboardPersiter().load();
+		Dashboard dashboard = dashboardContext.getDashboardPersister().load();
 		
 		return dashboard;
 	}

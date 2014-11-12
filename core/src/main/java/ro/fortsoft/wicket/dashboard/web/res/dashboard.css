@@ -9,8 +9,8 @@
 
 ul.column {
     list-style-type: none;
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
 }
 
 .dragbox {
@@ -27,55 +27,56 @@ ul.column {
 	background: #f0f0f0;
 	color: #000;
 	border-bottom: 1px solid #eee;
-    height: 1.2em;
     cursor: move;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .dragbox-header img {
     margin: 0;
-    padding: 0px;
+    padding: 0;
 }
 
 .dragbox-toggle {
-	float: left;
+	display: inline;
 	margin-right: 3px;
 	cursor: pointer;
 }
 
 .dragbox-title {
-	float: left;
+	display: inline;
     font-weight: bold;
 }
 
 .dragbox-actions {
 	float: right;
-	margin: 0px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
 	display: none;
 }
 
 .dragbox-actions ul {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 .dragbox-actions ul li {
-    display: inline; 
+    display: inline;
     margin: 0 1px 0 1px;
 }
 
 .dragbox-actions ul li a {
-    text-decoration: none;	
+    text-decoration: none;
 }
 
 .dragbox-actions ul li a img {
-	border: 0px;
-	margin: 0px;
+	border: 0;
+	margin: 0;
 }
 
 .dragbox-content {
 	background: #fff;
-	min-height: 60px;	
+	min-height: 60px;
 	margin: 5px;
 	line-height: 1.5em;
 	overflow: auto;
@@ -85,4 +86,3 @@ ul.column {
 	background: #f0f0f0;
 	border: 1px dashed #ddd;
 }
- 

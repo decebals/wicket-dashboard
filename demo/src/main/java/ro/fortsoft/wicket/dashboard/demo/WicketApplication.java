@@ -110,7 +110,7 @@ public class WicketApplication extends WebApplication {
 	}
 	
 	private void initDashboard() {
-		dashboard = getDashboardContext().getDashboardPersiter().load();
+		dashboard = getDashboardContext().getDashboardPersister().load();
     	if (dashboard == null) {
     		dashboard = new DefaultDashboard("default", "Default");
     	}

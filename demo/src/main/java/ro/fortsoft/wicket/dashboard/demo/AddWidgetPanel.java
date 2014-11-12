@@ -132,7 +132,7 @@ public class AddWidgetPanel extends GenericPanel<Dashboard> implements Dashboard
 					Dashboard dashboard = getDashboard();
 					DashboardUtils.updateWidgetLocations(dashboard, new DashboardEvent(target, DashboardEvent.EventType.WIDGET_ADDED, widget));
 					dashboard.addWidget(widget);
-					dashboardContext.getDashboardPersiter().save(dashboard);
+					dashboardContext.getDashboardPersister().save(dashboard);
 					message = "added";
 					label.setVisible(true);
 					target.add(label);
