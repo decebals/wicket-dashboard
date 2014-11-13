@@ -85,8 +85,9 @@ public class DashboardPanel extends GenericPanel<Dashboard> implements Dashboard
      *
      * @param rtlModel
      */
-    public void setRtlModel(IModel<Boolean> rtlModel) {
+    public DashboardPanel setRtlModel(IModel<Boolean> rtlModel) {
         this.rtlModel = rtlModel;
+        return this;
     }
 
     @Override
