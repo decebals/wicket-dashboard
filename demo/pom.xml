@@ -1,35 +1,39 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+
     <parent>
         <groupId>ro.fortsoft.wicket.dashboard</groupId>
         <artifactId>wicket-dashboard-parent</artifactId>
-        <version>0.12.0-SNAPSHOT</version>
+        <version>0.12.0+wicket-7-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wicket-dashboard-demo</artifactId>
-    <version>0.12.0-SNAPSHOT</version>
+    <version>0.12.0+wicket-7-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Wicket Dashboard Demo</name>
-        
+
     <properties>
-        <jetty.version>7.5.0.v20110901</jetty.version>
+        <jetty.version>9.2.0.v20140526</jetty.version>
     </properties>
-    
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>${jetty.version}</version>
                 <configuration>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>8081</port>
-                            <maxIdleTime>3600000</maxIdleTime>
-                        </connector>
-                    </connectors>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>jetty.port</name>
+                            <value>8081</value>
+                        </systemProperty>
+                        <systemProperty>
+                            <name>maven.project.build.directory.test-classes</name>
+                            <value>${project.build.directory}/test-classes</value>
+                        </systemProperty>
+                    </systemProperties>
                 </configuration>
             </plugin>
 
@@ -62,7 +66,7 @@
             <artifactId>wicket-dashboard-loremipsum</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>ro.fortsoft.wicket.dashboard.widgets</groupId>
             <artifactId>wicket-dashboard-jqplot</artifactId>
@@ -80,8 +84,8 @@
             <artifactId>wicket-dashboard-wicked-charts</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
-        <!-- Logs -->        
+
+        <!-- Logs -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -98,8 +102,8 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
-        </dependency>        
-        
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
@@ -108,13 +112,36 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JETTY DEPENDENCIES FOR TESTING -->
+        <!--  JETTY DEPENDENCIES FOR TESTING  -->
         <dependency>
-            <groupId>org.eclipse.jetty.aggregate</groupId>
-            <artifactId>jetty-all-server</artifactId>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
             <version>${jetty.version}</version>
-            <scope>provided</scope>
+            <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!--
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-jmx</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        -->
     </dependencies>
-    
+
 </project>
