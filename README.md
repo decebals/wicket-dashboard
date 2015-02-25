@@ -173,7 +173,7 @@ In your web page add the dashboard panel:
 ```java
 Dashboard dashboard = ...;
 add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
-``
+```
 
 To configure wicket-dashboard see **DashboardSettings** class. In this class you can specify for example if you want to ignore
 the jquery internal version, or to specify another versions for wicket-dashboard's resources.
