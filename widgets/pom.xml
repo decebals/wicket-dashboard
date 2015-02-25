@@ -16,7 +16,7 @@
 
     <properties>
         <jofc2.version>1.0.1-SNAPSHOT</jofc2.version>
-        <jqPlot.version>6.8.0</jqPlot.version>
+        <jqPlot.version>7.0-SNAPSHOT</jqPlot.version>
         <loremipsum.version>1.0</loremipsum.version>
         <justGage.version>1.0.1</justGage.version>
         <wickedCharts.version>1.5.0</wickedCharts.version>
