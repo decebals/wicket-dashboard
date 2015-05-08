@@ -15,6 +15,7 @@ package ro.fortsoft.wicket.dashboard;
 import java.util.List;
 
 /**
+ * Interface for a service which can provide a list of {@link WidgetAction} per widget
  * @author Decebal Suiu
  */
 public interface WidgetActionsFactory {

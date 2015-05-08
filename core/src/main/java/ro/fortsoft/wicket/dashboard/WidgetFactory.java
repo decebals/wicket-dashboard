@@ -13,6 +13,7 @@
 package ro.fortsoft.wicket.dashboard;
 
 /**
+ * Factory to create a widget according to {@link WidgetDescriptor}
  * @author Decebal Suiu
  */
 public interface WidgetFactory {

@@ -16,6 +16,7 @@ import java.lang.reflect.Constructor;
 import java.util.UUID;
 
 /**
+ * Default {@link WidgetFactory} which creates a widget by specified widget class name
  * @author Decebal Suiu
  */
 public class DefaultWidgetFactory implements WidgetFactory {

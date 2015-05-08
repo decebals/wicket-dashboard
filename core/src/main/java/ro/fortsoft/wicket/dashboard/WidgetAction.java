@@ -19,6 +19,7 @@ import org.apache.wicket.model.IModel;
 import java.io.Serializable;
 
 /**
+ * Interface for actions that can be performed over a widget
  * @author Decebal Suiu
  */
 public interface WidgetAction extends Serializable {
