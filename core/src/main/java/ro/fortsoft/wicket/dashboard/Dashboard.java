@@ -16,6 +16,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
+ * Dashboards stores collection of {@link Widget}s and allow to manipulatet them
  * @author Decebal Suiu
  */
 public interface Dashboard extends Serializable {

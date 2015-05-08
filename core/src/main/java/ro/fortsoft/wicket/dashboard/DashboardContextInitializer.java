@@ -20,6 +20,8 @@ import ro.fortsoft.wicket.dashboard.web.DashboardContext;
 import ro.fortsoft.wicket.dashboard.web.DashboardContextInjector;
 
 /**
+ * Wicket-dashboard {@link IInitializer}.
+ * Initialize {@link DashboardContext} and assign it to {@link MetaDataKey} {@link DashboardContextInitializer}.DASHBOARD_CONTEXT_KEY
  * @author Decebal Suiu
  */
 public class DashboardContextInitializer implements IInitializer {

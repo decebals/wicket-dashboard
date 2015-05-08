@@ -16,6 +16,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.application.IComponentInstantiationListener;
 
 /**
+ *{@link IComponentInstantiationListener} which inject {@link DashboardContext} if a {@link Component} implemets {@link DashboardContextAware}
  * @author Decebal Suiu
  */
 public class DashboardContextInjector implements IComponentInstantiationListener {

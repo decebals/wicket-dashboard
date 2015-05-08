@@ -22,6 +22,9 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
 /**
+ * Default {@link DashboardPersister}
+ * Persists a dashboard in specified file.
+ * If you need to have different logic for storing and loading of {@link Dashboard}s: implement your own {@link DashboardPersister}
  * @author Decebal Suiu
  */
 public class XStreamDashboardPersister implements DashboardPersister {

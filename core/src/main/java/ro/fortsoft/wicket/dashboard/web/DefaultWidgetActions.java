@@ -28,6 +28,7 @@ import ro.fortsoft.wicket.dashboard.Widget;
 import ro.fortsoft.wicket.dashboard.web.util.AjaxConfirmLink;
 
 /**
+ * Utility class which includes set of default widgets
  * @author Decebal Suiu
  */
 public class DefaultWidgetActions {

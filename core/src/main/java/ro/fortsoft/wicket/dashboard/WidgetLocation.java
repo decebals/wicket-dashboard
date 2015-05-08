@@ -15,6 +15,7 @@ package ro.fortsoft.wicket.dashboard;
 import java.io.Serializable;
 
 /**
+ * Container for a widget location on a screen: column + row
  * @author Decebal Suiu
  */
 public class WidgetLocation implements Serializable {

@@ -13,6 +13,7 @@
 package ro.fortsoft.wicket.dashboard;
 
 /**
+ * {@link DashboardPersister} is an service which allow to save current {@link Dashboard} and load from underling storage
  * @author Decebal Suiu
  */
 public interface DashboardPersister {
