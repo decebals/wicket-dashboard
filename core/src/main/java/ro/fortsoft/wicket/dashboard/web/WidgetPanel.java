@@ -20,6 +20,7 @@ import org.apache.wicket.model.IModel;
 import ro.fortsoft.wicket.dashboard.Widget;
 
 /**
+ * Wicket {@link GenericPanel} to render a widget on a page 
  * @author Decebal Suiu
  */
 public class WidgetPanel extends GenericPanel<Widget> {

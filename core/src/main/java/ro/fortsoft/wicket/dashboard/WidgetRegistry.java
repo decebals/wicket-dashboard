@@ -15,16 +15,36 @@ package ro.fortsoft.wicket.dashboard;
 import java.util.List;
 
 /**
+ * Central registry for {@link WidgetDescriptor}s
  * @author Decebal Suiu
  */
 public interface WidgetRegistry {
 
+	/**
+	 * Register new type of widgets described by {@link WidgetDescriptor}
+	 * @param widgetDescriptor descriptor to be registered
+	 * @return this {@link WidgetRegistry}
+	 */
 	public WidgetRegistry registerWidget(WidgetDescriptor widgetDescriptor);
 	
+	/**
+	 * Returns a list of registered widgets
+	 * @return list of registered widget descriptors
+	 */
 	public List<WidgetDescriptor> getWidgetDescriptors();
 	
+	/**
+	 * Lookup {@link WidgetDescriptor} by widget class
+	 * @param widgetClassName widget class name
+	 * @return registered {@link WidgetDescriptor} with specified widget class or null if {@link WidgetDescriptor} was not found
+	 */
 	public WidgetDescriptor getWidgetDescriptorByClassName(String widgetClassName);
 	
+	/**
+	 * Lookup {@link WidgetDescriptor} by widget type
+	 * @param widgetTypeName widget type
+	 * @return registered {@link WidgetDescriptor} with specified widget type or null if {@link WidgetDescriptor} was not found
+	 */
 	public WidgetDescriptor getWidgetDescriptorByTypeName(String widgetTypeName);
 	
 }

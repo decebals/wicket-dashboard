@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * Default {@link Dashboard} implementation.
+ * In most of cases this implementation will be enough
  * @author Decebal Suiu
  */
 public class DefaultDashboard implements Dashboard {

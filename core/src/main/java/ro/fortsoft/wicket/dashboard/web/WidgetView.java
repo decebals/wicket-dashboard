@@ -12,12 +12,14 @@
  */
 package ro.fortsoft.wicket.dashboard.web;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.GenericPanel;
 import org.apache.wicket.model.IModel;
 
 import ro.fortsoft.wicket.dashboard.Widget;
 
 /**
+ * Root for all wicket {@link Component}s which are being used for rendering of widget's content
  * @author Decebal Suiu
  */
 public class WidgetView extends GenericPanel<Widget> {

@@ -19,6 +19,8 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 
 /**
+ * Provides required resources (JS, CSS) in a head. 
+ * Should be attached to a component which require these resources
  * @author Decebal Suiu
  */
 public class DashboardResourcesBehavior extends Behavior {

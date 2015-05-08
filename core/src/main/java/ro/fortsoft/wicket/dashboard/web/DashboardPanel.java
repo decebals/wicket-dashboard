@@ -19,7 +19,9 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.list.Loop;
 import org.apache.wicket.markup.html.list.LoopItem;
 import org.apache.wicket.markup.html.panel.GenericPanel;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
+
 import ro.fortsoft.wicket.dashboard.Dashboard;
 import ro.fortsoft.wicket.dashboard.DashboardUtils;
 import ro.fortsoft.wicket.dashboard.Widget;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Wicket {@link Panel} which should be used on a page to render a {@link Dashboard}
  * @author Decebal Suiu
  */
 public class DashboardPanel extends GenericPanel<Dashboard> implements DashboardContextAware {

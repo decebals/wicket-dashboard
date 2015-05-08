@@ -16,6 +16,7 @@ import java.io.Serializable;
 
 /**
  * Widget definition descriptor.
+ * Define the nature of a widget.
  * 
  * @author Decebal Suiu
  */

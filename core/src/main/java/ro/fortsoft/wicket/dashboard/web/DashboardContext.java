@@ -14,6 +14,7 @@ package ro.fortsoft.wicket.dashboard.web;
 
 import java.io.File;
 
+import ro.fortsoft.wicket.dashboard.DashboardContextInitializer;
 import ro.fortsoft.wicket.dashboard.DashboardPersister;
 import ro.fortsoft.wicket.dashboard.DefaultWidgetActionsFactory;
 import ro.fortsoft.wicket.dashboard.DefaultWidgetFactory;
@@ -24,6 +25,17 @@ import ro.fortsoft.wicket.dashboard.WidgetRegistry;
 import ro.fortsoft.wicket.dashboard.XStreamDashboardPersister;
 
 /**
+ * {@link DashboardContext} is an central for dashboard related services:
+ * <ul>
+ * <li> {@link WidgetFactory} </li>
+ * <li> {@link WidgetRegistry} </li>
+ * <li> {@link DashboardPersister} </li>
+ * <li> {@link WidgetActionsFactory} </li>
+ * </ul>
+ * 
+ * Instance is being created by {@link DashboardContextInitializer} during application startup and can't be replaced.
+ * If you need customzation: just set your own services listed before by corresponding methods. 
+ * 
  * @author Decebal Suiu
  */
 public class DashboardContext {

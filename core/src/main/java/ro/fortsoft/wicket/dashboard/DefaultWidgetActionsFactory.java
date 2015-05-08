@@ -18,6 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Default {@link WidgetActionsFactory} which provide common actions like:
+ * <ul>
+ * <li>Refresh</li>
+ * <li>View settings</li>
+ * <li>Delete an widget from a dashboard</li>
+ * </ul>
  * @author Decebal Suiu
  */
 public class DefaultWidgetActionsFactory implements WidgetActionsFactory {

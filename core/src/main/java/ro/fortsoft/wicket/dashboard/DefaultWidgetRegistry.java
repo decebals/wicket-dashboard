@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Default {@link WidgetRegistry} implementation.
+ * Override this class if you need to tire registry with some underling storage
+ * 
  * @author Decebal Suiu
  */
 public class DefaultWidgetRegistry implements WidgetRegistry {

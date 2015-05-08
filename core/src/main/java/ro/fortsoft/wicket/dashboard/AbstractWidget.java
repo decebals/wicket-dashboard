@@ -18,6 +18,7 @@ import java.util.Map;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
+ * Abstract stub implementation for {@link Widget} to simplify defining of actual widgets
  * @author Decebal Suiu
  */
 public abstract class AbstractWidget implements Widget {

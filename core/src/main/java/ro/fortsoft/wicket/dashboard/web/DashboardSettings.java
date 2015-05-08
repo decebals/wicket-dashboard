@@ -18,6 +18,7 @@ import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
 /**
+ * {@link DashboardSettings} which allows to specify set of resources for inclusion in an page header
  * @author Decebal Suiu
  */
 public class DashboardSettings {
