@@ -102,9 +102,13 @@ public class DefaultWidgetActions {
                     });
                 }
 
+                @Override
+                protected void onInitialize() {
+                	super.onInitialize();
+                    IModel<String> resourceModel = new StringResourceModel("deleteAsk", this, Model.of(widget.getTitle()));
+                    setConfirmMessage(resourceModel.getObject());
+                }
             };
-            IModel<String> resourceModel = new StringResourceModel("deleteAsk", deleteLink, Model.of(widget.getTitle()));
-            deleteLink.setConfirmMessage(resourceModel.getObject());
 
             return deleteLink;
         }
