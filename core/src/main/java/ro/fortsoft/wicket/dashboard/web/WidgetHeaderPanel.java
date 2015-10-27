@@ -54,7 +54,7 @@ public class WidgetHeaderPanel extends GenericPanel<Widget> implements Dashboard
         };
 
         toggle.setOutputMarkupId(true);
-        toggle.add(new AjaxEventBehavior("onclick") {
+        toggle.add(new AjaxEventBehavior("click") {
 
 			private static final long serialVersionUID = 1L;
 
