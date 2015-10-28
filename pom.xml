@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ro.fortsoft.wicket.dashboard</groupId>
     <artifactId>wicket-dashboard-parent</artifactId>
-    <version>0.13.0+wicket-7-SNAPSHOT</version>
+    <version>0.13.0+wicket-7</version>
     <packaging>pom</packaging>
     <name>Wicket Dashboard Parent</name>
     <description>Simple web dashboard using Apache Wicket</description>
@@ -28,7 +28,7 @@
         <connection>scm:git:https://github.com/decebals/wicket-dashboard.git</connection>
         <developerConnection>scm:git:https://github.com/decebals/wicket-dashboard.git</developerConnection>
         <url>git@github.com/decebals/wicket-dashboard.git</url>
-        <tag>HEAD</tag>
+        <tag>release-0.13.0+wicket-7</tag>
     </scm>
 
     <distributionManagement>
