@@ -1,3 +1,5 @@
+###The project was moved to [wicketstuff](https://github.com/wicketstuff/core/tree/master/dashboard-parent).
+
 Simple wicket dashboard
 =====================
 A dashboard is a panel with quick access to information or common tasks.
