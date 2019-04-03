@@ -1,4 +1,4 @@
-###The project was moved to [wicketstuff](https://github.com/wicketstuff/core/tree/master/dashboard-parent).
+### The project was moved to [wicketstuff](https://github.com/wicketstuff/core/tree/master/dashboard-parent).
 
 Simple wicket dashboard
 =====================
