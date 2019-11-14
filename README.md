@@ -113,65 +113,69 @@ It's very simple to add a dashboard panel in your wicket application.
 
 In your application class make some initializations:
 
-    public void init() {
-        ...
+```java
+public void init() {
+    ...
 
-    	// >>> begin dashboard settings
-		
-		// register some widgets
-		DashboardContext dashboardContext = getDashboardContext();
-		dashboardContext.getWidgetRegistry()
-			.registerWidget(new LoremIpsumWidgetDescriptor())
-			.registerWidget(new ChartWidgetDescriptor())
-			.registerWidget(new JqPlotWidgetDescriptor())
-			.registerWidget(new JustGageWidgetDescriptor())
-			.registerWidget(new HighChartsWidgetDescriptor());
-		
-		// add a custom action for all widgets
-		dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
+    // >>> begin dashboard settings
 
-		// set some (data) factory
-        ChartWidget.setChartDataFactory(new DemoChartDataFactory());
-		JqPlotWidget.setChartFactory(new DemoChartFactory());
-		JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
-		HighChartsWidget.setHighChartsFactory(new DemoHighChartsFactory());
+    // register some widgets
+    DashboardContext dashboardContext = getDashboardContext();
+    dashboardContext.getWidgetRegistry()
+        .registerWidget(new LoremIpsumWidgetDescriptor())
+	.registerWidget(new ChartWidgetDescriptor())
+	.registerWidget(new JqPlotWidgetDescriptor())
+	.registerWidget(new JustGageWidgetDescriptor())
+	.registerWidget(new HighChartsWidgetDescriptor());
 
-        // init dashboard from context
-        initDashboard();
-        
-        // <<< end dashboard settings
+    // add a custom action for all widgets
+    dashboardContext.setWidgetActionsFactory(new DemoWidgetActionsFactory());
+
+    // set some (data) factory
+    ChartWidget.setChartDataFactory(new DemoChartDataFactory());
+    JqPlotWidget.setChartFactory(new DemoChartFactory());
+    JustGageWidget.setJustGageFactory(new DemoJustGageFactory());
+    HighChartsWidget.setHighChartsFactory(new DemoHighChartsFactory());
+
+    // init dashboard from context
+    initDashboard();
+    
+    // <<< end dashboard settings
+}
+
+private DashboardContext getDashboardContext() {
+    return getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
+}
+
+private void initDashboard() {
+    dashboard = getDashboardContext().getDashboardPersister().load();
+    if (dashboard == null) {
+	dashboard = new DefaultDashboard("default", "Default");
     }
-
-    private DashboardContext getDashboardContext() {
-		return getMetaData(DashboardContextInitializer.DASHBOARD_CONTEXT_KEY);
-	}
-	
-	private void initDashboard() {
-		dashboard = getDashboardContext().getDashboardPersister().load();
-    	if (dashboard == null) {
-    		dashboard = new DefaultDashboard("default", "Default");
-    	}
-	}
-
+}
+```
 
 In your web page add the dashboard panel:
 
-    Dashboard dashboard = ...;
-    add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
+```java
+Dashboard dashboard = ...;
+add(new DashboardPanel("dashboard", new Model<Dashboard>(dashboard)));
+```
 
 To configure wicket-dashboard see **DashboardSettings** class. In this class you can specify for example if you want to ignore
 the jquery internal version, or to specify another versions for wicket-dashboard's resources.
 
+```java
+public void init() {
+    ...
+    
+    DashboardSettings dashboardSettings = DashboardSettings.get();
+    // I don't want to add the internal wicket-dashboard's jquery to page head when I used DashboardPanel
+    dashboardSettings.setIncludeJQuery(false); 
 
-    public void init() {
-        ...
-        
-        DashboardSettings dashboardSettings = DashboardSettings.get();
-        // I don't want to add the internal wicket-dashboard's jquery to page head when I used DashboardPanel
-        dashboardSettings.setIncludeJQuery(false); 
-
-        ...       
-    }
+    ...       
+}
+```
     
 If you need an dashboard context object in your wicket panel than implements **DashboardContextAware** (see _AddWidgetPanel_ from demo).    
 
@@ -196,9 +200,11 @@ a chart widget using [Open Flash Chart 2](http://teethgrinder.co.uk/open-flash-c
 The demo application is in demo package.
 To run the demo application use:  
  
-    mvn install
-    cd demo
-    mvn jetty:run
+```bash 
+mvn install
+cd demo
+mvn jetty:run
+```
 
 In the internet browser type http://localhost:8081/.
 
