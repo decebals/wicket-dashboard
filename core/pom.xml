@@ -15,7 +15,7 @@
 
     <properties>
         <gson.version>2.2.2</gson.version>
-        <xstream.version>1.4.3</xstream.version>
+        <xstream.version>1.4.15</xstream.version>
     </properties>   
 
     <dependencies>        
